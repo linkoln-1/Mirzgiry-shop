@@ -1,0 +1,96 @@
+@import "../../style";
+header {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .header__container {
+    width: $container-desktop-width;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 32px;
+    line-height: 40px;
+    color: $color-white;
+
+    .header_sidebar {
+      width: 363px;
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .header_sidebar img {
+        width: 34px;
+        height: 24px;
+      }
+
+      .header_navigation {
+        width: 218px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+        font-weight: 300;
+      }
+    }
+
+    .header_logo_language {
+      width: 370px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 300;
+      font-size: 18px;
+
+      .header_logo {
+        font-size: 35px;
+      }
+
+      .header_language {
+        display: flex;
+        width: 100px;
+        justify-content: space-between;
+      }
+    }
+
+    .header_functional {
+      display: flex;
+      width: 190px;
+      justify-content: space-between;
+      align-items: center;
+
+      .header_functional div {
+        width: 25px;
+        height: 25px;
+      }
+
+      .icon {
+        fill: $color-white;
+      }
+    }
+    .link:hover {
+      color: $color-white;
+    }
+    .link {
+      text-decoration: none;
+      color: $color-white;
+    }
+    .red:hover {
+      color: $color-red;
+    }
+    .red {
+      color: $color-red;
+      text-decoration: none;
+    }
+
+    .iconblack:hover {
+      color: $color-black;
+    }
+    .iconblack {
+      color: $color-black;
+      fill: $color-black;
+      text-decoration: none;
+    }
+  }
+}

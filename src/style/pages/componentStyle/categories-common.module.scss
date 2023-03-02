@@ -1,0 +1,55 @@
+@import "../../style.scss";
+.categories__container {
+  width: $container-desktop-width;
+  margin: $margin-top-bottom-auto;
+
+  & .categories {
+    font-style: normal;
+    font-weight: 300;
+    margin: 100px 0 50px;
+    font-size: 36px;
+    color: #252525;
+  }
+
+  & .categories__wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    & .cards__body {
+      width: 270px;
+      height: 400px;
+
+      & .card__img img {
+        width: 100%;
+        height: 400px;
+        display: block;
+        box-shadow: 0 0 10px 0 rgba(34, 60, 80, 0.2);
+      }
+
+      & .cards_button button {
+        width: 100%;
+        font-weight: 300;
+        font-size: 20px;
+        line-height: 35px;
+        text-align: center;
+        color: $color-white;
+        height: 40px;
+        cursor: pointer;
+        background: $color-red;
+        backdrop-filter: blur(3px);
+        border: none;
+        margin-top: 15px;
+
+        &:hover {
+          transition: all 0.2s;
+          box-shadow: 0 7px 14px rgb(65 132 144 / 10%),
+            0 3px 6px rgb(0 0 0 / 8%);
+        }
+
+        &:active {
+          background-color: #090501;
+        }
+      }
+    }
+  }
+}
