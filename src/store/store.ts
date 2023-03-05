@@ -1,6 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { todosReducer } from './reducer/reducer'
+import todosReducer from './reducer/reducer'
 
 export const store = configureStore({
-  reducer: todosReducer,
+  reducer: todosReducer
 })
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

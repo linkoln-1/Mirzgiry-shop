@@ -64,10 +64,6 @@ header {
         width: 25px;
         height: 25px;
       }
-
-      .icon {
-        fill: $color-white;
-      }
     }
     .link:hover {
       color: $color-white;
@@ -92,5 +88,8 @@ header {
       fill: $color-black;
       text-decoration: none;
     }
+  }
+  .icon {
+    fill: $color-white;
   }
 }

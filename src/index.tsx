@@ -10,6 +10,9 @@ import { store } from './store/store'
 // components
 import { App } from './components/common/App'
 
+// styles
+import './style/globals.scss'
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
