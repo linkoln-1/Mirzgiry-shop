@@ -1,0 +1,86 @@
+.card_title {
+  font-size: 20px;
+  font-weight: 300;
+}
+.todo {
+  text-align: center;
+  position: relative;
+  margin-bottom: 25px;
+  box-shadow: 0 0 10px 0 rgba(34, 60, 80, 0.2);
+  padding-bottom: 15px;
+  margin-top: 30px;
+  flex-basis: 22.3333%;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  margin-left: 8px;
+  flex-grow: 0;
+}
+.favorites {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.todo_image img {
+  width: 288px;
+  height: 300px;
+}
+.todo_title {
+  font-size: 16px;
+  font-weight: 300;
+}
+.todo_price {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+.todo_size {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(37, 37, 37, 0.5);
+  margin-top: 5px;
+}
+.todo_colorcircle {
+  width: 50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.black {
+  background-color: black;
+}
+.white {
+  background-color: white;
+}
+.todo_colorcircle div {
+  width: 21px;
+  height: 21px;
+  border: solid 1px black;
+  border-radius: 50px;
+}
+.custom-next {
+  color: black;
+}
+
+.button_prev {
+  position: absolute;
+  width: 40px;
+  z-index: 2;
+  top: 200px;
+  left: 10px;
+  box-shadow: 0 0 10px 0 rgba(34, 60, 80, 0.2);
+}
+.button_prev {
+  box-shadow: 0px 3px 7px 0px rgba(111, 32, 32, 0.15) inset;
+  width: 40px;
+  height: 40px;
+}
+.button_icon {
+  transform: rotate(180deg);
+}

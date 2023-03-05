@@ -2,9 +2,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-// icons
-import burger_menu from '../../../assets/icons/list.svg'
-
 // interfaces
 import { type IHeaderProps } from '../../../shared/interfaces/commonProps'
 
@@ -20,10 +17,18 @@ export const Header: React.FC<IHeaderProps> = ({
       <header>
         <div className={s.header__container}>
           <div className={s.header_sidebar}>
-            <img
-              src={burger_menu}
-              className={colorPlace ? `${s.iconblack}` : `${s.icon}`}
-            />
+           <div className={colorPlace ? `${s.iconblack}` : `${s.icon}`}>
+             <svg
+               width='34'
+               height='24'
+               viewBox='0 0 34 24'
+               className={colorPlace ? `${s.iconblack}` : `${s.icon}`}
+             >
+               <rect width='34' height='4' />
+               <rect y='10' width='26' height='4' />
+               <rect y='20' width='18' height='4' />
+             </svg>
+           </div>
             <div
               className={s.header_navigation}
               onClick={() => setColorPlace(true)}
