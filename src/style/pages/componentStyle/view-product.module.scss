@@ -84,3 +84,9 @@
 .button_icon {
   transform: rotate(180deg);
 }
+.card_items {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

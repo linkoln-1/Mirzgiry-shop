@@ -447,6 +447,7 @@ const initialState = {
   viewProducts: [],
   basket: [],
   size: [],
+  likedProducts: [],
 }
 
 export const addToBasket = createAction('addToBasket')
@@ -464,6 +465,22 @@ export const todosReducer = createReducer(initialState, builder => {
       }
       if (state.viewProducts.length > 8) {
         state.viewProducts.pop()
+      }
+      if (state.likedProducts.length < 4) {
+        for (let i = 0; i < 4; i++) {
+          const getRandomNumber = () => {
+            const number =
+              state.products[Math.floor(Math.random() * state.products.length)]
+            if (state.likedProducts.includes(number)) return getRandomNumber()
+            else {
+              state.likedProducts.push(number)
+              return number
+            }
+          }
+          getRandomNumber()
+        }
+      } else {
+        return state.likedProducts.action
       }
     })
     .addCase(addToBasket, (state, action) => {
@@ -486,6 +503,7 @@ export const todosReducer = createReducer(initialState, builder => {
         return true
       })
     })
+
     .addCase(plus, (state, action) => {
       // eslint-disable-next-line array-callback-return
       state.basket.map((product, index) => {
