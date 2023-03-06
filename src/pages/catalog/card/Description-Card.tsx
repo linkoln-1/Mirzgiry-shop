@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 // components
 import { CustomBreadcrumbs } from '../../../components/breadcrumbs'
 import { ViewProducts } from '../../../components/viewProduct'
+import { Like } from '../../../components/like'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
@@ -43,7 +44,7 @@ export const DescriptionCard: React.FC = () => {
       setBtn(false)
     }
     // @ts-ignore
-    dispatch(addToBasket({ product: item, size: size, id: id, indexProduct: indexProduct }))
+    dispatch(addToBasket({ product: item, size, id, indexProduct }))
   }
   const handleBlur = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>,
@@ -212,6 +213,7 @@ export const DescriptionCard: React.FC = () => {
                   </div>
                 </div>
                 <ViewProducts />
+                <Like />
               </div>
                 )
               },
