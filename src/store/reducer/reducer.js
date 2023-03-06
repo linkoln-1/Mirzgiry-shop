@@ -467,16 +467,7 @@ export const todosReducer = createReducer(initialState, builder => {
       }
     })
     .addCase(addToBasket, (state, action) => {
-      if (
-        !state.size.find(
-          (item, indexSize) =>
-            item === action.payload.size &&
-            state.basket.find(
-              (item, indexProduct) =>
-                item.id === action.payload.id && indexSize === indexProduct
-            )
-        )
-      ) {
+      if (!(state.size.find((item, indexSize) => item === action.payload.size && state.basket.find((item, indexProduct) => item.id === action.payload.id && indexSize === indexProduct)))) {
         state.basket.push(action.payload.product)
         state.size.push(action.payload.size)
       }

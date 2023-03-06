@@ -8,6 +8,10 @@ import { New } from '../pages/newProducts/New'
 import { Catalog } from '../pages/catalog'
 import { HomePage } from '../components/common/homepage/HomePage'
 import { DescriptionCard } from '../pages/catalog/card'
+import { Basket } from '../pages/basket'
+import { About } from '../pages/About'
+import { Exchange } from '../pages/exchange-and-refund'
+import { Delivery } from '../pages/delivery'
 
 export const RoutesPath: React.FC = () => {
   return (
@@ -16,10 +20,11 @@ export const RoutesPath: React.FC = () => {
       <Route index element={<HomePage />} />
       <Route path='/new' element={<New />} />
       <Route path='/catalog' element={<Catalog />} />
-      {/* <Route path='/about' element={<About />} /> */}
-      {/* <Route path='/return' element={<Exchange />} /> */}
+      <Route path='/about' element={<About />} />
+      <Route path='/exchange' element={<Exchange />} />
       <Route path='/catalog/card' element={<DescriptionCard />} />
-      {/* <Route path='/delivery' element={<Delivery />} /> */}
+      <Route path='/delivery' element={<Delivery />} />
+      <Route path='/basket' element={<Basket />} />
       </Route>
     </Routes>
   )

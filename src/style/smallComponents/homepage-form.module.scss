@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: $margin-top-bottom;
+  margin: $margin-top-bottom-100;
 
   & .form__container {
     width: 600px;
@@ -11,7 +11,7 @@
     align-items: center;
 
     & .form__title {
-      font-weight: 300;
+      font-weight: $fw-light;
       font-size: 36px;
       line-height: 42px;
       text-align: center;
@@ -26,7 +26,7 @@
       box-sizing: border-box;
       text-align: center;
       color: rgba(37, 37, 37, 0.5);
-      border: 0.5px solid #252525;
+      border: 0.5px solid $dark-grey;
       margin: 50px 0 20px 0;
     }
     & .form__button button {

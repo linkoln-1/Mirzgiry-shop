@@ -1,9 +1,11 @@
+@import "../style.scss";
+
 .catalog_card {
-  width: 1320px;
+  width: $container-desktop-width;
   margin: auto;
 }
 .card_item {
-  width: 1320px;
+  width: $container-desktop-width;
   margin: 30px auto 0 auto;
   border: none;
   display: flex;
@@ -22,15 +24,15 @@
   margin-top: 20px;
 }
 .black {
-  background-color: black;
+  background-color: $color-black;
 }
 .white {
-  background-color: white;
+  background-color: $color-white;
 }
 .item_colorcircle button {
   width: 21px;
   height: 21px;
-  border: solid 1px black;
+  border: solid 1px $color-black;
   border-radius: 50px;
 }
 .item_colorcircle button:focus {
@@ -54,12 +56,12 @@
 .main_picture img {
   width: 500px;
   height: 540px;
-  border: 0.5px solid #252525;
+  border: 0.5px solid $dark-grey;
 }
 .additional_pictures div img {
   width: 100px;
   height: 100px;
-  border: 0.5px solid #252525;
+  border: 0.5px solid $dark-grey;
 }
 .card_description {
   width: 580px;
@@ -67,15 +69,15 @@
 }
 .item_name {
   font-size: 20px;
-  font-weight: 300;
+  font-weight: $fw-light;
 }
 .item_price {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: $fw-bold;
   margin-top: 20px;
 }
 .item_colortext {
-  color: #ac2b16;
+  color: $color-red;
   margin-top: 10px;
 }
 .item_buttons button {
@@ -86,27 +88,28 @@
   width: 580px;
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: $margin-top-20-and-bottom-20
 }
 .add_to_cart {
-  background-color: #ac2b16;
-  color: white;
+  background-color: $color-red;
+  color: $color-white;
   border: none;
   font-size: 16px;
 }
 .add_to_cart:hover {
-  box-shadow: 0px 5px 7px 0px rgba(37, 37, 37, 0.15);
+  background-color: $color-black;
+  cursor: pointer;
+  transition: 0.5s;
 }
 .add_to_cart:active {
   box-shadow: 0px 3px 7px 0px rgba(37, 37, 37, 0.15) inset;
 }
 
 .to_favorites {
-  background-color: white;
-  color: #ac2b16;
+  background-color: $color-white;
+  color: $color-red;
   font-size: 16px;
-  border: 0.5px solid #252525;
+  border: 0.5px solid $dark-grey;
 }
 .to_favorites:hover {
   box-shadow: 0px 5px 7px 0px rgba(37, 37, 37, 0.15);
@@ -119,7 +122,7 @@ hr {
 }
 .composition_and_care {
   font-size: 14px;
-  font-weight: 200;
+  font-weight: $fw-thin;
   margin-top: 20px;
 }
 .details {
@@ -127,13 +130,13 @@ hr {
 }
 #demo_simple_select_label {
   font-size: 16px;
-  font-weight: 200;
+  font-weight: $fw-thin;
 }
 .details,
 .description,
 .compound {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: $fw-light;
 }
 .description,
 .compound {
@@ -148,8 +151,8 @@ hr {
 .disabled {
   border: none;
   padding: 10px;
-  color: #fff;
-  background-color: #ac2b16;
+  color: $color-white;
+  background-color: $color-grey-6;
   width: 100%;
   cursor: not-allowed  !important;
 }

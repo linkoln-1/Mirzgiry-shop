@@ -23,9 +23,9 @@ export const ViewProducts: React.FC = () => {
         className={s.card_items}
       >
         {viewProducts.length
-          ? viewProducts.map((item: DescriptionType) => {
+          ? viewProducts.map((item: DescriptionType, index: number) => {
             return (
-            <SwiperSlide className={s.todo}>
+            <SwiperSlide className={s.todo} key={index}>
               <div className={s.todo_image}>
                 <img src={item.image} alt='' />
               </div>

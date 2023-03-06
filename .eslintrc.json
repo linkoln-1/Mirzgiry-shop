@@ -41,6 +41,7 @@
       "error",
       "after",
       { "overrides": { "?": "before", ":": "before" } }
-    ]
+    ],
+    "array-callback-return": "off"
   }
 }

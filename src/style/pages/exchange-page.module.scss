@@ -1,0 +1,33 @@
+.exchange {
+  height: 600px;
+  margin: 30px 150px 0px 150px;
+}
+
+.bi-chevron-compact-right {
+  color: #ac2b16;
+  font-size: 15px;
+}
+
+.exchange__title {
+  margin: 30px 0px 20px 0px;
+  font-size: 20px;
+}
+
+.exchange__container {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.exchange__reason {
+  margin: 10px 0px 20px 0px;
+}
+
+.exchange__icon i {
+  color: #ac2b16;
+  font-size: 30px;
+}
+
+.exchange__description {
+  margin-top: 10px;
+}

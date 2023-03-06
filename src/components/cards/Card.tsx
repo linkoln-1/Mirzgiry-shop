@@ -40,16 +40,16 @@ export const Card: React.FC<ICardProps> = ({ todo }) => {
   }
 
   return (
-    <div key={todo.id} className={s.todo}>
-      <div className={s.todo_image}>
+    <div key={todo.id} className={s.card}>
+      <div className={s.card__image}>
         <Link onClick={() => handleClick(todo.id)} to="/catalog/card">
           <img src={todo.image} alt="" />
         </Link>
       </div>
-      <div className={s.todo_title}>{todo.name}</div>
-      <div className={s.todo_price}>{todo.price}</div>
-      <div className={s.todo_sizes}>{todo.sizes.size} ₽</div>
-      <div className={s.todo_colorcircle}>
+      <div className={s.card__title}>{todo.name}</div>
+      <div className={s.card__price}>{todo.price}</div>
+      <div className={s.card__sizes}>{todo.sizes.size} ₽</div>
+      <div className={s.card__colorCircle}>
         <div className={s.white}></div>
         <div className={s.black}></div>
       </div>

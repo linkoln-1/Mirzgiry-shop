@@ -33,7 +33,7 @@ export const DescriptionCard: React.FC = () => {
     item: DescriptionType,
     size: string[] | string,
     id: number,
-    indexProduct: number,
+    indexProduct: number
   ) => {
     if (size.length === 0) {
       setColor(true)
@@ -43,7 +43,7 @@ export const DescriptionCard: React.FC = () => {
       setBtn(false)
     }
     // @ts-ignore
-    dispatch(addToBasket({ item, size, id, indexProduct }))
+    dispatch(addToBasket({ product: item, size: size, id: id, indexProduct: indexProduct }))
   }
   const handleBlur = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>,
@@ -70,12 +70,13 @@ export const DescriptionCard: React.FC = () => {
 
   return (
     <>
-      {card.length ? (
-        card.map(
-          (
-            item: DescriptionType, index,
-          ) => {
-            return (
+      {card.length
+        ? (
+            card.map(
+              (
+                item: DescriptionType, index: number,
+              ) => {
+                return (
               <div className={s.catalog_card} key={index}>
                 <CustomBreadcrumbs />
                 <div className={s.card_item}>
@@ -123,7 +124,7 @@ export const DescriptionCard: React.FC = () => {
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          value={size}
+                          value={`${size}`}
                           onChange={e => handleChange(e)}
                           onBlur={e => handleBlur(e)}
                           label="Age"
@@ -212,12 +213,13 @@ export const DescriptionCard: React.FC = () => {
                 </div>
                 <ViewProducts />
               </div>
+                )
+              },
             )
-          },
-        )
-      ) : (
+          )
+        : (
         <div>Ошибка! Нету данных!</div>
-      )}
+          )}
     </>
   )
 }
