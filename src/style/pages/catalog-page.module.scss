@@ -1,0 +1,74 @@
+@import "../style.scss";
+.catalog {
+  width: 1320px;
+  margin: auto;
+
+  & .catalog_menu {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    width: 500px;
+    margin-top: 20px;
+  }
+  & .sidebar_menu {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 83px;
+    line-height: 83px;
+
+   & .sidebar_title {
+      width: 170px;
+
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    & .card_title {
+      width: 82%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: 300;
+    }
+  }
+
+  & .wrapper_sidebar_cards {
+    display: flex;
+    justify-content: space-between;
+
+    & .wrapper_text {
+      width: 17%;
+
+      p {
+        margin-bottom: 30px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $color-red;
+          color: $color-white;
+          border-radius: 15px;
+          transition: 0.5s;
+          padding: 10px;
+        }
+      }
+
+      & .sidebar_text {
+        font-size: 16px;
+        font-weight: 300;
+      }
+    }
+  }
+  & .card_items {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+
+  }
+}
+
+.icon {
+  height: 19px;
+}

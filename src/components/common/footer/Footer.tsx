@@ -35,7 +35,7 @@ export const Footer: React.FC<IFooterProps> = ({ setColorPlace }) => {
               <div>
                 <NavLink
                   className={s.link}
-                  to={'/return'}
+                  to={'/exchange'}
                   onClick={() => setColorPlace(true)}
                 >
                   Условия возврата
