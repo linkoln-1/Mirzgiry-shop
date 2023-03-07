@@ -6,8 +6,7 @@ import { useState } from 'react'
 import { CustomBreadcrumbs } from '../../components/breadcrumbs'
 
 // mock
-import { deleteToBasket, minus, plus } from '../../store/reducer/reducer'
-import { type DescriptionType } from '../../shared/interfaces/DescriptionType'
+import { deleteToBasket, Minus, Plus } from '../../store/slice/slice'
 
 // hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/hook'
@@ -24,13 +23,13 @@ export const Basket: React.FC = () => {
   const handlePlus = (index: number, count: number, inStock: number) => {
     if (count > 0 && count < inStock) {
       // @ts-ignore
-      dispatch(plus({ indexProduct: index }))
+      dispatch(Plus({ indexProduct: index }))
     }
   }
   const handleMinus = (index: number, count: number) => {
     if (count > 1) {
       // @ts-ignore
-      dispatch(minus({ indexProduct: index }))
+      dispatch(Minus({ indexProduct: index }))
     }
   }
   const handleDelete = (id: number, index: number) => {
@@ -44,11 +43,11 @@ export const Basket: React.FC = () => {
       <CustomBreadcrumbs />
       <div className={s.basket_title}>Ваш заказ</div>
       {Basket.length
-        ? Basket.map((product: DescriptionType, indexProduct) => {
+        ? Basket.map((product, indexProduct) => {
           return (
           <div key={indexProduct}>
             {size.length
-              ? size?.map((sizes, indexSize) => (
+              ? size.map((items, indexSize) => (
                 indexProduct === indexSize
                   ? (
                     <div key={indexSize} className={s.basket_wrapper}>
@@ -76,10 +75,12 @@ export const Basket: React.FC = () => {
                       </div>
 
                       <div className={s.basket_quantity}>
-                        <div className={s.count}>{sizes}</div>
+                        {/* eslint-disable-next-line @typescript-eslint/no-base-to-string */}
+                        <div className={s.count}>{`${items}`}</div>
                       </div>
-                      {product.sizes?.map((item, index) => {
-                        if (item.size === sizes) {
+                      {product.sizes.map((item, index) => {
+                        // @ts-ignore
+                        if (item.size === items) {
                           return (
                             <div key={index} className={s.basket_quantity}>
                               <div
@@ -128,7 +129,7 @@ export const Basket: React.FC = () => {
                       </div>
                     </div>
                     )
-                  : <div>nothing</div>
+                  : ''
               )
               )
               : <div>null</div>}
