@@ -7,7 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hook'
 import s from '../../style/pages/componentStyle/catalog-card.module.scss'
 
 // mock
-import { add } from '../../store/reducer/reducer'
+// import { add } from '../../store/reducer/reducer'
+import { addCard } from '../../store/slice/slice'
 
 export interface ICardProps {
   todo: {
@@ -36,7 +37,7 @@ export const Card: React.FC<ICardProps> = ({ todo }) => {
   const handleClick = (id: number) => {
     dispatch(
       // @ts-ignore
-      add({ card: products.find(item => item.id === id), id, }))
+      addCard(products.find(item => item.id === id), id))
   }
 
   return (

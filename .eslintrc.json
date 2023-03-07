@@ -50,6 +50,7 @@
       "after",
       { "overrides": { "?": "before", ":": "before" } }
     ],
-    "array-callback-return": "off"
+    "array-callback-return": "off",
+    "no-return-assign": ["warn", "always"]
   }
 }
