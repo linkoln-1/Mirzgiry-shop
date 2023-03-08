@@ -29,7 +29,7 @@ export const Categories: React.FC = () => {
               <img src={itemFirstImg} alt='' />
             </div>
             <div className={s.cards_button}>
-              <button>Худи</button>
+              <button>Футболки</button>
             </div>
           </div>
           <div className={s.cards__body}>
@@ -37,7 +37,7 @@ export const Categories: React.FC = () => {
               <img src={itemThirdImg} alt='' />
             </div>
             <div className={s.cards_button}>
-              <button>Худи</button>
+              <button>Худи с росписью</button>
             </div>
           </div>
           <div className={s.cards__body}>
@@ -45,7 +45,7 @@ export const Categories: React.FC = () => {
               <img src={itemFourthImg} alt='' />
             </div>
             <div className={s.cards_button}>
-              <button>Худи</button>
+              <button>Футболки с росписью</button>
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
 @import "../style.scss";
 .delivery {
   width: $container-desktop-width;
-  margin: 30px auto 181px auto;
+  margin: 30px auto;
+  height: 519px;
 
   & .delivery__title {
     margin: 30px 0px 20px 0px;

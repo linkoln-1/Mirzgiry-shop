@@ -56,12 +56,14 @@
 .main_picture img {
   width: 500px;
   height: 540px;
-  border: 0.5px solid $dark-grey;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
 }
 .additional_pictures div img {
   width: 100px;
   height: 100px;
-  border: 0.5px solid $dark-grey;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
 }
 .card_description {
   width: 580px;
