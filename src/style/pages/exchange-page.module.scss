@@ -1,6 +1,8 @@
+@import "../style.scss";
 .exchange {
+  width: $container-desktop-width;
   height: 600px;
-  margin: 30px 150px 0px 150px;
+  margin: auto;
 }
 
 .bi-chevron-compact-right {

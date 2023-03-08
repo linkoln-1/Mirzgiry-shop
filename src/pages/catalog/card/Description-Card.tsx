@@ -11,13 +11,13 @@ import FormControl from '@mui/material/FormControl'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 
 // interfaces
-import { type DescriptionType } from '../../../shared/interfaces/DescriptionType'
+import { type CardType } from '../../../shared/interfaces/CardProps'
 
 // hooks
 import { useAppDispatch, useAppSelector } from '../../../hooks/hook'
 
 // mock
-import { addToBasket } from '../../../store/reducer/reducer'
+import { addToBasket } from '../../../store/slice/slice'
 
 // styles
 import s from '../../../style/pages/description-card.module.scss'
@@ -31,7 +31,7 @@ export const DescriptionCard: React.FC = () => {
   const [btn, setBtn] = useState<boolean>(true)
 
   const handleAddToBasket = (
-    item: DescriptionType,
+    item: CardType,
     size: string[] | string,
     id: number,
     indexProduct: number,
@@ -73,45 +73,41 @@ export const DescriptionCard: React.FC = () => {
   return (
     <>
       {card.length
-        ? (
-            card.map(
-              (
-                item: DescriptionType, index: number,
-              ) => {
-                return (
+        ? card.map((card, index: number) => {
+          return (
               <div className={s.catalog_card} key={index}>
                 <CustomBreadcrumbs />
                 <div className={s.card_item}>
                   <div className={s.card_pictures}>
                     <div className={s.additional_pictures}>
                       <div>
-                        <img src={item.image} alt="" />
+                        <img src={card.image} alt="" />
                       </div>
                       <div>
-                        <img src={item.image} alt="" />
+                        <img src={card.image} alt="" />
                       </div>
                       <div>
-                        <img src={item.image} alt="" />
+                        <img src={card.image} alt="" />
                       </div>
                       <div>
-                        <img src={item.image} alt="" />
+                        <img src={card.image} alt="" />
                       </div>
                       <div>
-                        <img src={item.image} alt="" />
+                        <img src={card.image} alt="" />
                       </div>
                     </div>
                     <div className={s.main_picture}>
-                      <img src={item.image} alt="" />
+                      <img src={card.image} alt="" />
                     </div>
                   </div>
                   <div className={s.card_description}>
-                    <div className={s.item_name}>{item.categoryIdName}</div>
-                    <div className={s.item_price}>{item.price} ₽</div>
+                    <div className={s.item_name}>{card.categoryIdName}</div>
+                    <div className={s.item_price}>{card.price} ₽</div>
                     <div className={s.item_colorcircle}>
                       <button className={s.white}></button>
                       <button className={s.black}></button>
                     </div>
-                    <div className={s.item_colortext}>Цвет: {item.color}</div>
+                    <div className={s.item_colortext}>Цвет: {card.color}</div>
                     <div>
                       <FormControl
                         className={color ? s.back : s.bac}
@@ -142,7 +138,7 @@ export const DescriptionCard: React.FC = () => {
                             },
                           }}
                         >
-                          {item.sizes.map(name => (
+                          {card.sizes.map(name => (
                             <MenuItem key={name.id} value={name.size}>
                               {name.size}
                             </MenuItem>
@@ -153,7 +149,8 @@ export const DescriptionCard: React.FC = () => {
                     <div className={s.item_buttons}>
                       <button
                         onClick={() =>
-                          handleAddToBasket(item, size, item.id, index, item.price)
+                          handleAddToBasket(card, size, card.id, index, card.price)
+
                         }
                         disabled={btn}
                         className={btn ? s.disabled : s.add_to_cart}
@@ -216,13 +213,11 @@ export const DescriptionCard: React.FC = () => {
                 <ViewProducts />
                 <Like />
               </div>
-                )
-              },
-            )
           )
-        : (
-        <div>Ошибка! Нету данных!</div>
-          )}
+        },
+        )
+        : <div>Ошибка! Нету данных!</div>
+          }
     </>
   )
 }

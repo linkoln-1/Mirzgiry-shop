@@ -8,7 +8,6 @@ import { Navigation } from 'swiper'
 import 'swiper/swiper-bundle.min.css'
 import s from '../../style/pages/componentStyle/view-product.module.scss'
 import { useAppSelector } from '../../hooks/hook'
-import { type DescriptionType } from '../../shared/interfaces/DescriptionType'
 
 export const ViewProducts: React.FC = () => {
   const viewProducts = useAppSelector(state => state.viewProducts)
@@ -23,7 +22,7 @@ export const ViewProducts: React.FC = () => {
         className={s.card_items}
       >
         {viewProducts.length
-          ? viewProducts.map((item: DescriptionType, index: number) => {
+          ? viewProducts.map((item, index: number) => {
             return (
             <SwiperSlide className={s.todo} key={index}>
               <div className={s.todo_image}>

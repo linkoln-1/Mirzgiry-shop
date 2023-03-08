@@ -1,3 +1,4 @@
+@import "../style.scss";
 .basket_size svg {
   color: #ac2b16;
 }
@@ -10,13 +11,21 @@
 .basket {
   width: 1320px;
   margin: auto;
+  min-height: 150px;
 
 }
 .basket_input{
   height: 50px;
 
 }
-
+.basket_delete {
+  fill: $color-red;
+  cursor: pointer;
+  width: 25px;
+  &:hover {
+    fill: $color-black;
+  }
+}
 .basket_title{
   font-size: 20px;
   font-weight: 300;
@@ -27,7 +36,8 @@
 .basket_image img{
   width: 140px;
   height: 150px;
-  border: 0.5px solid #252525;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
 }
 .basket_image_description{
   display: flex;
@@ -81,11 +91,13 @@
   width: 100px;
   height: 50px;
   justify-content: space-between;
-  border: solid 0.5px black;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
 }
 .basket_quantity div{
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   line-height: 18px;
   text-align: center;
 }
@@ -97,6 +109,15 @@
 .plus, .minus{
   font-size:30px;
   color:#ac2b16;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+  }
+}
+.plus {
+  padding-top: 2px;
 }
 .basket_price{
   font-size: 16px;
@@ -117,6 +138,9 @@ width: 180px;
   display: flex;
   font-weight: 300;
   font-size: 16px;
+  position: relative;
+  bottom:0px;
+  
 }
 
 .basket_payment_sum{

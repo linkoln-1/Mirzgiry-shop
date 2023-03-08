@@ -3,7 +3,6 @@ import React from 'react'
 
 // hooks
 import { useAppSelector } from '../../hooks/hook'
-import { type DescriptionType } from '../../shared/interfaces/DescriptionType'
 
 // import styles
 import s from '../../style/pages/componentStyle/view-product.module.scss'
@@ -16,7 +15,7 @@ export const Like: React.FC = () => {
 
       <div className={s.card_items}>
         {likedProducts.length
-          ? likedProducts.map((item: DescriptionType, index) => {
+          ? likedProducts.map((item, index) => {
             return (
             <div className={s.todo} key={index}>
               <div className={s.todo_image}>
