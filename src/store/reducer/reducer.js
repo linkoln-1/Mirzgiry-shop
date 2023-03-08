@@ -448,6 +448,7 @@ const initialState = {
   basket: [],
   size: [],
   likedProducts: [],
+  payment: 0
 }
 
 export const addToBasket = createAction('addToBasket')
@@ -487,6 +488,7 @@ export const todosReducer = createReducer(initialState, builder => {
       if (!(state.size.find((item, indexSize) => item === action.payload.size && state.basket.find((item, indexProduct) => item.id === action.payload.id && indexSize === indexProduct)))) {
         state.basket.push(action.payload.product)
         state.size.push(action.payload.size)
+        state.payment += action.payload.prices
       }
     })
 
@@ -502,12 +504,29 @@ export const todosReducer = createReducer(initialState, builder => {
         if (index === action.payload.indexProduct) return false
         return true
       })
+      state.payment -= action.payload.price
     })
 
     .addCase(plus, (state, action) => {
       // eslint-disable-next-line array-callback-return
       state.basket.map((product, index) => {
         if (action.payload.indexProduct === index) {
+          if (action.payload.categoryId === 1) {
+            product.price = product.price + 2500
+            state.payment += 2500
+          }
+          if (action.payload.categoryId === 2) {
+            product.price = product.price + 4200
+            state.payment += 4200
+          }
+          if (action.payload.categoryId === 3) {
+            product.price = product.price + 3500
+            state.payment += 3500
+          }
+          if (action.payload.categoryId === 4) {
+            product.price = product.price + 5200
+            state.payment += 5200
+          }
           // eslint-disable-next-line no-return-assign
           return product.sizes.map(item => item.count += 1)
         }
@@ -518,6 +537,22 @@ export const todosReducer = createReducer(initialState, builder => {
       // eslint-disable-next-line array-callback-return
       state.basket.map((product, index) => {
         if (action.payload.indexProduct === index) {
+          if (action.payload.categoryId === 1) {
+            product.price = product.price - 2500
+            state.payment -= 2500
+          }
+          if (action.payload.categoryId === 2) {
+            product.price = product.price - 4200
+            state.payment -= 4200
+          }
+          if (action.payload.categoryId === 3) {
+            product.price = product.price - 3500
+            state.payment -= 3500
+          }
+          if (action.payload.categoryId === 4) {
+            product.price = product.price - 5200
+            state.payment -= 5200
+          }
           // eslint-disable-next-line no-return-assign
           return product.sizes.map(item => item.count -= 1)
         }

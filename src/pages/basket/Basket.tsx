@@ -19,24 +19,25 @@ export const Basket: React.FC = () => {
   const dispatch = useAppDispatch()
   const Basket = useAppSelector(state => state.basket)
   const size = useAppSelector(state => state.size)
+  const payment = useAppSelector(state => state.payment)
   const [circleColor] = useState('Белый')
 
-  const handlePlus = (index: number, count: number, inStock: number) => {
+  const handlePlus = (index: number, count: number, inStock: number, category: number) => {
     if (count > 0 && count < inStock) {
       // @ts-ignore
-      dispatch(plus({ indexProduct: index }))
+      dispatch(plus({ indexProduct: index, categoryId: category }))
     }
   }
-  const handleMinus = (index: number, count: number) => {
+  const handleMinus = (index: number, count: number, category: number) => {
     if (count > 1) {
       // @ts-ignore
-      dispatch(minus({ indexProduct: index }))
+      dispatch(minus({ indexProduct: index, categoryId: category }))
     }
   }
-  const handleDelete = (id: number, index: number) => {
+  const handleDelete = (id: number, index: number, price: number) => {
     dispatch(
       // @ts-ignore
-      deleteToBasket({ id, indexProduct: index }))
+      deleteToBasket({ id, indexProduct: index, price }))
   }
 
   return (
@@ -48,10 +49,10 @@ export const Basket: React.FC = () => {
           return (
           <div key={indexProduct}>
             {size.length
-              ? size?.map((sizes, indexSize) => (
-                indexProduct === indexSize
-                  ? (
-                    <div key={indexSize} className={s.basket_wrapper}>
+              ? size?.map((sizes, indexSize) => {
+                if (indexProduct === indexSize) {
+                  return (
+                     <div key={indexSize} className={s.basket_wrapper}>
                       <div className={s.basket_image_description}>
                         <div className={s.basket_image}>
                           <img src={product.image} alt='' />
@@ -85,8 +86,9 @@ export const Basket: React.FC = () => {
                               <div
                                 className={s.minus}
                                 onClick={() => handleMinus(
-                                  product.id,
                                   indexProduct,
+                                  item.count,
+                                  product.categoryId,
                                 )}
                               >
                                 -
@@ -98,7 +100,8 @@ export const Basket: React.FC = () => {
                                 onClick={() => handlePlus(
                                   indexProduct,
                                   item.count,
-                                  item.inStock
+                                  item.inStock,
+                                  product.categoryId,
                                 )}
                                 className={s.plus}
                               >
@@ -112,7 +115,7 @@ export const Basket: React.FC = () => {
                         <div className={s.basket_price}>{product.price} ₽</div>
 
                         <svg
-                          onClick={() => handleDelete(product.id, indexProduct)}
+                          onClick={() => handleDelete(product.id, indexProduct, product.price)}
                           className={s.basket_delete}
                           width='25'
                           height='25'
@@ -127,9 +130,9 @@ export const Basket: React.FC = () => {
                         </svg>
                       </div>
                     </div>
-                    )
-                  : <div>nothing</div>
-              )
+                  )
+                }
+              }
               )
               : <div>null</div>}
 
@@ -137,7 +140,8 @@ export const Basket: React.FC = () => {
           </div>
           )
         })
-        : <div>Ошибка! Нет товаров!</div>}
+        : <div>В корзине пока пусто</div>}
+          <div className={s.basket_payment}><div>К оплате:</div><div className={s.basket_payment_sum}>{payment} ₽</div></div>
     </div>
   )
 }
