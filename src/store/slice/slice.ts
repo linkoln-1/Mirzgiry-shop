@@ -1,13 +1,30 @@
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import image1 from '../../assets/image/img1.jpeg'
 import image2 from '../../assets/image/img2.jpeg'
-import image3 from '../../assets/image/img3.jpeg'
 import image4 from '../../assets/image/img4.jpeg'
+import image3 from '../../assets/image/img3.jpeg'
 import image5 from '../../assets/image/img5.png'
 import image6 from '../../assets/image/img6.png'
 import image7 from '../../assets/image/img7.png'
-import { createReducer, createAction } from '@reduxjs/toolkit'
+import { type CardType } from '../../shared/interfaces/CardProps'
 
-const initialState = {
+export interface cardState {
+  card: CardType[]
+  viewProducts: CardType[]
+  likedProducts: CardType[]
+  products: CardType['products']
+  prices: CardType['prices']
+  colors: CardType['colors']
+  dimensions: CardType['dimensions']
+  categoriesForSidebar: CardType['categoriesForSidebar']
+  basket: CardType[]
+  size: CardType[]
+}
+
+const initialState: cardState = {
+  card: [],
+  viewProducts: [],
+  likedProducts: [],
   products: [
     {
       id: 1,
@@ -353,29 +370,6 @@ const initialState = {
       ],
     },
   ],
-
-  categoriesForSidebar: [
-    {
-      id: 1,
-      name: 'Футболки',
-    },
-    {
-      id: 2,
-      name: 'Худи',
-    },
-    {
-      id: 3,
-      name: 'Футболки с росписью',
-    },
-    {
-      id: 4,
-      name: 'Худи с росписью',
-    },
-    {
-      id: 0,
-      name: 'Все товары',
-    },
-  ],
   prices: [
     {
       id: 1,
@@ -442,37 +436,55 @@ const initialState = {
       name: 'Сбросить',
     },
   ],
-
-  card: [],
-  viewProducts: [],
+  categoriesForSidebar: [
+    {
+      id: 1,
+      name: 'Футболки',
+    },
+    {
+      id: 2,
+      name: 'Худи',
+    },
+    {
+      id: 3,
+      name: 'Футболки с росписью',
+    },
+    {
+      id: 4,
+      name: 'Худи с росписью',
+    },
+    {
+      id: 0,
+      name: 'Все товары',
+    },
+  ],
   basket: [],
   size: [],
-  likedProducts: [],
 }
 
-export const addToBasket = createAction('addToBasket')
-export const add = createAction('addToCard')
-export const deleteToBasket = createAction('deleteToBasket')
-export const plus = createAction('plus')
-export const minus = createAction('minus')
-export const todosReducer = createReducer(initialState, builder => {
-  builder
-    .addCase(add, (state, action) => {
-      state.card = [action.payload.card]
+const slice = createSlice({
+  name: 'all',
+  initialState,
+  reducers: {
+    addCard (state, action: PayloadAction<CardType>) {
+      state.card = [action.payload]
 
       if (!state.viewProducts.some(item => item.id === action.payload.id)) {
-        state.viewProducts.unshift(action.payload.card)
+        state.viewProducts.unshift(action.payload)
       }
       if (state.viewProducts.length > 8) {
         state.viewProducts.pop()
       }
+
       if (state.likedProducts.length < 4) {
         for (let i = 0; i < 4; i++) {
-          const getRandomNumber = () => {
+          const getRandomNumber: any = () => {
             const number =
               state.products[Math.floor(Math.random() * state.products.length)]
+            // @ts-ignore
             if (state.likedProducts.includes(number)) return getRandomNumber()
             else {
+              // @ts-ignore
               state.likedProducts.push(number)
               return number
             }
@@ -480,17 +492,16 @@ export const todosReducer = createReducer(initialState, builder => {
           getRandomNumber()
         }
       } else {
-        return state.likedProducts.action
+        state.likedProducts = [action.payload]
       }
-    })
-    .addCase(addToBasket, (state, action) => {
+    },
+    addToBasket (state, action: PayloadAction<{ size: CardType, product: CardType, id: CardType['id'] }>) {
       if (!(state.size.find((item, indexSize) => item === action.payload.size && state.basket.find((item, indexProduct) => item.id === action.payload.id && indexSize === indexProduct)))) {
         state.basket.push(action.payload.product)
         state.size.push(action.payload.size)
       }
-    })
-
-    .addCase(deleteToBasket, (state, action) => {
+    },
+    deleteToBasket (state, action: PayloadAction<{ indexProduct: CardType['indexProduct'], id: CardType['id'] }>) {
       state.basket = state.basket.filter((item, index) => {
         if (
           item.id === action.payload.id &&
@@ -498,30 +509,26 @@ export const todosReducer = createReducer(initialState, builder => {
         ) { return false }
         return true
       })
-      state.size = state.size.filter((item, index) => {
+      state.size = state.size.filter((_item, index) => {
         if (index === action.payload.indexProduct) return false
         return true
       })
-    })
-
-    .addCase(plus, (state, action) => {
-      // eslint-disable-next-line array-callback-return
+    },
+    Plus (state, action: PayloadAction<CardType>) {
       state.basket.map((product, index) => {
-        if (action.payload.indexProduct === index) {
-          // eslint-disable-next-line no-return-assign
-          return product.sizes.map(item => item.count += 1)
-        }
+        action.payload.indexProduct === index ? product.sizes.map(item => item.count += 1) : null
       })
-    })
-
-    .addCase(minus, (state, action) => {
-      // eslint-disable-next-line array-callback-return
+    },
+    Minus (state, action: PayloadAction<CardType>) {
       state.basket.map((product, index) => {
         if (action.payload.indexProduct === index) {
-          // eslint-disable-next-line no-return-assign
           return product.sizes.map(item => item.count -= 1)
         }
       })
-    })
+    }
+  }
 })
-export default todosReducer
+
+export const { addCard, addToBasket, deleteToBasket, Plus, Minus } = slice.actions
+
+export default slice.reducer
