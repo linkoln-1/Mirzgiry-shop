@@ -51,4 +51,5 @@ export interface CardType {
     name: string
   }>
   size: string[] | ReactNode[]
+  payment: number
 }

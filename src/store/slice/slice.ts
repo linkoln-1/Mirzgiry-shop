@@ -19,6 +19,7 @@ export interface cardState {
   categoriesForSidebar: CardType['categoriesForSidebar']
   basket: CardType[]
   size: CardType[]
+  payment: CardType['payment']
 }
 
 const initialState: cardState = {
@@ -460,6 +461,7 @@ const initialState: cardState = {
   ],
   basket: [],
   size: [],
+  payment: 0
 }
 
 const slice = createSlice({
@@ -495,13 +497,14 @@ const slice = createSlice({
         state.likedProducts = [action.payload]
       }
     },
-    addToBasket (state, action: PayloadAction<{ size: CardType, product: CardType, id: CardType['id'] }>) {
+    addToBasket (state, action: PayloadAction<{ size: CardType, product: CardType, id: CardType['id'], prices: number }>) {
       if (!(state.size.find((item, indexSize) => item === action.payload.size && state.basket.find((item, indexProduct) => item.id === action.payload.id && indexSize === indexProduct)))) {
         state.basket.push(action.payload.product)
         state.size.push(action.payload.size)
+        state.payment += action.payload.prices
       }
     },
-    deleteToBasket (state, action: PayloadAction<{ indexProduct: CardType['indexProduct'], id: CardType['id'] }>) {
+    deleteToBasket (state, action: PayloadAction<{ indexProduct: CardType['indexProduct'], id: CardType['id'], price: number }>) {
       state.basket = state.basket.filter((item, index) => {
         if (
           item.id === action.payload.id &&
@@ -513,15 +516,50 @@ const slice = createSlice({
         if (index === action.payload.indexProduct) return false
         return true
       })
+      state.payment -= action.payload.price
     },
     Plus (state, action: PayloadAction<CardType>) {
       state.basket.map((product, index) => {
-        action.payload.indexProduct === index ? product.sizes.map(item => item.count += 1) : null
+        if (action.payload.indexProduct === index) {
+          if (action.payload.categoryId === 1) {
+            product.price = product.price + 2500
+            state.payment += 2500
+          }
+          if (action.payload.categoryId === 2) {
+            product.price = product.price + 4200
+            state.payment += 4200
+          }
+          if (action.payload.categoryId === 3) {
+            product.price = product.price + 3500
+            state.payment += 3500
+          }
+          if (action.payload.categoryId === 4) {
+            product.price = product.price + 5200
+            state.payment += 5200
+          }
+          return product.sizes.map(item => item.count += 1)
+        }
       })
     },
     Minus (state, action: PayloadAction<CardType>) {
       state.basket.map((product, index) => {
         if (action.payload.indexProduct === index) {
+          if (action.payload.categoryId === 1) {
+            product.price = product.price - 2500
+            state.payment -= 2500
+          }
+          if (action.payload.categoryId === 2) {
+            product.price = product.price - 4200
+            state.payment -= 4200
+          }
+          if (action.payload.categoryId === 3) {
+            product.price = product.price - 3500
+            state.payment -= 3500
+          }
+          if (action.payload.categoryId === 4) {
+            product.price = product.price - 5200
+            state.payment -= 5200
+          }
           return product.sizes.map(item => item.count -= 1)
         }
       })
