@@ -51,6 +51,7 @@
       { "overrides": { "?": "before", ":": "before" } }
     ],
     "array-callback-return": "off",
-    "no-return-assign": ["warn", "always"]
+    "no-return-assign": ["warn", "always"],
+    "@typescript-eslint/restrict-plus-operands": "off"
   }
 }
