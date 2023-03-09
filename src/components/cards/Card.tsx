@@ -21,12 +21,12 @@ export interface ICardProps {
     color: string
     colorId: number
     image: string
-    sizes: {
+    sizes: [{
       id: number
       size: string
       inStock: number
       count: number
-    }
+    }]
   }
   index?: number
 }
@@ -48,8 +48,12 @@ export const Card: React.FC<ICardProps> = ({ todo }) => {
         </Link>
       </div>
       <div className={s.card__title}>{todo.name}</div>
-      <div className={s.card__price}>{todo.price}</div>
-      <div className={s.card__sizes}>{todo.sizes.size} ₽</div>
+      <div className={s.card__price}>{todo.price} ₽</div>
+      <div className={s.card__sizes}>
+         {todo.sizes.map((item) => {
+           return <div className={s.card__size}>{item.size}</div>
+         })}
+      </div>
       <div className={s.card__colorCircle}>
         <div className={s.white}></div>
         <div className={s.black}></div>

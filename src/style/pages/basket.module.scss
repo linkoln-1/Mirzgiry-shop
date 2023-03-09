@@ -11,7 +11,7 @@
 .basket {
   width: 1320px;
   margin: auto;
-  min-height: 150px;
+  min-height: 300px;
 
 }
 .basket_input{
@@ -147,5 +147,18 @@ width: 180px;
 width: 90px;
   font-weight: 700;
   margin-left: 10px;
+
+}
+.basket__empty{
+  margin: auto;
+  width: 300px;
+}
+.basket__text__bold{
+  font-weight: 700;
+  font-size: 22px;
+  text-align: center;
+}
+.basket__text{
+  text-align: center;
 
 }
