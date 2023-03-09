@@ -23,7 +23,7 @@ export const Like: React.FC = () => {
 
               </div>
               <div className={s.todo_title}>{item.name}</div>
-              <div className={s.todo_price}>{item.price}</div>
+              <div className={s.todo_price}>{item.price} ₽</div>
               <div className={s.todo_size}>{item.size}</div>
               <div className={s.todo_colorcircle}>
                 <div className={s.white}></div>
