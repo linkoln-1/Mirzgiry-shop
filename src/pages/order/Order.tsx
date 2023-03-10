@@ -84,6 +84,7 @@ export const Order: React.FC = () => {
               <div>ИТОГО:</div><div className={s.order__bold}>15250 грн</div>
               </div>
                <button>ОФОРМИТЬ ЗАКАЗ</button>
+               <div className={s.order__consent}>Нажимая на кнопку «оплатить заказ», я принимаю условия публичной оферты и политики конфиденциальности</div>
                </div>
                </div>
             </form>
