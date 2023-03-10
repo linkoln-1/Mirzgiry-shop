@@ -8,7 +8,7 @@ import s from '../../style/pages/componentStyle/catalog-card.module.scss'
 
 // mock
 // import { add } from '../../store/reducer/reducer'
-import { addCard } from '../../store/slice/slice'
+import { addCard, Favorite } from '../../store/slice/slice'
 
 export interface ICardProps {
   todo: {
@@ -39,6 +39,22 @@ export const Card: React.FC<ICardProps> = ({ todo }) => {
       // @ts-ignore
       addCard(products.find(item => item.id === id), id))
   }
+  const makeFavorite = (id: number) => {
+    dispatch(
+      // @ts-ignore
+      Favorite({ favorites: products.find(item => item.id === id), id }))
+  }
+  /*   const [checked, setChecked] = useState<boolean>(false)
+  const handleChange = (event: SelectChangeEvent<boolean | boolean[]>) => {
+    const Value = event.target.value
+    // @ts-ignore
+    setChecked(!Value)
+    dispatch(
+      // @ts-ignore
+      // eslint-disable-next-line no-dupe-keys
+      check({ checked: products.find(item => item.checked === checked) })
+    )
+  } */
 
   return (
     <div key={todo.id} className={s.card}>
@@ -69,6 +85,8 @@ export const Card: React.FC<ICardProps> = ({ todo }) => {
         <path d="M0 0H40V40H20C8.95431 40 0 31.0457 0 20V0Z" fill="#ac2b16" />
       </svg>
       <svg
+        onClick={() => makeFavorite(todo.id)}
+/*         checked= {checked} onChange={(event) => handleChange(event)} */
         className={s.heart}
         width="15"
         height="13.86"
