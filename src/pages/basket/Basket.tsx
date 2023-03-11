@@ -135,6 +135,8 @@ export const Basket: React.FC = () => {
               : <div>null</div>}
 
             <hr></hr>
+
+            <Order />
           </div>
           )
         })
