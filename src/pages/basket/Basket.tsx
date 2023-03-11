@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 // components
 import { CustomBreadcrumbs } from '../../components/breadcrumbs'
-
+import { Order } from '../order'
 // mock
 import { deleteToBasket, Minus, Plus } from '../../store/slice/slice'
 
