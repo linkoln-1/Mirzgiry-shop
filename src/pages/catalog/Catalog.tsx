@@ -66,12 +66,10 @@ export const Catalog: React.FC = () => {
                   (categoryId ? todo.categoryId === categoryId : todo) &&
                       (priceId ? todo.priceId === priceId : todo) &&
                       (colorId ? todo.colorId === colorId : todo) &&
-                      (sizeId // @ts-ignore
-                        ? todo.sizes.find(item => item.id === sizeId).inStock
-                        : todo)
+                      // @ts-ignore
+                      (sizeId ? todo.sizes.find(item => item.id === sizeId).inStock : todo)
                 )
               })
-
                 .map((todo, index) => {
                   return (
                       <Card
@@ -83,6 +81,7 @@ export const Catalog: React.FC = () => {
                         priciId={priceId}
                         categoryId={categoryId}
                         index={index}
+                        checkHeart={todo.checkHeart}
                       />
                   )
                 })}
