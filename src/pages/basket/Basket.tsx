@@ -18,24 +18,25 @@ export const Basket: React.FC = () => {
   const dispatch = useAppDispatch()
   const Basket = useAppSelector(state => state.basket)
   const size = useAppSelector(state => state.size)
+  const payment = useAppSelector(state => state.payment)
   const [circleColor] = useState('Белый')
 
-  const handlePlus = (index: number, count: number, inStock: number) => {
+  const handlePlus = (index: number, count: number, inStock: number, category: number) => {
     if (count > 0 && count < inStock) {
       // @ts-ignore
-      dispatch(Plus({ indexProduct: index }))
+      dispatch(Plus({ indexProduct: index, categoryId: category }))
     }
   }
-  const handleMinus = (index: number, count: number) => {
-    if (count >= 1) {
+  const handleMinus = (index: number, count: number, category: number) => {
+    if (count > 1) {
       // @ts-ignore
-      dispatch(Minus({ indexProduct: index }))
+      dispatch(Minus({ indexProduct: index, categoryId: category }))
     }
   }
-  const handleDelete = (id: number, index: number) => {
+  const handleDelete = (id: number, index: number, price: number) => {
     dispatch(
       // @ts-ignore
-      deleteToBasket({ id, indexProduct: index }))
+      deleteToBasket({ id, indexProduct: index, price }))
   }
 
   return (
@@ -87,7 +88,8 @@ export const Basket: React.FC = () => {
                                 className={s.minus}
                                 onClick={() => handleMinus(
                                   indexProduct,
-                                  item.count
+                                  item.count,
+                                  product.categoryId,
                                 )}
                               >
                                 -
@@ -99,7 +101,8 @@ export const Basket: React.FC = () => {
                                 onClick={() => handlePlus(
                                   indexProduct,
                                   item.count,
-                                  item.inStock
+                                  item.inStock,
+                                  product.categoryId,
                                 )}
                                 className={s.plus}
                               >
@@ -113,7 +116,7 @@ export const Basket: React.FC = () => {
                         <div className={s.basket_price}>{product.price} ₽</div>
 
                         <svg
-                          onClick={() => handleDelete(product.id, indexProduct)}
+                          onClick={() => handleDelete(product.id, indexProduct, product.price)}
                           className={s.basket_delete}
                           viewBox='0 0 25 25'
                           fill='none'
@@ -135,8 +138,8 @@ export const Basket: React.FC = () => {
           </div>
           )
         })
-        : <div>Ошибка! Нет товаров!</div>}
-        <Order/>
+        : <div className={s.basket__empty}><p className={s.basket__text__bold}>В корзине пока пусто</p><p className={s.basket__text}>Загляните в каталог, чтобы выбрать товары или найдите нужное в поиске</p></div>}
+         {Basket.length ? <div className={s.basket_payment}><div>К оплате:</div><div className={s.basket_payment_sum}>{payment} ₽</div></div> : null}
     </div>
   )
 }

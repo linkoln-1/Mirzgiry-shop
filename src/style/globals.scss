@@ -27,3 +27,21 @@ body {
   font-size: 35px;
   color: #ac2b16;
 }
+
+.btn-0:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 40px;
+  right: 195px;
+  bottom: 0;
+  left: 200px;
+  background-color: #40215c;
+  transform: translateY(-110%);
+  transition: 2s;
+}
+
+.btn-0:hover:before {
+  transform: translateY(40%);
+  width: 1330px;
+}

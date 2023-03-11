@@ -12,6 +12,7 @@ import { Basket } from '../pages/basket'
 import { About } from '../pages/About'
 import { Exchange } from '../pages/exchange-and-refund'
 import { Delivery } from '../pages/delivery'
+import { Favorites } from '../pages/favorite'
 
 export const RoutesPath: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ export const RoutesPath: React.FC = () => {
       <Route path='/catalog/card' element={<DescriptionCard />} />
       <Route path='/delivery' element={<Delivery />} />
       <Route path='/basket' element={<Basket />} />
+      <Route path='/favorite' element={<Favorites />} />
       </Route>
     </Routes>
   )

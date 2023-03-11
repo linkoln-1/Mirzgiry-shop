@@ -1,3 +1,8 @@
+@import "../../style.scss";
+.card {
+  width: 1320px;
+  margin: auto;
+}
 .card_title {
   font-size: 20px;
   font-weight: 300;
@@ -16,16 +21,6 @@
   margin-left: 8px;
   flex-grow: 0;
 }
-.favorites {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-}
-.heart {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
 .todo_image img {
   width: 288px;
   height: 300px;
@@ -43,7 +38,10 @@
   font-size: 16px;
   font-weight: 300;
   color: rgba(37, 37, 37, 0.5);
-  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 5px auto;
 }
 .todo_colorcircle {
   width: 50px;
@@ -89,4 +87,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+.favorite {
+  @include heart($color-light-red, $color-white, $color-black)
 }

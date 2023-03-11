@@ -33,6 +33,7 @@ export interface CardType {
       inStock: number
       count: number
     }>
+    checkHeart: boolean
   }>
   prices: Array<{
     id: number
@@ -51,4 +52,24 @@ export interface CardType {
     name: string
   }>
   size: string[] | ReactNode[]
+  payment: number
+  checkHeart: boolean
+  favorites: Array<{
+    id: number
+    categoryId: number
+    name: string
+    categoryIdName: string
+    price: number
+    priceId: number
+    color: string
+    colorId: number
+    image: string
+    sizes: Array<{
+      id: number
+      size: string
+      inStock: number
+      count: number
+    }>
+    checkHeart: boolean
+  }>
 }

@@ -131,3 +131,34 @@ hr{
   justify-content: space-between;
   width: 350px;
 }
+.basket_payment{
+width: 180px;
+  margin-left: auto;
+  margin-top: 30px;
+  display: flex;
+  font-weight: 300;
+  font-size: 16px;
+  position: relative;
+  bottom:0px;
+  
+}
+
+.basket_payment_sum{
+width: 90px;
+  font-weight: 700;
+  margin-left: 10px;
+
+}
+.basket__empty{
+  margin: auto;
+  width: 300px;
+}
+.basket__text__bold{
+  font-weight: 700;
+  font-size: 22px;
+  text-align: center;
+}
+.basket__text{
+  text-align: center;
+
+}

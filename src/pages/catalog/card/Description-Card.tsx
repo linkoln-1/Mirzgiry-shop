@@ -34,7 +34,8 @@ export const DescriptionCard: React.FC = () => {
     item: CardType,
     size: string[] | string,
     id: number,
-    indexProduct: number
+    indexProduct: number,
+    prices: number
   ) => {
     if (size.length === 0) {
       setColor(true)
@@ -44,7 +45,7 @@ export const DescriptionCard: React.FC = () => {
       setBtn(false)
     }
     // @ts-ignore
-    dispatch(addToBasket({ product: item, size, id, indexProduct }))
+    dispatch(addToBasket({ product: item, size, id, indexProduct, prices }))
   }
   const handleBlur = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>,
@@ -148,7 +149,8 @@ export const DescriptionCard: React.FC = () => {
                     <div className={s.item_buttons}>
                       <button
                         onClick={() =>
-                          handleAddToBasket(card, size, card.id, index)
+                          handleAddToBasket(card, size, card.id, index, card.price)
+
                         }
                         disabled={btn}
                         className={btn ? s.disabled : s.add_to_cart}
