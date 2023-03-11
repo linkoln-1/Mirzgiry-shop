@@ -5,7 +5,10 @@ import * as React from 'react'
 import { CustomBreadcrumbs } from '../../components/breadcrumbs'
 
 // hooks
-import { useAppSelector } from '../../hooks/hook'
+import { useAppDispatch, useAppSelector } from '../../hooks/hook'
+
+// mock
+import { deleteFavorite } from '../../store/slice/slice'
 
 // styles
 import s from '../../style/pages/componentStyle/view-product.module.scss'
@@ -15,6 +18,12 @@ import Favorite from '@mui/icons-material/Favorite'
 
 export const Favorites: React.FC = () => {
   const Favorites = useAppSelector(state => state.products)
+  const dispatch = useAppDispatch()
+  const handleDelete = (id: number) => {
+    dispatch(
+      deleteFavorite({ id })
+    )
+  }
   return (
     <div className={s.card}>
       <CustomBreadcrumbs />
@@ -30,6 +39,7 @@ export const Favorites: React.FC = () => {
                         checkedIcon={<Favorite />}
                         className={s.favorite}
                         checked={item.checkHeart}
+                        onClick={() => handleDelete(item.id)}
                       />
                       <div className={s.todo_image}>
                         <img src={item.image} alt="" />
