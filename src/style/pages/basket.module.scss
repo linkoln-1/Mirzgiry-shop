@@ -10,7 +10,7 @@
 }
 .basket {
   width: 1320px;
-  min-height: 600px;
+  min-height: 400px;
   margin: auto;
 
 }
@@ -132,7 +132,7 @@ hr{
   width: 350px;
 }
 .basket_payment{
-width: 180px;
+width: 150px;
   margin-left: auto;
   margin-top: 30px;
   display: flex;
@@ -144,9 +144,10 @@ width: 180px;
 }
 
 .basket_payment_sum{
-width: 90px;
+width: 70px;
   font-weight: 700;
   margin-left: 10px;
+  text-align: end;
 
 }
 .basket__empty{

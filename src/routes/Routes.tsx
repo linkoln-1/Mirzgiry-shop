@@ -13,6 +13,7 @@ import { About } from '../pages/About'
 import { Exchange } from '../pages/exchange-and-refund'
 import { Delivery } from '../pages/delivery'
 import { Favorites } from '../pages/favorite'
+import { Personal } from '../pages/personal'
 
 export const RoutesPath: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ export const RoutesPath: React.FC = () => {
       <Route path='/delivery' element={<Delivery />} />
       <Route path='/basket' element={<Basket />} />
       <Route path='/favorite' element={<Favorites />} />
+      <Route path='/personal' element={<Personal />} />
       </Route>
     </Routes>
   )
