@@ -1,3 +1,3 @@
-import { Personaldata } from './Personaldata'
+import { PersonalData } from './Personaldata'
 
-export { Personaldata }
+export { PersonalData }

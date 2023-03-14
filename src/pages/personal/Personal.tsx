@@ -1,13 +1,13 @@
-import React from 'react'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import Typography from '@material-ui/core/Typography'
-import Box from '@material-ui/core/Box'
-import s from '../../style/pages/personal.module.scss'
-import { History } from '../../components/tabs-sub-components/history/History'
-import { Personaldata } from '../../components/tabs-sub-components/personaldata/Personaldata'
-import { CustomBreadcrumbs } from '../../components/breadcrumbs/Breadcrumbs'
-import './style.css'
+// library
+import * as React from 'react'
+
+// components
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import { History } from '../../components/tabs-sub-components/history'
+import { PersonalData } from '../../components/tabs-sub-components/personaldata'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -27,7 +27,7 @@ function TabPanel (props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -35,47 +35,45 @@ function TabPanel (props: TabPanelProps) {
   )
 }
 
-function a11yProps (index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  }
-}
-
 export const Personal = () => {
   const [value, setValue] = React.useState(0)
 
-  const handleChange = (event: React.ChangeEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
 
   return (
-    <div className={s.personal}>
-       <CustomBreadcrumbs/>
+    <Box sx={{ width: '80%', margin: 'auto' }}>
+      <Box sx={{ borderBottom: 1, borderTop: 1, padding: '10px' }}>
         <Tabs
-        className='personal__title'
-         sx={{
-           '.MuiTabs-flexContainer': {
-             justifyContent: 'center'
-           },
-         }}
-        variant='standard'
-        value={value}
-        onChange={handleChange}
-        aria-label="simple tabs example">
-          <Tab label="История заказов" {...a11yProps(0)} />
-          <Tab label="Личные данные" {...a11yProps(1)} />
-          <Tab label="Выйти" {...a11yProps(2)} />
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+          centered={true}
+          textColor='inherit'
+          sx={{
+            '.MuiTabs-indicator': {
+              height: '50px',
+              opacity: '0.5',
+              zIndex: -1,
+              backgroundColor: '#ac2b16'
+            }
+          }}
+        >
+          <Tab label="История заказов" />
+          <Tab label="Личные данные" />
+          <Tab label="Выйти" />
         </Tabs>
+      </Box>
       <TabPanel value={value} index={0}>
-       <History/>
+        <History />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Personaldata/>
+        <PersonalData />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
       </TabPanel>
-    </div>
+    </Box>
   )
 }
