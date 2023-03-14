@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { History } from '../../components/tabs-sub-components/history'
 import { PersonalData } from '../../components/tabs-sub-components/personaldata'
+import { CustomBreadcrumbs } from '../../components/breadcrumbs'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -43,37 +44,40 @@ export const Personal = () => {
   }
 
   return (
-    <Box sx={{ width: '80%', margin: 'auto' }}>
-      <Box sx={{ borderBottom: 1, borderTop: 1, padding: '10px' }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          centered={true}
-          textColor='inherit'
-          sx={{
-            '.MuiTabs-indicator': {
-              height: '50px',
-              opacity: '0.5',
-              zIndex: -1,
-              backgroundColor: '#ac2b16'
-            }
-          }}
-        >
-          <Tab label="История заказов" />
-          <Tab label="Личные данные" />
-          <Tab label="Выйти" />
-        </Tabs>
+    <div className="container">
+      <CustomBreadcrumbs />
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderTop: 1, padding: '10px' }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+            centered={true}
+            textColor='inherit'
+            sx={{
+              '.MuiTabs-indicator': {
+                height: '50px',
+                opacity: '0.5',
+                zIndex: -1,
+                backgroundColor: '#ac2b16'
+              }
+            }}
+          >
+            <Tab label="История заказов" />
+            <Tab label="Личные данные" />
+            <Tab label="Выйти" />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <History />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <PersonalData />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Item Three
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        <History />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <PersonalData />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-    </Box>
+    </div>
   )
 }
