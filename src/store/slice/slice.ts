@@ -12,7 +12,6 @@ export interface cardState {
   card: CardType[]
   viewProducts: CardType[]
   likedProducts: CardType[]
-  favorites: CardType['favorites']
   products: CardType['products']
   prices: CardType['prices']
   colors: CardType['colors']
@@ -27,7 +26,6 @@ const initialState: cardState = {
   card: [],
   viewProducts: [],
   likedProducts: [],
-  favorites: [],
   products: [
     {
       id: 1,
@@ -573,10 +571,14 @@ const slice = createSlice({
         }
       })
     },
-    Favorites (state, action: PayloadAction<{ favorites: CardType, id: CardType['id'] }>) {
-      if (!state.favorites.find((item) => item.id === action.payload.id)) {
-        state.favorites.push(action.payload.favorites)
-      }
+    Favorites (state, action: PayloadAction<{ id: CardType['id'] }>) {
+      state.products.find(el => {
+        if (el.id === action.payload.id) {
+          el.checkHeart = !el.checkHeart
+        }
+      })
+    },
+    deleteFavorite (state, action: PayloadAction<{ id: CardType['id'] }>) {
       state.products.find(el => {
         if (el.id === action.payload.id) {
           el.checkHeart = !el.checkHeart
@@ -586,6 +588,6 @@ const slice = createSlice({
   }
 })
 
-export const { addCard, addToBasket, deleteToBasket, Plus, Minus, Favorites } = slice.actions
+export const { addCard, addToBasket, deleteToBasket, Plus, Minus, Favorites, deleteFavorite } = slice.actions
 
 export default slice.reducer

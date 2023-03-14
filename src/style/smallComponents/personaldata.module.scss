@@ -1,0 +1,40 @@
+.personaldata{
+   width: 1320px; 
+}
+input{
+    width: 270px;
+    
+}
+.personal__wrapper__input {
+    justify-content: space-between;
+    display: flex;
+    
+}
+.personal__wrapper__adress{
+    display: flex;
+    justify-content: space-between;
+
+}
+.personal__wrapper__adress div input{
+    width: 620px;
+}
+.button{
+    width: 1320px;
+    color: white;
+    background-color: #ac2b16;
+    font-size: 16px;
+    font-weight: 300;
+    border: none;
+    margin-top: 20px;
+}
+.person__title{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 300;
+}
+.person__adress{
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 300;
+}
