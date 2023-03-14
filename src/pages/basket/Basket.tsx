@@ -135,13 +135,12 @@ export const Basket: React.FC = () => {
               : <div>null</div>}
 
             <hr></hr>
-
-            <Order />
           </div>
           )
         })
         : <div className={s.basket__empty}><p className={s.basket__text__bold}>В корзине пока пусто</p><p className={s.basket__text}>Загляните в каталог, чтобы выбрать товары или найдите нужное в поиске</p></div>}
-         {Basket.length ? <div className={s.basket_payment}><div>К оплате:</div><div className={s.basket_payment_sum}>{payment} ₽</div></div> : null}
+        {Basket.length ? <div className={s.basket_payment}><div>К оплате:</div><div className={s.basket_payment_sum}>{payment} ₽</div></div> : null}
+         {Basket.length ? <Order/> : null}
     </div>
   )
 }
