@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 // import style
 import s from '../../style/smallComponents/modal.module.scss'
+import { Link } from '@mui/material'
 
 interface IModalProps {
   active: boolean
@@ -29,9 +30,13 @@ export const Modal: React.FC<IModalProps> = ({
                     Регистрация
                 </NavLink>
             </div>
-            <div className={s.modal__button}>
-                <button onClick={onClose}>Закрыть</button>
-            </div>
+            <>
+              <Link href={'/'} className={s.modal__button} onClick={onClose}>
+                <p>
+                  Закрыть
+                </p>
+              </Link>
+            </>
         </div>
 
     </div>
