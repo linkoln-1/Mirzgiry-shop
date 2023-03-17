@@ -1,13 +1,14 @@
-// library
+// import library
 import * as React from 'react'
 import { NavLink } from 'react-router-dom'
 
-// components
+// import components
 import { Forms } from '../FormsInput'
+
 // import style
 import s from '../../../../style/smallComponents/homepage-form.module.scss'
 
-export const Authorization = () => {
+export const Authorization: React.FC = () => {
   return (
     <div className={s.form}>
         <div className={s.form__container}>

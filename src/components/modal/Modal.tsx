@@ -1,8 +1,7 @@
-// library
+// import library
 import * as React from 'react'
 import { NavLink } from 'react-router-dom'
 
-// components
 // import style
 import s from '../../style/smallComponents/modal.module.scss'
 

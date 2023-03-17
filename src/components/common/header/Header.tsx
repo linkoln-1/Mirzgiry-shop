@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom'
 
 // interfaces
 import { type IHeaderProps } from '../../../shared/interfaces/commonProps'
+
+// import components
 import { Modal } from '../../modal'
 
 // import style
@@ -14,9 +16,6 @@ export const Header: React.FC<IHeaderProps> = ({
   setColorPlace,
 }) => {
   const [modalActive, setModalActive] = React.useState<boolean>(false)
-  const closeModal = () => {
-    setModalActive(false)
-  }
   return (
     <>
       <header>
@@ -140,7 +139,7 @@ export const Header: React.FC<IHeaderProps> = ({
                           </svg>
                         </NavLink>
                       </div>
-                      <Modal active={modalActive} onClose={closeModal}/>
+                      <Modal active={modalActive} onClose={() => setModalActive(!modalActive)}/>
                     </div>
         </div>
       </header>
