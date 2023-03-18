@@ -20,6 +20,9 @@ export interface cardState {
   basket: CardType[]
   size: CardType[]
   payment: CardType['payment']
+  history: CardType[]
+  sizehistory: CardType[]
+  paymenthistory: CardType['paymenthistory']
 }
 
 const initialState: cardState = {
@@ -469,6 +472,9 @@ const initialState: cardState = {
   basket: [],
   size: [],
   payment: 0,
+  history: [],
+  sizehistory: [],
+  paymenthistory: []
 }
 
 const slice = createSlice({
@@ -584,10 +590,15 @@ const slice = createSlice({
           el.checkHeart = !el.checkHeart
         }
       })
+    },
+    addToHistory (state, action: PayloadAction<{ payment: number }>) {
+      // state.history.push(action.payload.basket)
+      // state.sizehistory.push(action.payload.size)
+      state.paymenthistory.push(action.payload.payment)
     }
   }
 })
 
-export const { addCard, addToBasket, deleteToBasket, Plus, Minus, Favorites, deleteFavorite } = slice.actions
+export const { addCard, addToBasket, deleteToBasket, Plus, Minus, Favorites, deleteFavorite, addToHistory } = slice.actions
 
 export default slice.reducer

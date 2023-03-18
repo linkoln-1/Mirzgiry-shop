@@ -49,7 +49,6 @@ export const Card: React.FC<ICardProps> = ({ todo, index }) => {
       // @ts-ignore
       Favorites({ id }))
   }
-  console.log(products)
   return (
     <div key={index} className={s.card}>
       <Checkbox

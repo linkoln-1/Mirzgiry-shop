@@ -10,8 +10,12 @@ import s from '../../../style/smallComponents/history.module.scss'
 export const History: React.FC = () => {
   const [opened, setOpened] = useState(false)
   const [circleColor] = useState('Белый')
-  const Basket = useAppSelector(state => state.basket)
-  const size = useAppSelector(state => state.size)
+  const History = useAppSelector(state => state.history)
+  console.log(History)
+  const sizehistory = useAppSelector(state => state.sizehistory)
+  console.log(sizehistory)
+  const historyp = useAppSelector(state => state.paymenthistory)
+  console.log(historyp)
   const handleOpen = () => {
     setOpened(false)
   }
@@ -20,7 +24,6 @@ export const History: React.FC = () => {
   }
   return (
     <div className={s.history}>
-      <hr className={s.distory__hr}></hr>
       <div className={s.history__wrapper}>
         <div className={s.history__order__number}>№ 718 от 28.09.21</div>
         <div className={s.history__status}>
@@ -65,11 +68,11 @@ export const History: React.FC = () => {
       <hr className={opened ? s.history__hrnone : s.history__hr}></hr>
       <div>
         {opened &&
-          Basket.map((product, indexProduct) => {
+          History.map((product, indexProduct) => {
             return (
               <div key={indexProduct}>
-                {size.length ? (
-                  size.map((items, indexSize) =>
+                {sizehistory.length ? (
+                  sizehistory.map((items, indexSize) =>
                     indexProduct === indexSize ? (
                       <div key={indexSize} className={s.history_wrapper}>
                         <div className={s.history_image_description}>
@@ -80,7 +83,6 @@ export const History: React.FC = () => {
                             <div className={s.history_artikul}>
                               арт. 1589956
                             </div>
-
                             <div className={s.history_nameCategory}>
                               {product.categoryIdName}:
                             </div>
@@ -96,7 +98,6 @@ export const History: React.FC = () => {
                             {}
                           </button>
                         </div>
-
                         <div className={s.history_quantity}>
                           <div>Размер:</div>
                           {/* eslint-disable-next-line @typescript-eslint/no-base-to-string */}

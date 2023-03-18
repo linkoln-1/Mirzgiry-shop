@@ -1,9 +1,30 @@
 import React from 'react'
-import { useAppSelector } from '../../hooks/hook'
+import { useAppSelector, useAppDispatch } from '../../hooks/hook'
+// mock
+import { addToHistory } from '../../store/slice/slice'
 // styles
 import s from '../../style/pages/order.module.scss'
+// interfaces
+// import { type CardType } from '../../shared/interfaces/CardProps'
+
+// interface OrderProps {
+//   basket: CardType[]
+//   size: CardType[]
+
+// }
+
 export const Order: React.FC = () => {
   const payment = useAppSelector(state => state.payment)
+  const dispatch = useAppDispatch()
+
+  const handleAddToHistory = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    payment: number,
+  ) => {
+    e.preventDefault()
+    dispatch(
+      addToHistory({ payment }))
+  }
   return (
         <div className={s.order}>
             <div className={s.order__decor}>Оформление заказа</div>
@@ -68,7 +89,7 @@ export const Order: React.FC = () => {
             </div>
             </div>
             <p className={s.bonus}>Использование бонусного счёта:</p>
-            <input className={s.order__bonus}type="input" name="title" value="Сумма списания бонусов*" />
+            <input className={s.order__bonus} type="input" name="title" value="Сумма списания бонусов*" />
                 </div>
                <div className={s.order__wrapper__decor}>
                <div className={s.order__decor__welcome}>Войти в личный кабинет</div>
@@ -85,7 +106,7 @@ export const Order: React.FC = () => {
               <div className={s.order__decor__total}>
               <div>ИТОГО:</div><div className={s.order__bold}>{payment} ₽</div>
               </div>
-               <button>ОФОРМИТЬ ЗАКАЗ</button>
+               <button type="submit" onClick={(e) => handleAddToHistory(e, payment)}>ОФОРМИТЬ ЗАКАЗ</button>
                <div className={s.order__consent}>Нажимая на кнопку «оплатить заказ», я принимаю условия публичной оферты и политики конфиденциальности</div>
                </div>
                </div>

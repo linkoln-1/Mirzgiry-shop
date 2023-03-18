@@ -5,6 +5,7 @@ import { useState } from 'react'
 // components
 import { CustomBreadcrumbs } from '../../components/breadcrumbs'
 import { Order } from '../order'
+
 // mock
 import { deleteToBasket, Minus, Plus } from '../../store/slice/slice'
 
@@ -140,7 +141,7 @@ export const Basket: React.FC = () => {
         })
         : <div className={s.basket__empty}><p className={s.basket__text__bold}>В корзине пока пусто</p><p className={s.basket__text}>Загляните в каталог, чтобы выбрать товары или найдите нужное в поиске</p></div>}
         {Basket.length ? <div className={s.basket_payment}><div>К оплате:</div><div className={s.basket_payment_sum}>{payment} ₽</div></div> : null}
-         {Basket.length ? <Order/> : null}
+         {Basket.length ? <Order /> : null}
     </div>
   )
 }
