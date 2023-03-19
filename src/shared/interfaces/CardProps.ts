@@ -53,4 +53,5 @@ export interface CardType {
   }>
   size: string[] | ReactNode[]
   payment: number
+  paymenthistory: number[]
 }
