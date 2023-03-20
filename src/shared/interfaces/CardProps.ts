@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react'
 
 export interface CardType {
+  find(arg0: (el: any) => any): any
   id: number
   categoryId: number
   name: string
@@ -34,6 +35,7 @@ export interface CardType {
       count: number
     }>
     checkHeart: boolean
+    purchased: false
   }>
   prices: Array<{
     id: number
@@ -53,5 +55,4 @@ export interface CardType {
   }>
   size: string[] | ReactNode[]
   payment: number
-  paymenthistory: number[]
 }

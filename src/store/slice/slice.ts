@@ -21,8 +21,6 @@ export interface cardState {
   size: CardType[]
   payment: CardType['payment']
   history: CardType[]
-  sizehistory: CardType[]
-  paymenthistory: CardType['paymenthistory']
 }
 
 const initialState: cardState = {
@@ -41,6 +39,7 @@ const initialState: cardState = {
       colorId: 2,
       image: `${image1}`,
       checkHeart: false,
+      purchased: false,
       sizes: [
         {
           id: 1,
@@ -91,6 +90,7 @@ const initialState: cardState = {
       colorId: 1,
       image: `${image2}`,
       checkHeart: false,
+      purchased: false,
       sizes: [
         {
           id: 1,
@@ -141,6 +141,7 @@ const initialState: cardState = {
       colorId: 1,
       image: `${image4}`,
       checkHeart: false,
+      purchased: false,
       sizes: [
         {
           id: 1,
@@ -191,6 +192,7 @@ const initialState: cardState = {
       colorId: 1,
       image: `${image3}`,
       checkHeart: false,
+      purchased: false,
       sizes: [
         {
           id: 1,
@@ -241,6 +243,7 @@ const initialState: cardState = {
       colorId: 1,
       image: `${image5}`,
       checkHeart: false,
+      purchased: false,
       sizes: [
         {
           id: 1,
@@ -291,6 +294,7 @@ const initialState: cardState = {
       colorId: 2,
       image: `${image6}`,
       checkHeart: false,
+      purchased: false,
       sizes: [
         {
           id: 1,
@@ -341,6 +345,7 @@ const initialState: cardState = {
       colorId: 2,
       image: `${image7}`,
       checkHeart: false,
+      purchased: false,
       sizes: [
         {
           id: 1,
@@ -472,9 +477,7 @@ const initialState: cardState = {
   basket: [],
   size: [],
   payment: 0,
-  history: [],
-  sizehistory: [],
-  paymenthistory: []
+  history: []
 }
 
 const slice = createSlice({
@@ -516,6 +519,7 @@ const slice = createSlice({
         state.size.push(action.payload.size)
         state.payment += action.payload.prices
       }
+      state.history.push(action.payload.product)
     },
     deleteToBasket (state, action: PayloadAction<{ indexProduct: CardType['indexProduct'], id: CardType['id'], price: number }>) {
       state.basket = state.basket.filter((item, index) => {
@@ -591,14 +595,9 @@ const slice = createSlice({
         }
       })
     },
-    addToHistory (state, action: PayloadAction<{ payment: number }>) {
-      // state.history.push(action.payload.basket)
-      // state.sizehistory.push(action.payload.size)
-      state.paymenthistory.push(action.payload.payment)
-    }
   }
 })
 
-export const { addCard, addToBasket, deleteToBasket, Plus, Minus, Favorites, deleteFavorite, addToHistory } = slice.actions
+export const { addCard, addToBasket, deleteToBasket, Plus, Minus, Favorites, deleteFavorite } = slice.actions
 
 export default slice.reducer

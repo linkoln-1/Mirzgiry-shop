@@ -31,7 +31,7 @@ export const Modal: React.FC<IModalProps> = ({
                 </NavLink>
             </div>
             <>
-              <Link href={''} className={s.modal__button} onClick={onClose}>
+              <Link className={s.modal__button} onClick={onClose}>
                 <p>
                   Закрыть
                 </p>

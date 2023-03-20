@@ -45,9 +45,7 @@ export const Card: React.FC<ICardProps> = ({ todo, index }) => {
       addCard(products.find(item => item.id === id), id))
   }
   const makeFavorite = (id: number) => {
-    dispatch(
-      // @ts-ignore
-      Favorites({ id }))
+    dispatch(Favorites({ id }))
   }
   return (
     <div key={index} className={s.card}>

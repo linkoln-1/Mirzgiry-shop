@@ -11,11 +11,8 @@ export const History: React.FC = () => {
   const [opened, setOpened] = useState(false)
   const [circleColor] = useState('Белый')
   const History = useAppSelector(state => state.history)
+  const size = useAppSelector(state => state.size)
   console.log(History)
-  const sizehistory = useAppSelector(state => state.sizehistory)
-  console.log(sizehistory)
-  const historyp = useAppSelector(state => state.paymenthistory)
-  console.log(historyp)
   const handleOpen = () => {
     setOpened(false)
   }
@@ -71,8 +68,8 @@ export const History: React.FC = () => {
           History.map((product, indexProduct) => {
             return (
               <div key={indexProduct}>
-                {sizehistory.length ? (
-                  sizehistory.map((items, indexSize) =>
+                {size.length ? (
+                  size.map((items, indexSize) =>
                     indexProduct === indexSize ? (
                       <div key={indexSize} className={s.history_wrapper}>
                         <div className={s.history_image_description}>
@@ -116,13 +113,9 @@ export const History: React.FC = () => {
                         })}
                         <div className={s.history_price}>{product.price} ₽</div>
                       </div>
-                    ) : (
-                      ''
-                    ),
-                  )
-                ) : (
-                  <div>null</div>
-                )}
+                    ) : ''
+                  )) : null}
+
               </div>
             )
           })}

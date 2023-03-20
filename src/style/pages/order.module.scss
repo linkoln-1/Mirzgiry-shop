@@ -33,26 +33,26 @@ input{
     display: flex;
     width: 820px;
     justify-content: space-between;
-    
+
 }
 .order__wrapper__radio{
     width: 400px;
-   
+
 }
 .order__wrapper__radio input{
     width: 18px;
-    height: 18px; 
+    height: 18px;
     margin: 0;
-  
-   
+
+
 }
 
 .order__wrapper__radio div{
     margin-bottom: 10px;
     width: 400px;
     height: 40px;
- 
- 
+
+
 }
 input + label{
     font-size: 14px;
@@ -97,6 +97,7 @@ button{
     font-size: 16px;
     font-weight: 300;
     border: none;
+    cursor: pointer;
 }
 .order__decor__conditions{
 margin-bottom: 20px;

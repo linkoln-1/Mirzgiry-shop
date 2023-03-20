@@ -1,30 +1,11 @@
 import React from 'react'
-import { useAppSelector, useAppDispatch } from '../../hooks/hook'
-// mock
-import { addToHistory } from '../../store/slice/slice'
+import { useAppSelector } from '../../hooks/hook'
+
 // styles
 import s from '../../style/pages/order.module.scss'
-// interfaces
-// import { type CardType } from '../../shared/interfaces/CardProps'
-
-// interface OrderProps {
-//   basket: CardType[]
-//   size: CardType[]
-
-// }
 
 export const Order: React.FC = () => {
   const payment = useAppSelector(state => state.payment)
-  const dispatch = useAppDispatch()
-
-  const handleAddToHistory = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    payment: number,
-  ) => {
-    e.preventDefault()
-    dispatch(
-      addToHistory({ payment }))
-  }
   return (
         <div className={s.order}>
             <div className={s.order__decor}>Оформление заказа</div>
@@ -106,7 +87,9 @@ export const Order: React.FC = () => {
               <div className={s.order__decor__total}>
               <div>ИТОГО:</div><div className={s.order__bold}>{payment} ₽</div>
               </div>
-               <button type="submit" onClick={(e) => handleAddToHistory(e, payment)}>ОФОРМИТЬ ЗАКАЗ</button>
+               <button>
+                 ОФОРМИТЬ ЗАКАЗ
+               </button>
                <div className={s.order__consent}>Нажимая на кнопку «оплатить заказ», я принимаю условия публичной оферты и политики конфиденциальности</div>
                </div>
                </div>
