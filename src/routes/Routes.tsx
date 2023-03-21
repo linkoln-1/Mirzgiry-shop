@@ -21,6 +21,7 @@ import { RegistrationSuccess } from '../components/modal/subComponents/registrat
 import { Recovery } from '../components/modal/subComponents/recovery/recoveryFirstPage'
 import { RecoverySecond } from '../components/modal/subComponents/recovery/recoverySecondPage'
 import { RecoverySuccess } from '../components/modal/subComponents/recovery/recoverySuccess'
+import { Search } from '../components/search'
 
 export const RoutesPath: React.FC = () => {
   return (
@@ -43,6 +44,7 @@ export const RoutesPath: React.FC = () => {
       <Route path='/recovery' element={<Recovery />} />
       <Route path='/recovery/second' element={<RecoverySecond />} />
       <Route path='/recovery/success' element={<RecoverySuccess />} />
+      <Route path='/search' element={<Search />} />
       </Route>
     </Routes>
   )
