@@ -1,0 +1,75 @@
+@import "../../style.scss";
+.card {
+  flex-grow: 0;
+  flex-basis: 30.3333%;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 35px;
+  text-align: center;
+  box-shadow: 0 0 10px 0 rgba(34, 60, 80, 0.2);
+  position: relative;
+  margin-left: 33px;
+
+  &:hover {
+    box-shadow: 0 0 10px 0 $color-red;
+  }
+
+  & .card__image {
+    &  img {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  .card__title {
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  .card__price {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 5px;
+  }
+  .card__sizes{
+    display: flex;
+    width:170px;
+    margin: auto;
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(37, 37, 37, 0.5);
+  }
+  .card__size{
+    padding: 5px;
+
+  }
+
+  .card__colorCircle {
+    width: 50px;
+    margin: 5px auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    & div {
+      width: 21px;
+      height: 21px;
+      border: solid 1px black;
+      border-radius: 50px;
+    }
+
+    & .black {
+      background-color: black;
+    }
+    & .white {
+      background-color: white;
+    }
+  }
+}
+.favorite {
+  @include heart($color-light-red, $color-white, $color-black);
+}
+
+.selected {
+  color: #050502;
+}

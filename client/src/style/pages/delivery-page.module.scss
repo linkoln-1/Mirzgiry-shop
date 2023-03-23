@@ -1,0 +1,70 @@
+@import "../style.scss";
+.delivery {
+  width: $container-desktop-width;
+  margin: 30px auto;
+  height: 519px;
+
+  & .delivery__title {
+    margin: 30px 0px 20px 0px;
+    font-size: 20px;
+  }
+  .message__container,
+  .payment__process__item,
+  .payment__process__container {
+    display: flex;
+  }
+
+  .payment__container,
+  .delivery__container,
+  .payment__process__item_third {
+    width: 550px;
+  }
+
+  .delivery__nav {
+    color: $dark-grey;
+    text-decoration: none;
+  }
+
+  .payment__process__item {
+    margin-top: 15px;
+    align-items: center;
+  }
+
+  .payment__process__item_second {
+    width: 240px;
+    margin-right: 40px;
+  }
+
+  .payment__container {
+    margin-right: 40px;
+  }
+
+  .payment__process__icon_red {
+    position: relative;
+    font-size: 50px;
+    color: $color-red;
+  }
+
+  .payment__process__icon {
+    display: flex;
+    margin-right: 15px;
+  }
+
+  .payment__process__icon_arrow {
+    position: absolute;
+    left: 12px;
+    font-size: 50px;
+    color: $color-red;
+    margin-right: 10px;
+  }
+
+  .payment__process__number {
+    position: absolute;
+    bottom: 28px;
+    left: 16px;
+    font-size: 14px;
+    color: $color-black;
+  }
+
+}
+

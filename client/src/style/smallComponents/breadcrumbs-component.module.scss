@@ -1,0 +1,45 @@
+@import '../style';
+
+.wrapper {
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  color: $color-black;
+
+  & > nav > ol > li {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumb {
+    font-size: 14px;
+    font-weight: $fw-regular;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: 0.56px;
+    color: $color-black;
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  .route {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .active {
+    font-weight: $fw-bold;
+    pointer-events: none;
+    text-decoration: none;
+    color: $color-red;
+  }
+
+  p::first-letter {
+    text-transform: uppercase;
+  }
+}

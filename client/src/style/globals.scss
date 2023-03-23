@@ -1,0 +1,52 @@
+@import "./style.scss";
+* {
+  font-family: 'Raleway', sans-serif;
+  box-sizing: border-box;
+}
+body {
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: initial !important;
+}
+.homepage {
+  margin-top: -100px;
+}
+.content_top {
+  margin-top: 100px;
+}
+.GroupedSelect svg {
+  color: $color-red;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  width: 35px;
+  height: 35px;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 35px;
+  color: #ac2b16;
+}
+
+.btn-0:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 40px;
+  right: 195px;
+  bottom: 0;
+  left: 200px;
+  background-color: #40215c;
+  transform: translateY(-110%);
+  transition: 2s;
+}
+
+.btn-0:hover:before {
+  transform: translateY(40%);
+  width: 1330px;
+}
+
+.container {
+  width: 1320px;
+  margin: auto;
+}

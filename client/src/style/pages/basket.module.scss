@@ -1,0 +1,165 @@
+@import "../style.scss";
+.basket_size svg {
+  color: #ac2b16;
+}
+
+.basket_size{
+  width: 100px;
+  height: 50px;
+
+}
+.basket {
+  width: 1320px;
+  min-height: 400px;
+  margin: auto;
+
+}
+.basket_input{
+  height: 50px;
+
+}
+.basket_delete {
+  fill: $color-red;
+  cursor: pointer;
+  width: 25px;
+  &:hover {
+    fill: $color-black;
+  }
+}
+.basket_title{
+  font-size: 20px;
+  font-weight: 300;
+  margin: 30px 0 30px 0;
+  width: 140px;
+
+}
+.basket_image img{
+  width: 140px;
+  height: 150px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+.basket_image_description{
+  display: flex;
+  width: 397px;
+  justify-content: space-between;
+}
+.basket_description{
+  width: 230px;
+}
+.basket_wrapper{
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+
+}
+.basket_nameCategory{
+  margin-top: 25px;
+}
+.basket_artikul{
+  color:#ac2b16;
+}
+.basket_name{
+  font-weight: 600;
+}
+.item_colorcircle button {
+  width: 21px;
+  height: 21px;
+  border: solid 1px black;
+  border-radius: 50px;
+
+
+}
+
+.white {
+  background-color: white;
+}
+.black{
+  background-color:black;
+}
+.basket_price_delete{
+  display: flex;
+  width: 124px;
+  justify-content: space-between;
+
+}
+
+.basket_quantity{
+  display: flex;
+  padding: 16px;
+  width: 100px;
+  height: 50px;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+.basket_quantity div{
+  width: 20px;
+  height: 20px;
+  line-height: 18px;
+  text-align: center;
+}
+.count{
+  font-size: 18px;
+  margin: auto;
+
+}
+.plus, .minus{
+  font-size:30px;
+  color:#ac2b16;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+  }
+}
+.plus {
+  padding-top: 2px;
+}
+.basket_price{
+  font-size: 16px;
+  font-weight: 700;
+}
+hr{
+  width: 1320px;
+}
+.basket_flex{
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+}
+.basket_payment{
+width: 150px;
+  margin-left: auto;
+  margin-top: 30px;
+  display: flex;
+  font-weight: 300;
+  font-size: 16px;
+  position: relative;
+  bottom:0px;
+  
+}
+
+.basket_payment_sum{
+width: 70px;
+  font-weight: 700;
+  margin-left: 10px;
+  text-align: end;
+
+}
+.basket__empty{
+  margin: auto;
+  width: 300px;
+}
+.basket__text__bold{
+  font-weight: 700;
+  font-size: 22px;
+  text-align: center;
+}
+.basket__text{
+  text-align: center;
+
+}

@@ -1,0 +1,35 @@
+@import "../style.scss";
+.exchange {
+  width: $container-desktop-width;
+  height: 600px;
+  margin: auto;
+}
+
+.bi-chevron-compact-right {
+  color: #ac2b16;
+  font-size: 15px;
+}
+
+.exchange__title {
+  margin: 30px 0px 20px 0px;
+  font-size: 20px;
+}
+
+.exchange__container {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.exchange__reason {
+  margin: 10px 0px 20px 0px;
+}
+
+.exchange__icon i {
+  color: #ac2b16;
+  font-size: 30px;
+}
+
+.exchange__description {
+  margin-top: 10px;
+}

@@ -1,0 +1,12 @@
+@mixin heart ($color-light-red, $color-white, $color-black) {
+    cursor: pointer;
+    position: absolute !important;
+    top: 0;
+    right: 0;
+
+    border: 1px solid $color-white !important;
+    border-radius: 15px 0 15px 0 !important;
+    background-color: $color-black !important;
+    color: $color-light-red !important;
+
+}
