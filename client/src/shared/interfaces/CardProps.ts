@@ -2,33 +2,34 @@ import { type ReactNode } from 'react'
 
 export interface CardType {
   id: number
-  categoryId: number
+  _id: string
+  categoryId: number | string
   name: string
   categoryIdName: string
   price: number
-  priceId: number
+  priceId: string
   color: string
-  colorId: number
+  colorId: string
   image: string
   sizes: Array<{
-    id: number
+    _id: string
     size: string
     inStock: number
     count: number
   }>
   indexProduct?: number
   products: Array<{
-    id: number
-    categoryId: number
+    _id: string
+    categoryId: string
     name: string
     categoryIdName: string
     price: number
-    priceId: number
+    priceId: string
     color: string
-    colorId: number
+    colorId: string
     image: string
     sizes: Array<{
-      id: number
+      _id: string
       size: string
       inStock: number
       count: number
@@ -36,19 +37,19 @@ export interface CardType {
     checkHeart: boolean
   }>
   prices: Array<{
-    id: number
+    _id: string
     name: string
   }>
   colors: Array<{
-    id: number
+    _id: string
     name: string
   }>
   dimensions: Array<{
-    id: number
+    _id: string
     name: string
   }>
   categoriesForSidebar: Array<{
-    id: number
+    _id: string
     name: string
   }>
   size: string[] | ReactNode[]

@@ -7,9 +7,9 @@ import Select from '@mui/material/Select'
 import { useAppSelector } from '../../hooks/hook'
 
 interface IGroupSelect {
-  onClickSize: (id: number) => void
-  onClickColor: (id: number) => void
-  onClickPrice: (id: number) => void
+  onClickSize: (_id: string) => void
+  onClickColor: (_id: string) => void
+  onClickPrice: (_id: string) => void
 }
 
 export const GroupedSelect: React.FC<IGroupSelect> = ({
@@ -17,42 +17,42 @@ export const GroupedSelect: React.FC<IGroupSelect> = ({
   onClickColor,
   onClickPrice,
 }) => {
-  const prices = useAppSelector(state => state.prices)
-  const dimensions = useAppSelector(state => state.dimensions)
-  const colors = useAppSelector(state => state.colors)
+  const prices = useAppSelector(state => state.categoriesPriceSlice.categoriesPrice)
+  const colors = useAppSelector(state => state.categoriesColorSlice.categoriesColor)
+  const dimensions = useAppSelector(state => state.categoriesSizeSlice.categoriesSize)
 
   return (
     <div className='GroupedSelect'>
       <FormControl variant='standard' sx={{ m: 1, minWidth: 100 }}>
         <InputLabel htmlFor='grouped-select'>Размер</InputLabel>
         <Select defaultValue='' id='grouped-select' label='Размер'>
-          {dimensions.map(item => {
-            return (
+           {dimensions.map(item => {
+             return (
               <MenuItem
-                key={item.id}
-                onClick={() => onClickSize(item.id)}
-                value={item.id}
+                key={item._id}
+                onClick={() => onClickSize(item.name)}
+                value={item._id}
               >
                 {item.name}
               </MenuItem>
-            )
-          })}
+             )
+           })}
         </Select>
       </FormControl>
       <FormControl variant='standard' sx={{ m: 1, minWidth: 111 }}>
         <InputLabel htmlFor='grouped-select'>Цвет</InputLabel>
         <Select defaultValue='' id='grouped-select' label='Цвет'>
-          {colors.map(item => {
-            return (
-              <MenuItem
-                key={item.id}
-                onClick={() => onClickColor(item.id)}
-                value={item.id}
-              >
-                {item.name}
-              </MenuItem>
-            )
-          })}
+         {colors.map(item => {
+           return (
+           <MenuItem
+          key={item._id}
+          onClick={() => onClickColor(item._id)}
+           value={item._id}
+           >
+           {item.name}
+           </MenuItem>
+           )
+         })}
         </Select>
       </FormControl>
 
@@ -61,13 +61,13 @@ export const GroupedSelect: React.FC<IGroupSelect> = ({
         <Select defaultValue='' id='grouped-select' label='Цена'>
           {prices.map(item => {
             return (
-              <MenuItem
-                key={item.id}
-                onClick={() => onClickPrice(item.id)}
-                value={item.id}
-              >
-                {item.name}
-              </MenuItem>
+             <MenuItem
+               key={item._id}
+               onClick={() => onClickPrice(item._id)}
+               value={item._id}
+             >
+               {item.name}
+             </MenuItem>
             )
           })}
         </Select>

@@ -34,14 +34,17 @@
   font-weight: 700;
   margin-top: 5px;
 }
-.todo_size {
+.todo__sizes{
+  display: flex;
+  width:170px;
+  margin: auto;
   font-size: 16px;
   font-weight: 300;
   color: rgba(37, 37, 37, 0.5);
-  display: flex;
-  justify-content: space-between;
-  width: 200px;
-  margin: 5px auto;
+}
+.todo__size{
+  padding: 5px;
+
 }
 .todo_colorcircle {
   width: 50px;

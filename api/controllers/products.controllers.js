@@ -10,6 +10,7 @@ module.exports.productcontroller = {
         price: req.body.price,
         priceId: req.body.priceId,
         color: req.body.color,
+        colorId: req.body.colorId,
         image:req.body.image,
         checkHeart:req.body.checkHeart,
         sizes:req.body.sizes,
@@ -38,6 +39,7 @@ module.exports.productcontroller = {
         price: req.body.price,
         priceId: req.body.priceId,
         color: req.body.color,
+        colorId: req.body.colorId,
         image:req.body.image,
         checkHeart:req.body.checkHeart,
         sizes:req.body.sizes,
@@ -50,6 +52,14 @@ module.exports.productcontroller = {
   getProducts: async function (req, res) {
     try {
       const product = await Product.find().populate('sizes');
+      res.json(product);
+    } catch (error) {
+      console.log(error.toString());
+    }
+  },
+  getProductById: async function (req, res) {
+    try {
+      const product = await Product.findById(req.params.id).populate('sizes');
       res.json(product);
     } catch (error) {
       console.log(error.toString());

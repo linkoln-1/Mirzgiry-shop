@@ -4,26 +4,22 @@ const jwt = require('jsonwebtoken');
 module.exports.userscontroller = {
     registerUser: async function (req, res) {
         try{
-           const { login, password, name, surname, phone, mail  } = req.body;
-           const hash = await bcrypt.hash(password, Number(process.env.BCRYPT_ROUNDS));
+           const { login, password  } = req.body;
+           const passwordToString = password.toString()
+           const hash = await bcrypt.hash(passwordToString , Number(process.env.BCRYPT_ROUNDS));
         const user = await User.create({
             login: login,
             password: hash,
-            name:name,
-            surname: surname,
-            phone: phone,
-            mail: mail,
-            
             
         });
         res.json(user);
-        }catch(e){
-          return res.status(400).json({
-            error:"Ошибка при регистрации, пользователь с таким логином уже существует" 
-          })
+        }catch(error){
+          return res.status(400).json("Такой пользователь уже существует!")
         }
        
       },
+
+      
       login: async (req, res) => {
         const { login, password } = req.body;
         const candidate = await User.findOne({ login });

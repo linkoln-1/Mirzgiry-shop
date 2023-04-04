@@ -2,10 +2,10 @@
 import React from 'react'
 
 // import img
-import itemFirstImg from '../../assets/image/img1.jpeg'
-import itemSecondImg from '../../assets/image/img2.jpeg'
-import itemThirdImg from '../../assets/image/img3.jpeg'
-import itemFourthImg from '../../assets/image/img4.jpeg'
+// import itemFirstImg from '../../../public/image/img1.jpeg'
+// import itemSecondImg from '../../../public/image/img2.jpeg'
+// import itemThirdImg from '../../../public/image/img3.jpeg'
+// import itemFourthImg from '../../../public/image/img4.jpeg'
 
 // import style
 import s from '../../style/pages/componentStyle/categories-common.module.scss'
@@ -18,7 +18,7 @@ export const Categories: React.FC = () => {
         <div className={s.categories__wrapper}>
           <div className={s.cards__body}>
             <div className={s.card__img}>
-              <img src={itemSecondImg} alt='' />
+              {/* <img src={itemSecondImg} alt='' /> */}
             </div>
             <div className={s.cards_button}>
               <button>Худи</button>
@@ -26,7 +26,7 @@ export const Categories: React.FC = () => {
           </div>
           <div className={s.cards__body}>
             <div className={s.card__img}>
-              <img src={itemFirstImg} alt='' />
+              {/* <img src={itemFirstImg} alt='' /> */}
             </div>
             <div className={s.cards_button}>
               <button>Футболки</button>
@@ -34,7 +34,7 @@ export const Categories: React.FC = () => {
           </div>
           <div className={s.cards__body}>
             <div className={s.card__img}>
-              <img src={itemThirdImg} alt='' />
+              {/* <img src={itemThirdImg} alt='' /> */}
             </div>
             <div className={s.cards_button}>
               <button>Худи с росписью</button>
@@ -42,7 +42,7 @@ export const Categories: React.FC = () => {
           </div>
           <div className={s.cards__body}>
             <div className={s.card__img}>
-              <img src={itemFourthImg} alt='' />
+              {/* <img src={itemFourthImg} alt='' /> */}
             </div>
             <div className={s.cards_button}>
               <button>Футболки с росписью</button>

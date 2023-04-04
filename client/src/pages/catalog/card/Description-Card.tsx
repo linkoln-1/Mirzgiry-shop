@@ -9,6 +9,8 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
+// constants
+import { path } from '../../../shared/constants/path'
 
 // interfaces
 import { type CardType } from '../../../shared/interfaces/CardProps'
@@ -17,14 +19,16 @@ import { type CardType } from '../../../shared/interfaces/CardProps'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hook'
 
 // mock
-import { addToBasket } from '../../../store/slice/slice'
+// import { addToBasket } from '../../../store/slice/slice'
 
 // styles
 import s from '../../../style/pages/description-card.module.scss'
 
 export const DescriptionCard: React.FC = () => {
   const dispatch = useAppDispatch()
-  const card = useAppSelector(state => state.card)
+  const card = useAppSelector(state => state.descriptionCardSlice.descriptionCard)
+  const loading = useAppSelector(state => state.descriptionCardSlice.loading)
+
   const [opened, setOpened] = useState<boolean>(false)
   const [size, setSize] = useState<string[] | string>([])
   const [color, setColor] = useState<boolean>(false)
@@ -33,7 +37,7 @@ export const DescriptionCard: React.FC = () => {
   const handleAddToBasket = (
     item: CardType,
     size: string[] | string,
-    id: number,
+    _id: string,
     indexProduct: number,
     prices: number
   ) => {
@@ -72,36 +76,40 @@ export const DescriptionCard: React.FC = () => {
 
   return (
     <>
-      {card.length
-        ? card.map((card, index: number) => {
-          return (
+      {loading
+        ? (
+                <div>Please Wait</div>
+          )
+        : (card.map((card, index: number) => {
+            return (
               <div className={s.catalog_card} key={index}>
                 <CustomBreadcrumbs />
                 <div className={s.card_item}>
                   <div className={s.card_pictures}>
                     <div className={s.additional_pictures}>
                       <div>
-                        <img src={card.image} alt="" />
+                      <img src={`${path}/${card.image}`} alt="" />
                       </div>
                       <div>
-                        <img src={card.image} alt="" />
+                      <img src={`${path}/${card.image}`} alt="" />
                       </div>
                       <div>
-                        <img src={card.image} alt="" />
+                      <img src={`${path}/${card.image}`} alt="" />
                       </div>
                       <div>
-                        <img src={card.image} alt="" />
+                      <img src={`${path}/${card.image}`} alt="" />
                       </div>
                       <div>
-                        <img src={card.image} alt="" />
+                      <img src={`${path}/${card.image}`} alt="" />
                       </div>
                     </div>
                     <div className={s.main_picture}>
-                      <img src={card.image} alt="" />
+                    <img src={`${path}/${card.image}`} alt="" />
                     </div>
                   </div>
                   <div className={s.card_description}>
-                    <div className={s.item_name}>{card.categoryIdName}</div>
+                    <div className={s.item_nameid}>{card.categoryIdName}</div>
+                    <div className={s.item_name}>{card.name}</div>
                     <div className={s.item_price}>{card.price} ₽</div>
                     <div className={s.item_colorcircle}>
                       <button className={s.white}></button>
@@ -138,8 +146,10 @@ export const DescriptionCard: React.FC = () => {
                             },
                           }}
                         >
-                          {card.sizes.map(name => (
-                            <MenuItem key={name.id} value={name.size}>
+                          {card.sizes.map((name, index) => (
+
+                            <MenuItem key={index} value={name.size}>
+
                               {name.size}
                             </MenuItem>
                           ))}
@@ -149,7 +159,7 @@ export const DescriptionCard: React.FC = () => {
                     <div className={s.item_buttons}>
                       <button
                         onClick={() =>
-                          handleAddToBasket(card, size, card.id, index, card.price)
+                          handleAddToBasket(card, size, card._id, index, card.price)
 
                         }
                         disabled={btn}
@@ -210,13 +220,13 @@ export const DescriptionCard: React.FC = () => {
                       : null}
                   </div>
                 </div>
-                <ViewProducts />
+                 <ViewProducts />
                 <Like />
               </div>
-          )
-        },
-        )
-        : <div>Ошибка! Нету данных!</div>
+            )
+          },
+          ))
+
           }
     </>
   )

@@ -35,10 +35,35 @@ module.exports.favoritescontroller = {
      
    
   },
+  addProductToFavorite: async function(req, res) {
+    const { id } = req.params;
+    try {
+      const favorite =  await  Favorite.findById(id);
+      if(favorite.user.toString() === req.user.id){
+         const favorites = await Favorite.findByIdAndUpdate(id,{
+        $push: { favorites: req.body.favorites },
+   
+      });   
+        res.json(favorites);
+      }
+     
+    } catch (error) {
+      console.log(error.toString());
+    }
+  },
 
+
+  // getFavoriteById: async function (req, res) {
+  //   try {
+  //     const favorite = await Favorite.findById(req.params.id).populate('sizes');
+  //     res.json(favorite);
+  //   } catch (error) {
+  //     console.log(error.toString());
+  //   }
+  // },
   getFavorites: async function (req, res) {
     try {
-      const favorites = await Favorite.find({user: req.user.id});
+      const favorites = await Favorite.find({user: req.user.id}).populate('favorites');
       res.json(favorites);
     } catch (e) {
         return res.status(401).json("Ошибка"+ e.toString())

@@ -11,9 +11,12 @@ import { useAppSelector } from '../../hooks/hook'
 import Checkbox from '@mui/material/Checkbox'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import Favorite from '@mui/icons-material/Favorite'
+// constants
+import { path } from '../../shared/constants/path'
 
 export const ViewProducts: React.FC = () => {
-  const viewProducts = useAppSelector(state => state.viewProducts)
+  const viewProducts = useAppSelector(state => state.descriptionCardSlice.viewProducts)
+  const loading = useAppSelector(state => state.descriptionCardSlice.loading)
   return (
     <>
       <div className={s.card_title}>Вы недавно смотрели</div>
@@ -24,8 +27,11 @@ export const ViewProducts: React.FC = () => {
         navigation={true}
         className={s.card_items}
       >
-        {viewProducts.length
-          ? viewProducts.map((item, index: number) => {
+        {loading
+          ? (
+                <div>Please Wait</div>
+            )
+          : viewProducts.map((item, index: number) => {
             return (
             <SwiperSlide className={s.todo} key={index}>
               <Checkbox
@@ -34,11 +40,15 @@ export const ViewProducts: React.FC = () => {
                 className={s.favorite}
               />
               <div className={s.todo_image}>
-                <img src={item.image} alt='' />
+              <img src={`${path}/${item.image}`} alt="" />
               </div>
               <div className={s.todo_title}>{item.name}</div>
               <div className={s.todo_price}>{item.price} ₽</div>
-              <div className={s.todo_size}>{item.size}</div>
+              <div className={s.todo__sizes}>
+         {item.sizes.map((item, index) => {
+           return <div className={s.todo__size} key={index}>{item.size}</div>
+         })}
+      </div>
               <div className={s.todo_colorcircle}>
                 <div className={s.white}></div>
                 <div className={s.black}></div>
@@ -46,7 +56,7 @@ export const ViewProducts: React.FC = () => {
             </SwiperSlide>
             )
           })
-          : <div>Ошибка! Нету товара!</div>}
+          }
       </Swiper>
     </>
   )
