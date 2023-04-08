@@ -16,7 +16,6 @@ module.exports.userscontroller = {
         }catch(error){
           return res.status(400).json("Такой пользователь уже существует!" + error.toString())
         }
-       
       },
 
       
