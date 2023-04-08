@@ -1,4 +1,4 @@
-const Favorite = require("../models/Favorite.models");
+const Favorite = require("../models/Favorite.model");
 
 
 module.exports.favoritescontroller = {

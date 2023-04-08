@@ -2,14 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 path = require('path');
-const cors = require('cors')
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = 5000;
 
 app.use(express.json());
 app.use('/static', express.static(path.join(__dirname + '/public')));
 app.use(require('./routes'));
+app.use(cookieParser());
 app.use(cors())
+
 
 // mongoose.set('strictQuery', false);
 

@@ -1,4 +1,4 @@
-const CategoryColor = require("../models/CategoryColor.models");
+const CategoryColor = require("../models/CategoryColor.model");
 
 module.exports.categoriesColorcontroller = {
   createCategoryColor: async function (req, res) {

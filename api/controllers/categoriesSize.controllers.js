@@ -1,4 +1,4 @@
-const CategorySize = require("../models/CategorySize.models");
+const CategorySize = require("../models/CategorySize.model");
 
 module.exports.categoriesSizecontroller = {
   createCategorySize: async function (req, res) {

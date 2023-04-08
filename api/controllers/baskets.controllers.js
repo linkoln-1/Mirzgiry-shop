@@ -1,4 +1,4 @@
-const Basket = require("../models/Basket.models");
+const Basket = require("../models/Basket.model");
 
 
 module.exports.basketscontroller = {
