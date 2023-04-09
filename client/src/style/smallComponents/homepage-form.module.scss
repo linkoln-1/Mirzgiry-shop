@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   margin: $margin-top-bottom-100;
-
+  
   & .form__container {
     width: 600px;
     height: 270px;
@@ -39,7 +39,7 @@
       text-align: center;
       color: rgba(37, 37, 37, 0.5);
       border: 0.5px solid $dark-grey;
-      margin: 50px 0 20px 0;
+      margin-top: 50px;
     }
     & .form__input_second input {
       box-sizing: border-box;
@@ -51,11 +51,8 @@
     & .form__button {
       margin-bottom: 20px;
     }
-    & .form__button__link {
-      text-decoration: none;
-      color: $color-white;
-    }
-    & .form__button button {
+   
+   & .form__button__link__second {
       cursor: pointer;
       font-weight: 300;
       font-size: 16px;
@@ -63,16 +60,42 @@
       text-align: center;
       text-transform: uppercase;
       color: $color-white;
-      background: $color-red;
+      background:$color-red;
       border: none;
-
-      &:hover {
-        transition: all 0.2s;
-        box-shadow: 0 7px 14px rgb(65 132 144 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+      margin-top: 20px;
       }
-      &:active {
-        background-color: #090501;
-      }
+    & .form__button__link {
+      cursor: pointer;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 19px;
+      text-align: center;
+      text-transform: uppercase;
+      color: $color-white;
+      background:$color-red;
+      border: none;
+    
+      // &:hover {
+      //   transition: all 0.2s;
+      //   box-shadow: 0 7px 14px rgb(65 132 144 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
+      // }
+      // &:active {
+      //   background-color: #090501;
+      // }
+    } 
+    
+    & .disabled {
+      border: none;
+      padding: 10px;
+      color: $color-white;
+      background-color: $color-grey-6;
+      width: 100%;
+      cursor: not-allowed  !important;
+    } 
+    & .form__button__link {
+      text-decoration: none;
+      color: $color-white;
+      background:  $color-red;
     }
     .form__privacy {
       font-weight: 200;
@@ -80,6 +103,14 @@
       line-height: 19px;
       text-align: center;
       color: $dark-grey;
+      margin-top: 20px;
     }
+    & .form__error{
+      height: 18px;
+    }
+    .erroremail{
+      color:red
+    }
+  
   }
 }

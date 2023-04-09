@@ -16,7 +16,7 @@ interface loginData {
 }
 
 export const createUser = createAsyncThunk(
-  'user/login',
+  'user/registration',
   async (loginData: loginData, { rejectWithValue }) => {
     // выполнение запроса и получение данных
     try {
@@ -30,14 +30,35 @@ export const createUser = createAsyncThunk(
         return rejectWithValue(data)
       }
       return data
+      
     } catch (e) {
       rejectWithValue(e)
     }
   }
 )
-
+export const auth = createAsyncThunk(
+  'user/registration',
+  async (loginData: loginData, { rejectWithValue }) => {
+    // выполнение запроса и получение данных
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loginData),
+      })
+      const data = await response.json()
+      if (response.status !== 200) {
+        return rejectWithValue(data)
+      }
+      return data
+      
+    } catch (e) {
+      rejectWithValue(e)
+    }
+  }
+)
 const initialState: initialStateProps = {
-  loading: false,
+  loading: true,
   user: {
     login: '',
     password: '',
@@ -58,11 +79,23 @@ const applicationSlice = createSlice({
       .addCase(createUser.fulfilled, (state, action) => {
         state.loading = false
         state.user = action.payload
+       
+      })
+      .addCase(auth.pending, (state) => {
+        state.loading = true
+        state.error = ''
+      })
+      .addCase(auth.fulfilled, (state, action) => {
+        state.loading = false
+        state.user = action.payload
+       
       })
       .addMatcher(isRejectedWithValue, (state, action) => {
-        state.loading = false
-        state.user = null
-        state.error = action.payload
+         state.loading = true
+         state.user = null
+        state.error = action.payload.message
+       
+       
       })
   }
 })

@@ -1,6 +1,6 @@
 // import library
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+
 // hooks
 
 // import style
@@ -12,13 +12,10 @@ export const RegistrationSecond: React.FC = () => {
         <div className={s.form__container}>
         <div className={s.form__title}>Регистрация - шаг 2</div>
         <div className={s.form__privacy}>
-        Мы отправили вам на почту код для подтверждения регистации. Введите его, пожалуйста
-        </div>
-        <div className={s.form__input}>
-          <input type='text' placeholder='Код с e-mail*' />
+        На адрес отправлено письмо с уникальной ссылкой для подтверждения аккаунта. Если вы не получили письмо, запросите новое письмо
         </div>
         <div className={s.form__button}>
-          <button><NavLink className={s.form__button__link} to="/registration/success"> ЗАРЕГИСТРИРОВАТЬСЯ </NavLink></button>
+         <button className={s.form__button__link__second}> Запросить новое письмо</button> 
         </div>
       </div>
     </div>
