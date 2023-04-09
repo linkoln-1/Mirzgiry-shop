@@ -1,14 +1,13 @@
 const Favorite = require("../models/Favorite.model");
-
+const { userService}  = require('../servise/user-service');
 
 module.exports.favoritescontroller = {
   createFavorite: async function (req, res) {
     const { favorites } = req.body;
+   
       try{
-        const favorite =  await Favorite.create({
-            user: req.user.id,
-            favorites
-          });
+        const favorite =  await userService.createFavorite(favorites);
+       
           return res.json(favorite);
       }catch(e){
           return res.status(401).json(e.toString())
