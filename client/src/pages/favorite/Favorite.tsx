@@ -8,7 +8,7 @@ import { CustomBreadcrumbs } from '../../components/breadcrumbs'
 import { useAppDispatch, useAppSelector } from '../../hooks/hook'
 
 // mock
-import { deleteFavorite } from '../../store/slice/slice'
+// import { deleteFavorite } from '../../store/slice/slice'
 
 // styles
 import s from '../../style/pages/componentStyle/view-product.module.scss'
@@ -17,19 +17,20 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import Favorite from '@mui/icons-material/Favorite'
 
 export const Favorites: React.FC = () => {
-  const Favorites = useAppSelector(state => state.products)
-  const dispatch = useAppDispatch()
-  const handleDelete = (id: number) => {
-    dispatch(
-      deleteFavorite({ id })
-    )
-  }
+  const Favorites = useAppSelector(state => state.cardSlice.favorites)
+  const loading = useAppSelector(state => state.cardSlice.loading)
+  // const dispatch = useAppDispatch()
+  // const handleDelete = (id: number) => {
+  //   dispatch(
+  //     deleteFavorite({ id })
+  //   )
+  // }
   return (
     <div className={s.card}>
       <CustomBreadcrumbs />
       <div className={s.card_title}>Избранное</div>
       <div className={s.card_items}>
-        {Favorites.length
+        {!loading
           ? Favorites.map((item, index: number) => (
             item.checkHeart
               ? (
@@ -38,8 +39,7 @@ export const Favorites: React.FC = () => {
                         icon={<FavoriteBorder />}
                         checkedIcon={<Favorite />}
                         className={s.favorite}
-                        checked={item.checkHeart}
-                        onClick={() => handleDelete(item.id)}
+                        // onClick={() => handleDelete(item.id)}
                       />
                       <div className={s.todo_image}>
                         <img src={item.image} alt="" />
@@ -61,7 +61,7 @@ export const Favorites: React.FC = () => {
                 )
               : null
           ))
-          : <div>nothing</div>
+          :  <div>Please Wait</div>
             }
       </div>
     </div>

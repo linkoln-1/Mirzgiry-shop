@@ -33,7 +33,7 @@ export const Like: React.FC = () => {
                 icon={<FavoriteBorder />}
                 checkedIcon={<Favorite />}
                 className={s.favorite}
-              />
+              />ч
               <div className={s.todo_image}>
               <img src={`${path}/${item.image}`} alt="" />
 

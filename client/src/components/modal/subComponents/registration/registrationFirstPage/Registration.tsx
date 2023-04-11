@@ -1,6 +1,6 @@
 // import library
 import React, { useState, useEffect } from 'react'
-import { createUser } from '../../../../../store/applicationSlice/applicationSlice'
+import { createUser } from '../../../../../store/applicationSlice/registrationSlice'
 import { NavLink } from 'react-router-dom'
 // import components
 // import { Forms } from '../../FormsInput'
@@ -13,9 +13,10 @@ import { useAppSelector, useAppDispatch } from '../../../../../hooks/hook'
 
 export const Registration: React.FC = () => {
   const dispatch = useAppDispatch()
-  const error = useAppSelector(state => state.applicationSlice.error)
+  const error = useAppSelector(state => state.registrationSlice.error)
  
   const [login, setLogin] = useState<string>('')
+ 
   const [password, setPassword] = useState<string>('')
   const [emailDirty, setEmailDirty] = useState(false); 
   const [passwordDirty, setPasswordlDirty] = useState(false); 
@@ -23,26 +24,19 @@ export const Registration: React.FC = () => {
   const [passwordError, setPasswordError] = useState(
     "Пароль не может быть пустым"
   );
-//  const isLoading = useAppSelector(state => state.applicationSlice.loading)
+ const registration = useAppSelector(state => state.registrationSlice.loading)
    const [formvalid, setFormValid] = useState(true);
- 
  
  
   
   useEffect(() => {
     if (emailError || passwordError) {
-      setFormValid(true);
-    } else {
       setFormValid(false);
+    } else {
+      setFormValid(true);
     }
   }, [emailError, passwordError]);
-  useEffect(() => {
-    if (error) {
-      setFormValid(true);
-    } else {
-      setFormValid(false);
-    }
-  }, [error]);
+ 
   function handleChangeLogin(e: { target: { value: React.SetStateAction<string>} } ) {
     setLogin(e.target.value)
     const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -51,6 +45,7 @@ export const Registration: React.FC = () => {
     } else {
       setEmailError("");
     }
+   
  
   }
   const handleChangePassword = (e: { target: { value: React.SetStateAction<string> } }) => {
@@ -75,6 +70,7 @@ export const Registration: React.FC = () => {
   const handleSubmit = () => { 
     void dispatch(createUser({ login, password }))
   
+  
   }
 
   return (
@@ -97,10 +93,8 @@ export const Registration: React.FC = () => {
                 onBlur={(e) => blurHandler(e)}
               />
             <div className={s.erroremail}>
-         {emailDirty && emailError && ( <div style={{ color: "red" }}>{emailError}</div> )}
-         { error === 'string' ? ( <div >{error}</div> ) : String(error) }
-           
-        
+            
+         {(emailDirty && emailError ? (<div>{emailError}</div>):( error === 'string') ?   `Пользователь с таким адресом ${(error)} уже существует` : String(error) )}
         </div>
             </div>
         
@@ -122,11 +116,11 @@ export const Registration: React.FC = () => {
           <div className={s.form__button}>
            
            
-            <NavLink   to={!error?"/registration": "/registration/second" }>   
+            <NavLink   to= '/registration/second'>   
             <button 
             type="submit"
-            disabled={formvalid} 
-            className={formvalid ? s.disabled  : s.form__button__link}
+            disabled={registration} 
+            className={registration ? s.disabled  : s.form__button__link}
             onClick={handleSubmit} > 
            Продолжить </button>
             </NavLink>

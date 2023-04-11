@@ -46,10 +46,10 @@
       text-align: center;
       color: rgba(37, 37, 37, 0.5);
       border: 0.5px solid $dark-grey;
-      margin: 20px 0;
+      margin-top: 20px;
     }
     & .form__button {
-      margin-bottom: 20px;
+      margin: 10px 0;
     }
    
    & .form__button__link__second {
@@ -74,6 +74,7 @@
       color: $color-white;
       background:$color-red;
       border: none;
+     
     
       // &:hover {
       //   transition: all 0.2s;
@@ -109,7 +110,14 @@
       height: 18px;
     }
     .erroremail{
-      color:red
+      color:red;
+      height: 20px
+
+    }
+    .errorpassword{
+      color:red;
+      height: 20px;
+      
     }
   
   }
