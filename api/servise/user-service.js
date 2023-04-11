@@ -1,4 +1,5 @@
 const User = require('../models/User.model');
+const Product = require("../models/Product.model");
 const Favorite = require('../models/Favorite.model');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
@@ -81,18 +82,8 @@ getUsers: async function () {
  
      
   },
-  createFavorite: async function (favorites) {
-   
-      const favorite =  await Favorite.create({
-          user: req.user.id,
-          favorites
-        });
-        return favorite;
-   
-    }
+ 
 
    
 }
-  
-
 

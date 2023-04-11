@@ -1,18 +1,23 @@
 const Favorite = require("../models/Favorite.model");
+const Product = require("../models/Product.model");
+const ApiError = require('../exceptions/api-error')
 const { userService}  = require('../servise/user-service');
 
 module.exports.favoritescontroller = {
   createFavorite: async function (req, res) {
-    const { favorites } = req.body;
-   
-      try{
-        const favorite =  await userService.createFavorite(favorites);
-       
-          return res.json(favorite);
-      }catch(e){
-          return res.status(401).json(e.toString())
-      }
-     
+    const {favorites} = req.body
+    try {
+     const favorite = await Favorite.create({
+    
+       userId: req.user.id,
+        favorites
+      
+      });  
+      console.log(req.user)
+      return res.json(favorite);
+    } catch (e) {
+      return res.status(401).json(e.toString())
+    }
      
    
    
@@ -62,7 +67,7 @@ module.exports.favoritescontroller = {
   // },
   getFavorites: async function (req, res) {
     try {
-      const favorites = await Favorite.find({user: req.user.id}).populate('favorites');
+      const favorites = await Favorite.find({},{favorites: 1, _id: 0,}).populate('favorites');
       res.json(favorites);
     } catch (e) {
         return res.status(401).json("Ошибка"+ e.toString())

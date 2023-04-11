@@ -126,7 +126,7 @@ getUsers: async function (req, res) {
   //         expiresIn: "24h",
   //       });
   //       res.json({
-  //         token: token,
+  //         token: token,feat__
   //       });  
   //       return res.json('вы авторизированы');
   //     },
