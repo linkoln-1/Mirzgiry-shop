@@ -71,7 +71,10 @@ export const Header: React.FC<IHeaderProps> = ({
                     </div>
             <div className={s.header_functional}>
                       <div className={s.icon}>
-                        {' '}
+                      <NavLink
+                          to='/search'
+                          onClick={() => setColorPlace(true)}
+                        >
                         <svg
                           className={colorPlace ? `${s.iconblack}` : `${s.icon}`}
                           width="25"
@@ -89,6 +92,7 @@ export const Header: React.FC<IHeaderProps> = ({
                             </clipPath>
                           </defs>
                         </svg>
+                        </NavLink>
                       </div>
                       <div>
                         <NavLink
