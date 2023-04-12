@@ -1,0 +1,31 @@
+@import '../../style/style.scss';
+.search {
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    & .search__content {
+        display: flex;
+        justify-content: center;
+    }
+    & .search__input {
+        align-items: center;
+        display: flex;
+        width: 300px;
+        height: 50px;
+        border: 1px solid $color-red;
+        border-radius: 20px;
+        margin-bottom: 50px;
+    }
+    & .search__input input {
+        border: none;
+        outline: none !important;
+        height: 80%;
+        width: 80%;
+        margin: 4px 0 0 8px;
+    }
+    & .search__input input:focus, textarea:focus, select:focus{
+        border: none;
+        outline: none !important;
+    }
+
+}
