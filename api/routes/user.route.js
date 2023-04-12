@@ -4,8 +4,12 @@ const {
 } = require("../controllers/users.controllers");
 const router = Router();
 const authmiddleware = require('../models/middlewares/auth-middleware');
+const {body} = require('express-validator')
+router.post("/users",
+body('login').isEmail(),
+body('password').isLength({min:3, max: 16}),
 
-router.post("/users", userscontroller.registration);
+userscontroller.registration);
 router.post("/login", userscontroller.login);
 router.post("/logout", userscontroller.logout);
 router.get("/activate/:link", userscontroller.activate);

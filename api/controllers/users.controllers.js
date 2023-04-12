@@ -3,13 +3,18 @@ const User = require("../models/User.model");
 // const jwt = require('jsonwebtoken');
 // const uuid = require('uuid');
 // const Token = require('../models/Token.model')
-
+const {validationResult} = require('express-validator')
 const { userService}  = require('../servise/user-service');
-
+const ApiError = require('../exceptions/api-error')
 module.exports.userscontroller = {
 
 registration: async function(req, res, next){
   try{
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      return next(ApiError.BadRequest('ошибка при валидации', errors.array()))
+
+    }
     const {login, password} = req.body;
     const userData = await userService.registration(login, password);
     res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})

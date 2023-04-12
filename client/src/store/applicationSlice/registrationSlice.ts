@@ -30,7 +30,9 @@ export const createUser = createAsyncThunk(
       })
       const data = await response.json()
       if (response.status !== 200) {
-        return rejectWithValue(data)
+         console.log(data) 
+         return rejectWithValue(data)
+      
       }
       return data
   
