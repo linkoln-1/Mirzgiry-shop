@@ -1,6 +1,6 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type CardType } from '../../shared/interfaces/CardProps';
-import { RootState } from '../store';
+import { type CardType } from '../../shared/interfaces/CardProps'
+import { type RootState } from '../store'
 
 
 export interface initialStateProps {
@@ -10,25 +10,23 @@ export interface initialStateProps {
 
 }
 interface loginData {
-  
-   item: CardType
-   
-  }
 
+  item: CardType
 
+}
 
 export const createFavorite = createAsyncThunk<CardType, loginData, { rejectValue: string }>(
   'favorites',
   async function (loginData: loginData, { getState, rejectWithValue }) {
-   const state = getState()as unknown as RootState;
+    const state = getState() a as RootState
 
-    const response = await fetch(`/favorite`, {
-      method: "POST",
+    const response = await fetch('/favorite', {
+      method: 'POST',
       body: JSON.stringify(loginData),
 
       headers: {
         Authorization: `Bearer ${state.authorizationSlice.token}`,
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
     })
     if (!response.ok) {
@@ -42,7 +40,7 @@ const initialState: initialStateProps = {
   loading: true,
   favorites: [],
   error: null,
-  
+
 }
 const cardSlice = createSlice({
   name: 'favorites',
@@ -52,15 +50,12 @@ const cardSlice = createSlice({
     builder
       .addCase(createFavorite.pending, (state) => {
         state.loading = true
-      
-        
       })
       .addCase(createFavorite.fulfilled, (state, action) => {
         state.favorites.push(action.payload)
         state.loading = false
       })
       .addMatcher(isError, (state) => {
-       
         state.loading = false
       })
   }

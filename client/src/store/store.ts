@@ -9,7 +9,6 @@ import authorizationSlice from './applicationSlice/authorizationSlice'
 
 import { configureStore } from '@reduxjs/toolkit'
 
-
 export const store = configureStore({
   reducer: {
     cardSlice,
@@ -20,7 +19,7 @@ export const store = configureStore({
     descriptionCardSlice,
     registrationSlice,
     authorizationSlice,
-    
+
   }
 })
 

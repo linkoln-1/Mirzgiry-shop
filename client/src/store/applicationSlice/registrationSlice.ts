@@ -7,10 +7,8 @@ export interface initialStateProps {
     password: string
     _id: string
   } | null
-  error: string | null 
+  error: string | null | unknown
 
-
- 
 }
 
 interface loginData {
@@ -33,7 +31,6 @@ export const createUser = createAsyncThunk(
         return rejectWithValue(data)
       }
       return data
-  
     } catch (e) {
       rejectWithValue(e)
     }
@@ -49,8 +46,6 @@ const initialState: initialStateProps = {
   },
   error: '',
 
- 
-  
 }
 const applicationSlice = createSlice({
   name: 'reg',
@@ -60,21 +55,14 @@ const applicationSlice = createSlice({
     builder
       .addCase(createUser.pending, (state) => {
         state.loading = true
-        state.error = ""
-       
+        state.error = ''
       })
-      .addCase(createUser.fulfilled, (state, action) => {
+      .addCase(createUser.fulfilled, (state) => {
         state.loading = false
-   
       })
       .addMatcher(isRejectedWithValue, (state, action) => {
-       
         state.loading = true
         state.error = action.payload.message
-
-     
-    
-       
       })
   }
 })

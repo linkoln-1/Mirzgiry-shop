@@ -28,13 +28,11 @@ export const auth = createAsyncThunk(
       })
       const data = await response.json()
       if (response.status !== 200) {
-       
-        return rejectWithValue(data) 
-      } 
-      console.log(data.accesToken )
-      localStorage.setItem("token",data.accesToken)
+        return rejectWithValue(data)
+      }
+      console.log(data.accesToken)
+      localStorage.setItem('token', data.accesToken)
       return data
-      
     } catch (e) {
       rejectWithValue(e)
     }
@@ -49,7 +47,7 @@ const initialState: initialStateProps = {
     _id: ''
   },
   error: '',
-  token: localStorage.getItem("token")
+  token: localStorage.getItem('token')
 
 }
 const applicationSlice = createSlice({
@@ -64,12 +62,11 @@ const applicationSlice = createSlice({
       })
       .addCase(auth.fulfilled, (state, action) => {
         state.loading = false
-       state.token= action.payload.token
+        state.token = action.payload.token
       })
       .addMatcher(isRejectedWithValue, (state, action) => {
-       
         state.loading = false
-      
+
         state.error = action.payload.message
       })
   }

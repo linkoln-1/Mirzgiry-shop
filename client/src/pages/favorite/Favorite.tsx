@@ -61,7 +61,7 @@ export const Favorites: React.FC = () => {
                 )
               : null
           ))
-          :  <div>Please Wait</div>
+          : <div>Please Wait</div>
             }
       </div>
     </div>

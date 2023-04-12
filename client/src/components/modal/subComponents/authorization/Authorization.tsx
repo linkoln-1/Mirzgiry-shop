@@ -1,26 +1,27 @@
 // import library
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../../hooks/hook'
 // import components
 import { auth } from '../../../../store/applicationSlice/authorizationSlice'
-
 // import style
 import s from '../../../../style/smallComponents/homepage-form.module.scss'
 
 export const Authorization: React.FC = () => {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
   // const [formvalid, setFormValid] = useState(true);
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
-  const avtorization = useAppSelector((state) => state.authorizationSlice.loading);
-  const error = useAppSelector((state) => state.authorizationSlice.error);
+  const avtorization = useAppSelector((state) => state.authorizationSlice.loading)
+  const error = useAppSelector((state) => state.authorizationSlice.error)
 
-  const handleChangeLogin = (e: React.ChangeEvent<HTMLInputElement>) => setLogin(e.target.value);
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const handleChangeLogin = (e: React.ChangeEvent<HTMLInputElement>) => setLogin(e.target.value)
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
 
-  const handleSubmit = () => dispatch(auth({login, password}));
+  const handleSubmit = () => {
+    void dispatch(auth({ login, password }))
+  }
   return (
     <div className={s.form}>
         <div className={s.form__container}>
@@ -36,7 +37,7 @@ export const Authorization: React.FC = () => {
               />
             </div>
              <div className={s.form__error}>
-             
+
               </div>
             <div className={s.form__input_second}>
               <input
@@ -48,9 +49,9 @@ export const Authorization: React.FC = () => {
             </div>
           </div>
           <div className={s.erroremail}>  { error === 'string' ? error : String(error) }</div>
-         
-          <div className={s.form__container__link}> 
-           
+
+          <div className={s.form__container__link}>
+
           <NavLink className={s.form__link} to="/recovery">
           Забыли пароль?
           </NavLink>
@@ -62,7 +63,7 @@ export const Authorization: React.FC = () => {
           <button
           className={ s.form__button__link}
           disabled={avtorization}
-          onClick={handleSubmit} 
+          onClick={handleSubmit}
           type="submit"
           >Войти</button>
           </div>

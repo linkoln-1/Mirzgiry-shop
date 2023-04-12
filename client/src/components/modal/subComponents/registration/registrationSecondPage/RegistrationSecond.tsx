@@ -15,7 +15,7 @@ export const RegistrationSecond: React.FC = () => {
         На адрес отправлено письмо с уникальной ссылкой для подтверждения аккаунта. Если вы не получили письмо, запросите новое письмо
         </div>
         <div className={s.form__button}>
-         <button className={s.form__button__link__second}> Запросить новое письмо</button> 
+         <button className={s.form__button__link__second}> Запросить новое письмо</button>
         </div>
       </div>
     </div>
