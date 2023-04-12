@@ -28,6 +28,7 @@ export const createUser = createAsyncThunk(
       })
       const data = await response.json()
       if (response.status !== 200) {
+        console.log(data)
         return rejectWithValue(data)
       }
       return data
@@ -63,6 +64,8 @@ const applicationSlice = createSlice({
       .addMatcher(isRejectedWithValue, (state, action) => {
         state.loading = true
         state.error = action.payload.message
+
+        console.log(action.payload)
       })
   }
 })

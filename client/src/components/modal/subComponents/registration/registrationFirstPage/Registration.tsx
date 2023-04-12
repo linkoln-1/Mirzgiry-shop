@@ -108,11 +108,11 @@ export const Registration: React.FC = () => {
           </div>
           <div className={s.form__button}>
 
-            <NavLink to={error === '' ? '/registration' : '/registration/second'}>
+            <NavLink to={error ? '' : '/registration/second'}>
             <button
             type="submit"
-            disabled={!formvalid}
-            className={!formvalid ? s.disabled : s.form__button__link}
+            // disabled={!formvalid}
+            // className={!formvalid ? s.disabled : s.form__button__link}
             onClick={handleSubmit}>
            Продолжить </button>
             </NavLink>
