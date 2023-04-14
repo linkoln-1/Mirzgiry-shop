@@ -1,72 +1,78 @@
-import { createAsyncThunk, createSlice, isRejectedWithValue } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { type ReactNode } from 'react'
+import axios from 'axios'
+import { API_URL } from '../../shared/constants/path'
+
+export interface User {
+  login: string
+  password: string
+  _id: string
+}
 
 export interface initialStateProps {
   loading: boolean
-  user: {
-    login: string
-    password: string
-    _id: string
-  } | null
-  error: string | null | unknown
-
+  user: User | null
+  error: string | null | object | unknown
+  success: boolean
 }
 
-interface loginData {
+export interface ErrorResponse {
+  error: string | null | object | unknown | ReactNode
+}
+export interface LoginData {
   login: string
   password: string
 }
-
-export const createUser = createAsyncThunk(
-  'user/registration',
-  async (loginData: loginData, { rejectWithValue }) => {
-    // выполнение запроса и получение данных
+export const registerUser = createAsyncThunk<User, LoginData, { rejectValue: ErrorResponse }>(
+  'registration/registerUser',
+  async (loginData: LoginData, { rejectWithValue }) => {
     try {
-      const response = await fetch('/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loginData),
-      })
-      const data = await response.json()
-      if (response.status !== 200) {
-        console.log(data)
-        return rejectWithValue(data)
+      const response = await axios.post(`${API_URL}/users`, loginData)
+      return response.data
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue({ error: error.response.data.message })
+      } else {
+        return rejectWithValue({ error: 'Network Error' })
       }
-      return data
-    } catch (e) {
-      rejectWithValue(e)
     }
   }
 )
 
 const initialState: initialStateProps = {
   loading: false,
-  user: {
-    login: '',
-    password: '',
-    _id: ''
-  },
-  error: '',
-
+  user: null,
+  error: null,
+  success: false
 }
+
 const applicationSlice = createSlice({
-  name: 'reg',
+  name: 'registration',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(createUser.pending, (state) => {
+      .addCase(registerUser.pending, (state) => {
         state.loading = true
-        state.error = ''
+        state.error = null
+        state.success = false
       })
-      .addCase(createUser.fulfilled, (state) => {
+      .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false
+        state.error = null
+        state.user = action.payload
+        state.success = true
       })
-      .addMatcher(isRejectedWithValue, (state, action) => {
-        state.loading = true
-        state.error = action.payload.message
-
-        console.log(action.payload)
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false
+        if (action.payload) {
+          state.error = action.payload.error
+        } else {
+          state.error = action.error.message
+        }
+        state.success = false
       })
   }
 })
+
 export default applicationSlice.reducer

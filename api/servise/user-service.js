@@ -11,7 +11,6 @@ module.exports.userService = {
    registration: async function (login, password) {
 const candidate = await User.findOne({login});
 if(candidate){
-    
     throw ApiError.BadRequest(`Пользователь с почтовым адресом ${login} уже существует`)
 }
 const hash = await bcrypt.hash(password, 3)
@@ -76,14 +75,14 @@ return {...tokens, user: userDto}
 
 },
 getUsers: async function () {
- 
+
       const users = await User.find();
        return users;
- 
-     
-  },
- 
 
-   
+
+  },
+
+
+
 }
 
