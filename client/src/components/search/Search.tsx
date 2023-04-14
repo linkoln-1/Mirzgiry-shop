@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { fetchCards } from '../../store/cardSlice/cardSlice'
 import { Card } from '../cards'
 
-// hooks
+// import hooks
 import { useAppSelector, useAppDispatch } from '../../hooks/hook'
 
 // import style
@@ -19,6 +19,7 @@ export const Search: React.FC = () => {
   useEffect(() => {
     void dispatch(fetchCards())
   }, [])
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
   }
