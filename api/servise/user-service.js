@@ -59,13 +59,13 @@ module.exports.userService = {
   },
   refresh: async function (refreshToken) {
     if (!refreshToken) {
-      throw ApiError.UnauthorizedError();
+      throw ApiError.UnautharizedError();
     }
     const userData = tokenService.validateRefreshToken(refreshToken);
 
     const tokenFromOb = await tokenService.findToken(refreshToken);
     if (!userData || !tokenFromOb) {
-      throw ApiError.UnauthorizedError();
+      throw ApiError.UnautharizedError();
     }
     const user = await User.findById(userData.id);
     const userDto = new UserDto(user);

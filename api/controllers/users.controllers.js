@@ -75,7 +75,7 @@ module.exports.userscontroller = {
     }
   },
 
-  getUsers: async function (req, res) {
+  getUsers: async function (req, res, next) {
     try {
       const users = await userService.getUsers();
       return res.json(users);

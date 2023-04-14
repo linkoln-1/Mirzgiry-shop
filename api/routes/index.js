@@ -11,6 +11,4 @@ router.use(require("./user.route"));
 router.use(require("./favorite.route"));
 router.use(require("./basket.route"));
 
-
-
 module.exports = router;
