@@ -1,4 +1,4 @@
-const CategoryPrice= require("../models/CategoryPrice.models");
+const CategoryPrice= require("../models/CategoryPrice.model");
 
 module.exports.categoriesPricecontroller = {
   createCategoryPrice: async function (req, res) {

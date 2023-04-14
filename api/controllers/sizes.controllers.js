@@ -1,4 +1,4 @@
-const Size = require("../models/Size.models");
+const Size = require("../models/Size.model");
 
 module.exports.sizecontroller = {
   createSize: async function (req, res) {

@@ -1,4 +1,4 @@
-const Basket = require("../models/Basket.models");
+const Basket = require("../models/Basket.model");
 
 
 module.exports.basketscontroller = {
@@ -8,7 +8,7 @@ module.exports.basketscontroller = {
      const basket = await Basket.create({
         user: req.user.id,
         shop
-      
+
       });
       return res.json(basket);
     } catch (e) {
@@ -20,22 +20,22 @@ module.exports.basketscontroller = {
     try{
       const basket =  await  Basket.findById(id);
       if(basket.user.toString() === req.user.id){
-        await  Basket.findByIdAndRemove(id); 
+        await  Basket.findByIdAndRemove(id);
         return res.json('удалено');
       }
       return res.status(401).json("Ошибка. Нет доступа")
-     
+
     }catch(e){
         return res.status(401).json("Ошибка"+ e.toString())
     }
-   
+
   },
   // changeCartById: async function (req, res) {
   //   try {
   //     const basket = await Basket.findByIdAndUpdate(req.params.id, {
   //      user: req.body.user,
   //      shop: req.body.shop,
-      
+
   //     });
   //     res.json("Корзина изменена");
   //   } catch (error) {
@@ -50,5 +50,5 @@ module.exports.basketscontroller = {
       return res.status(401).json("Ошибка"+ e.toString())
     }
   },
-  
+
 };

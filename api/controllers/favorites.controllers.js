@@ -1,4 +1,4 @@
-const Favorite = require("../models/Favorite.models");
+const Favorite = require("../models/Favorite.model");
 
 
 module.exports.favoritescontroller = {
@@ -13,27 +13,27 @@ module.exports.favoritescontroller = {
       }catch(e){
           return res.status(401).json(e.toString())
       }
-     
-     
-   
-   
+
+
+
+
   },
   deleteFavoriteById: async function (req, res) {
     const { id } = req.params;
       try{
         const favorite =  await  Favorite.findById(id);
         if(favorite.user.toString() === req.user.id){
-          await  Favorite.findByIdAndRemove(id); 
+          await  Favorite.findByIdAndRemove(id);
           return res.json('удалено');
         }
         return res.status(401).json("Ошибка. Нет доступа")
-       
+
       }catch(e){
           return res.status(401).json("Ошибка"+ e.toString())
       }
-     
-     
-   
+
+
+
   },
   addProductToFavorite: async function(req, res) {
     const { id } = req.params;
@@ -42,11 +42,11 @@ module.exports.favoritescontroller = {
       if(favorite.user.toString() === req.user.id){
          const favorites = await Favorite.findByIdAndUpdate(id,{
         $push: { favorites: req.body.favorites },
-   
-      });   
+
+      });
         res.json(favorites);
       }
-     
+
     } catch (error) {
       console.log(error.toString());
     }
@@ -69,5 +69,5 @@ module.exports.favoritescontroller = {
         return res.status(401).json("Ошибка"+ e.toString())
     }
   },
-  
+
 };
