@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {sizecontroller} = require("../controllers/sizes.controllers");
+const { sizecontroller } = require("../controllers/sizes.controllers");
 const router = Router();
 
 router.post("/size", sizecontroller.createSize);

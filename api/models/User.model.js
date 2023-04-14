@@ -4,22 +4,19 @@ const userSchema = mongoose.Schema({
   login: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
-  isActivated:{
+  isActivated: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  activationLink:{
-    type: String
+  activationLink: {
+    type: String,
   },
-  
-  
-  
 });
 
 const User = mongoose.model("User", userSchema);

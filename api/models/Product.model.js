@@ -22,7 +22,7 @@ const productSchema = mongoose.Schema({
   sizes: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Size",
-}]
+  }]
 
 });
 

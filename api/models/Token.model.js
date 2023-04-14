@@ -7,9 +7,8 @@ const userSchema = mongoose.Schema({
   },
   refreshToken: {
     type: String,
-    required: true
+    required: true,
   },
- 
 });
 
 const Token = mongoose.model("Token", userSchema);

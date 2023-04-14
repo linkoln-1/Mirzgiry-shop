@@ -16,9 +16,11 @@ import s from '../../style/pages/catalog-page.module.scss'
 import { fetchCategoriesSize } from '../../store/categoriesSizeSlice/categoriesSizeSlice'
 import { fetchCategoriesColor } from '../../store/categoriesColorSlice/categoriesColorSlice'
 import { fetchCategoriesPrice } from '../../store/categoriesPriceSlice/categoriesPriceSlice'
+import { log } from 'console'
 
 export const Catalog: React.FC = () => {
   const product = useAppSelector(state => state.cardSlice.cards)
+  console.log(product)
   const loading = useAppSelector(state => state.cardSlice.loading)
   const categoriesProduct = useAppSelector(state => state.categoriesProductSlice.categories)
   const categoriesLoading = useAppSelector(state => state.categoriesProductSlice.loading)

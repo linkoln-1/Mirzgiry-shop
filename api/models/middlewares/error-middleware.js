@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const ApiError = require('../../exceptions/api-error')
 module.exports = function (err, req, res, next){
    
@@ -7,3 +8,14 @@ module.exports = function (err, req, res, next){
     return res.status(500).json({message: "Непредвиденная ошибка"})
 
 }
+=======
+const ApiError = require("../../exceptions/api-error");
+module.exports = function (err, req, res, next) {
+  if (err instanceof ApiError) {
+    return res
+      .status(err.status)
+      .json({ message: err.message, errors: err.errors });
+  }
+  return res.status(500).json({ message: "Непредвиденная ошибка" });
+};
+>>>>>>> mern_mirzgiry
