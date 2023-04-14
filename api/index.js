@@ -2,14 +2,22 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 path = require('path');
-const cors = require('cors')
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const app = express();
+const errormiddleware = require('./models/middlewares/error-middleware')
+
 const port = 5000;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname + '/public')));
 app.use(require('./routes'));
+
 app.use(cors())
+
+app.use(errormiddleware);
+
 
 // mongoose.set('strictQuery', false);
 

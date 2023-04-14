@@ -92,7 +92,6 @@ module.exports.userscontroller = {
   //       const user = await User.create({
   //           login: login,
   //           password: hash,
-
   //       });
   //       res.json(user);
   //       }catch(error){

@@ -1,16 +1,34 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { type CardType } from '../../shared/interfaces/CardProps'
+import { type RootState } from '../store'
+
 
 export interface initialStateProps {
   loading: boolean
   favorites: CardType[]
   error: string | null
+
+}
+interface loginData {
+
+  item: CardType
+
 }
 
-export const fetchCards = createAsyncThunk<CardType[], undefined, { rejectValue: string }>(
-  'cardsReducer/fetch-cards/pending',
-  async function (_, { rejectWithValue }) {
-    const response = await fetch(`/favorites${id}`)
+export const createFavorite = createAsyncThunk<CardType, loginData, { rejectValue: string }>(
+  'favorites',
+  async function (loginData: loginData, { getState, rejectWithValue }) {
+    const state = getState() a as RootState
+
+    const response = await fetch('/favorite', {
+      method: 'POST',
+      body: JSON.stringify(loginData),
+
+      headers: {
+        Authorization: `Bearer ${state.authorizationSlice.token}`,
+        'Content-type': 'application/json',
+      },
+    })
     if (!response.ok) {
       return rejectWithValue('server is not okey')
     }
@@ -22,23 +40,22 @@ const initialState: initialStateProps = {
   loading: true,
   favorites: [],
   error: null,
+
 }
 const cardSlice = createSlice({
-  name: 'cards',
+  name: 'favorites',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCards.pending, (state) => {
+      .addCase(createFavorite.pending, (state) => {
         state.loading = true
-        state.error = null
       })
-      .addCase(fetchCards.fulfilled, (state, action) => {
+      .addCase(createFavorite.fulfilled, (state, action) => {
         state.favorites.push(action.payload)
         state.loading = false
       })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.error = action.payload
+      .addMatcher(isError, (state) => {
         state.loading = false
       })
   }

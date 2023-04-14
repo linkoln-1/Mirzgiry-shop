@@ -1,6 +1,5 @@
 // import library
 import React from 'react'
-
 // import style
 import s from '../../../../../style/smallComponents/homepage-form.module.scss'
 
