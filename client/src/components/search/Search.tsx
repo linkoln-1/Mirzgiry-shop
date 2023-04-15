@@ -1,5 +1,5 @@
 // import library
-import React, { useEffect, useState } from 'react'
+import React, { type FC, useEffect, useState } from 'react'
 import { fetchCards } from '../../store/cardSlice/cardSlice'
 import { Card } from '../cards'
 
@@ -10,8 +10,8 @@ import { useAppSelector, useAppDispatch } from '../../hooks/hook'
 import m from '../../style/smallComponents/search.module.scss'
 import s from '../../style/pages/componentStyle/view-product.module.scss'
 
-export const Search: React.FC = () => {
-  const [search, setSearch] = React.useState<string>('')
+export const Search: FC = () => {
+  const [search, setSearch] = useState<string>('')
   const Searches = useAppSelector(state => state.cardSlice.cards)
   console.log(Searches)
 
@@ -59,7 +59,7 @@ export const Search: React.FC = () => {
                         // @ts-ignore
                         todo={todo}
                         index={index}
-                        checkHeart={todo.checkHeart}
+                        // checkHeart={todo.checkHeart}
                       />
           )
         })
