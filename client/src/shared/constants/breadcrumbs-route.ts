@@ -1,4 +1,4 @@
-export const RouteConstant = [
+export const BreadcrumbsRoute = [
   { id: 1, label: 'Главная', link: '' },
   { id: 2, label: 'Каталог', link: 'catalog' },
   { id: 3, label: 'Карточка товара', link: 'card' },

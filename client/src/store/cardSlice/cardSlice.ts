@@ -59,7 +59,6 @@ const cardSlice = createSlice({
         state.error = null
       })
       .addCase(fetchCards.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.cards = action.payload
         if (state.likedProducts.length <= 4) {
           state.likedProducts.splice(0, 4)

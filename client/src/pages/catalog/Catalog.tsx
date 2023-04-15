@@ -16,14 +16,16 @@ import s from '../../style/pages/catalog-page.module.scss'
 import { fetchCategoriesSize } from '../../store/categoriesSizeSlice/categoriesSizeSlice'
 import { fetchCategoriesColor } from '../../store/categoriesColorSlice/categoriesColorSlice'
 import { fetchCategoriesPrice } from '../../store/categoriesPriceSlice/categoriesPriceSlice'
-import { log } from 'console'
 
 export const Catalog: React.FC = () => {
   const product = useAppSelector(state => state.cardSlice.cards)
-  console.log(product)
   const loading = useAppSelector(state => state.cardSlice.loading)
-  const categoriesProduct = useAppSelector(state => state.categoriesProductSlice.categories)
-  const categoriesLoading = useAppSelector(state => state.categoriesProductSlice.loading)
+  const categoriesProduct = useAppSelector(
+    state => state.categoriesProductSlice.categories,
+  )
+  const categoriesLoading = useAppSelector(
+    state => state.categoriesProductSlice.loading,
+  )
 
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -34,9 +36,15 @@ export const Catalog: React.FC = () => {
     void dispatch(fetchCategoriesPrice())
   }, [])
 
-  const [categoryId, setCategoryId] = useState<string>('' || '640c7efcbf6b8a1dcb99c581')
-  const [priceId, setPriceId] = useState<string>('' || '640cbaa8c382761cf8062be6')
-  const [colorId, setColorId] = useState<string>('' || '640cb5e8db43a502f9a65b1e')
+  const [categoryId, setCategoryId] = useState<string>(
+    '' || '640c7efcbf6b8a1dcb99c581',
+  )
+  const [priceId, setPriceId] = useState<string>(
+    '' || '640cbaa8c382761cf8062be6',
+  )
+  const [colorId, setColorId] = useState<string>(
+    '' || '640cb5e8db43a502f9a65b1e',
+  )
   const [sizeName, setSizeName] = useState<string>('' || 'Сбросить')
 
   const onClickCategory = (id: string) => {
@@ -55,54 +63,68 @@ export const Catalog: React.FC = () => {
             <div className={s.sidebar_title}>Каталог</div>
 
             <div className={s.card_title}>
-               <GroupedSelect
-                 onClickSize={(name: string) => setSizeName(name)}
-                 onClickColor={(_id: string) => setColorId(_id)}
-                 onClickPrice={(_id: string) => setPriceId(_id)}
-               />
+              <GroupedSelect
+                onClickSize={(name: string) => setSizeName(name)}
+                onClickColor={(_id: string) => setColorId(_id)}
+                onClickPrice={(_id: string) => setPriceId(_id)}
+              />
             </div>
           </div>
           <div className={s.wrapper_sidebar_cards}>
             <div className={s.wrapper_text}>
               <p className={s.sidebar_text}>New</p>
               <p className={s.sidebar_text}>Bestsellers</p>
-               {categoriesLoading
-                 ? <div>Please Wait</div>
-                 : (
-                     categoriesProduct.map((item, index) => {
-                       return (
-                         <p
-                             key={index}
-                             onClick={() => onClickCategory(item._id)}
-                             className={s.sidebar_text}
-                         >
-                           {item.name}
-                         </p>
-                       )
-                     })
-                   )}
+              {categoriesLoading
+                ? (
+                <div>Please Wait</div>
+                  )
+                : (
+                    categoriesProduct.map((item, index) => {
+                      return (
+                    <p
+                      key={index}
+                      onClick={() => onClickCategory(item._id)}
+                      className={s.sidebar_text}
+                    >
+                      {item.name}
+                    </p>
+                      )
+                    })
+                  )}
             </div>
             <div className={s.card_items}>
               {loading ? (
                 <div>Please Wait</div>
               ) : (
-                product && product.filter(todo => {
-                  return (
-                    (categoryId === '640c7efcbf6b8a1dcb99c581' ? todo : todo.categoryId === categoryId) &&
-                    (sizeName === 'Сбросить' ? todo : todo.sizes.find(item => item.size === sizeName)?.inStock) &&
-                  (priceId !== '640cbaa8c382761cf8062be6' ? todo.priceId === priceId : todo) &&
-                  (colorId !== '640cb5e8db43a502f9a65b1e' ? todo.colorId === colorId : todo)
-                  )
-                }).map((todo, index) => {
-                  return (
-                    <Card
-                      key={index}
-                      todo={todo}
-                      index={index}
-                      // checkHeart={todo.checkHeart}
-                    />
-                  )
-                })
+                product &&
+                product
+                  .filter(todo => {
+                    return (
+                      (categoryId === '640c7efcbf6b8a1dcb99c581'
+                        ? todo
+                        : todo.categoryId === categoryId) &&
+                      (sizeName === 'Сбросить'
+                        ? todo
+                        : todo.sizes.find(item => item.size === sizeName)
+                          ?.inStock) &&
+                      (priceId !== '640cbaa8c382761cf8062be6'
+                        ? todo.priceId === priceId
+                        : todo) &&
+                      (colorId !== '640cb5e8db43a502f9a65b1e'
+                        ? todo.colorId === colorId
+                        : todo)
+                    )
+                  })
+                  .map((todo, index) => {
+                    return (
+                      <Card
+                        key={index}
+                        todo={todo}
+                        index={index}
+                        // checkHeart={todo.checkHeart}
+                      />
+                    )
+                  })
               )}
             </div>
           </div>
