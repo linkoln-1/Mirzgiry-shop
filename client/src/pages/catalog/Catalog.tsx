@@ -7,7 +7,9 @@ import { GroupedSelect } from '../../components/groupSelect'
 import { CustomBreadcrumbs } from '../../components/breadcrumbs'
 
 // hooks
-import { useAppDispatch, useAppSelector } from '../../hooks/hook'
+import { useAppDispatch } from '../../hooks/hook'
+import { useCategories } from '../../shared/helpers/customCategories'
+import { useCards } from '../../shared/helpers/customUseCard'
 import { fetchCards } from '../../store/cardSlice/cardSlice'
 import { fetchCategories } from '../../store/categoriesProductSlice/categoriesSlice'
 
@@ -18,14 +20,8 @@ import { fetchCategoriesColor } from '../../store/categoriesColorSlice/categorie
 import { fetchCategoriesPrice } from '../../store/categoriesPriceSlice/categoriesPriceSlice'
 
 export const Catalog: React.FC = () => {
-  const product = useAppSelector(state => state.cardSlice.cards)
-  const loading = useAppSelector(state => state.cardSlice.loading)
-  const categoriesProduct = useAppSelector(
-    state => state.categoriesProductSlice.categories,
-  )
-  const categoriesLoading = useAppSelector(
-    state => state.categoriesProductSlice.loading,
-  )
+  const { categoriesProduct, categoriesLoading } = useCategories()
+  const { card, loading: cardsLoading } = useCards()
 
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -76,28 +72,28 @@ export const Catalog: React.FC = () => {
               <p className={s.sidebar_text}>Bestsellers</p>
               {categoriesLoading
                 ? (
-                <div>Please Wait</div>
+                  <div>Please Wait</div>
                   )
                 : (
-                    categoriesProduct.map((item, index) => {
-                      return (
+                    categoriesProduct.map((item, index) => (
+
                     <p
                       key={index}
                       onClick={() => onClickCategory(item._id)}
                       className={s.sidebar_text}
                     >
-                      {item.name}
-                    </p>
-                      )
-                    })
+                        {item.name}
+                        </p>
+
+                    ))
                   )}
             </div>
             <div className={s.card_items}>
-              {loading ? (
+              {cardsLoading ? (
                 <div>Please Wait</div>
               ) : (
-                product &&
-                product
+                card &&
+                card
                   .filter(todo => {
                     return (
                       (categoryId === '640c7efcbf6b8a1dcb99c581'

@@ -1,5 +1,5 @@
 // library
-import React, { type FC, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import Checkbox from '@mui/material/Checkbox'
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
@@ -15,26 +15,30 @@ import { path } from '../../shared/constants/path'
 
 // styles
 import s from '../../style/pages/componentStyle/catalog-card.module.scss'
-import { type CardType } from '../../shared/interfaces/CardProps'
+
+export interface ITodo {
+  _id: string
+  categoryId: string
+  priceId: string
+  colorId: string
+  sizes: Array<{ size: string, inStock: boolean }>
+  image: string
+  name: string
+  price: number
+}
 
 export interface ICardProps {
-  todo: CardType
+  todo: ITodo
   index: number
 }
 
-export const Card: FC<ICardProps> = ({ todo, index }) => {
+const CardComponent: React.FC<ICardProps> = ({ todo, index }) => {
   const dispatch = useAppDispatch()
 
   const handleClick = useCallback((id: string) => {
     void dispatch(fetchDescriptionCard(id))
     void dispatch(fetchCards())
   }, [dispatch])
-
-  // const makeFavorite = useCallback((id: number) => {
-  //   dispatch(
-  //     // @ts-ignore
-  //     Favorites({ id }))
-  // }, [dispatch])
 
   const { _id, image, name, price, sizes } = todo
 
@@ -43,9 +47,7 @@ export const Card: FC<ICardProps> = ({ todo, index }) => {
       <Checkbox
         icon={<FavoriteBorder />}
         checkedIcon={<Favorite />}
-        // onClick={() => makeFavorite(_id)}
         className={s.favorite}
-        // checked={todo.checkHeart}
       />
       <div className={s.card__image}>
         <Link onClick={() => handleClick(_id)} to="/catalog/card">
@@ -66,3 +68,5 @@ export const Card: FC<ICardProps> = ({ todo, index }) => {
     </div>
   )
 }
+
+export const Card = React.memo(CardComponent)

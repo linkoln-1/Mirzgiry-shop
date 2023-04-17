@@ -1,9 +1,24 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type CardType } from '../../shared/interfaces/CardProps'
+
+interface CardType {
+  id: string
+  categoryId: string
+  priceId: string
+  colorId: string
+  categoryIdName: string
+  name: string
+  price: number
+  colors: string
+  sizes: Array<{ size: string }>
+  _id: string
+}
 
 export interface initialStateProps {
-  loading: boolean
-  categories: CardType['categoriesForSidebar']
+  categoriesLoading: boolean
+  categoriesProduct: Array<{
+    _id: string
+    name: string
+  }>
   error: string | null
 }
 
@@ -19,8 +34,8 @@ export const fetchCategories = createAsyncThunk<CardType[], undefined, { rejectV
 )
 
 const initialState: initialStateProps = {
-  loading: true,
-  categories: [],
+  categoriesLoading: true,
+  categoriesProduct: [],
   error: null,
 }
 const categoriesSlice = createSlice({
@@ -30,16 +45,16 @@ const categoriesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCategories.pending, (state) => {
-        state.loading = true
+        state.categoriesLoading = true
         state.error = null
       })
       .addCase(fetchCategories.fulfilled, (state, action) => {
-        state.categories = action.payload
-        state.loading = false
+        state.categoriesProduct = action.payload
+        state.categoriesLoading = false
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload
-        state.loading = false
+        state.categoriesLoading = false
       })
   }
 

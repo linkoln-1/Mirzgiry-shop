@@ -1,6 +1,19 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type CardType } from '../../shared/interfaces/CardProps'
 import { type RootState } from '../store'
+
+interface CardType {
+  id: string
+  categoryId: string
+  priceId: string
+  colorId: string
+  categoryIdName: string
+  name: string
+  price: number
+  colors: string
+  sizes: Array<{ size: string }>
+  _id: string
+}
+
 export interface initialStateProps {
   loading: boolean
   cards: CardType[]
@@ -83,13 +96,13 @@ const cardSlice = createSlice({
       .addCase(createFavorite.pending, (state) => {
         state.loading = true
       })
-      .addCase(createFavorite.fulfilled, (state, action: PayloadAction<{ id: CardType['id'] }>) => {
-        state.cards.find(el => {
-          if (el.id === action.payload.id) {
-            el.checkHeart = !el.checkHeart
-          }
-        })
-      })
+      // .addCase(createFavorite.fulfilled, (state, action: PayloadAction<{ id: CardType['id'] }>) => {
+      //   state.cards.find(el => {
+      //     if (el.id === action.payload.id) {
+      //       el.checkHeart = !el.checkHeart
+      //     }
+      //   })
+      // })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload
         state.loading = false
