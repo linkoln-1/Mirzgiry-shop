@@ -1,34 +1,28 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { type RootState } from '../store'
 
-interface CardType {
-  id: number
+export interface ICardProps {
+  id: string | number
   _id: string
   categoryId: string
-  name: string
-  categoryIdName: string
-  price: number
   priceId: string
-  color: string
   colorId: string
+  sizes: Array<{ size: string, inStock: boolean }>
   image: string
-  sizes: Array<{
-    _id: string
-    size: string
-    inStock: number
-    count: number
-  }>
+  name: string
+  price: number
+  index: number
 }
 
 export interface initialStateProps {
   loading: boolean
-  cards: CardType[]
-  likedProducts: CardType[]
-  favorites: CardType[]
+  cards: ICardProps[]
+  likedProducts: ICardProps[]
+  favorites: ICardProps[]
   error: string | null
 }
 
-export const fetchCards = createAsyncThunk<CardType[], undefined, { rejectValue: string }>(
+export const fetchCards = createAsyncThunk<ICardProps[], undefined, { rejectValue: string }>(
   'cardsReducer/fetch-cards/pending',
   async function (_, { rejectWithValue }) {
     const response = await fetch('/products')

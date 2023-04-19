@@ -27,7 +27,7 @@ interface CardDescriptionProps {
   item: DescriptionCardProps
   handleChange: (event: SelectChangeEvent<string>) => void
   handleBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void
-  handleAddToBasket: (item: DescriptionCardProps[], size: string | string[], _id: string) => void
+  handleAddToBasket: (size: string | string[], _id: string) => void
   color: boolean
   size: string | string[]
   index: number
@@ -101,10 +101,7 @@ export const CardDescription: FC<CardDescriptionProps> = ({
         </div>
         <div className={s.item_buttons}>
           <button
-            onClick={() =>
-              handleAddToBasket(item, size, item._id)
-
-            }
+            onClick={() => handleAddToBasket(size, item._id)}
             disabled={btn}
             className={btn ? s.disabled : s.add_to_cart}
           >

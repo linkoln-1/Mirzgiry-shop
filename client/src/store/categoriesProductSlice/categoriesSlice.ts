@@ -1,28 +1,24 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-interface CardType {
-  id: string
+export interface ICardProps {
+  _id: string
   categoryId: string
   priceId: string
   colorId: string
-  categoryIdName: string
+  sizes: Array<{ size: string, inStock: boolean }>
+  image: string
   name: string
   price: number
-  colors: string
-  sizes: Array<{ size: string }>
-  _id: string
+  index: number
 }
 
 export interface initialStateProps {
   categoriesLoading: boolean
-  categoriesProduct: Array<{
-    _id: string
-    name: string
-  }>
+  categoriesProduct: ICardProps[]
   error: string | null
 }
 
-export const fetchCategories = createAsyncThunk<CardType[], undefined, { rejectValue: string }>(
+export const fetchCategories = createAsyncThunk<ICardProps[], undefined, { rejectValue: string }>(
   'categoriesSlice/fetch-product-categories/pending',
   async function (_, { rejectWithValue }) {
     const response = await fetch('/categoriesProduct')

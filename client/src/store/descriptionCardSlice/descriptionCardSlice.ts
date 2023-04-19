@@ -1,10 +1,22 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type CardType } from '../../shared/interfaces/CardProps'
+
+interface DescriptionProps {
+  id: string
+  categoryId: string
+  priceId: string
+  colorId: string
+  categoryIdName: string
+  name: string
+  price: number
+  colors: string
+  sizes: Array<{ size: string }>
+  _id: string
+}
 
 export interface initialStateProps {
   loading: boolean
-  descriptionCard: CardType[]
-  viewProducts: CardType[]
+  descriptionCard: DescriptionProps[]
+  viewProducts: DescriptionProps[]
   error: string | null
 }
 

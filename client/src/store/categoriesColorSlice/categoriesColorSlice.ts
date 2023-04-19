@@ -1,13 +1,25 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type CardType } from '../../shared/interfaces/CardProps'
+
+interface ColorsProps {
+  id: string
+  categoryId: string
+  priceId: string
+  colorId: string
+  categoryIdName: string
+  name: string
+  price: number
+  colors: string
+  sizes: Array<{ size: string }>
+  _id: string
+}
 
 export interface initialStateProps {
   loading: boolean
-  categoriesColor: CardType['categoriesForSidebar']
+  categoriesColor: ColorsProps[]
   error: string | null
 }
 
-export const fetchCategoriesColor = createAsyncThunk<CardType[], undefined, { rejectValue: string }>(
+export const fetchCategoriesColor = createAsyncThunk<ColorsProps[], undefined, { rejectValue: string }>(
   'categoriesColorSlice/fetch-categories-color-slice/pending',
   async function (_, { rejectWithValue }) {
     const response = await fetch('/categoriesColor')

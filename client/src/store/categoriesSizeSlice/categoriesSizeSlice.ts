@@ -1,13 +1,25 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type CardType } from '../../shared/interfaces/CardProps'
+
+interface CategoriesProps {
+  id: string
+  categoryId: string
+  priceId: string
+  colorId: string
+  categoryIdName: string
+  name: string
+  price: number
+  colors: string
+  sizes: Array<{ size: string }>
+  _id: string
+}
 
 export interface initialStateProps {
   loading: boolean
-  categoriesSize: CardType['categoriesForSidebar']
+  categoriesSize: CategoriesProps[]
   error: string | null
 }
 
-export const fetchCategoriesSize = createAsyncThunk<CardType[], undefined, { rejectValue: string }>(
+export const fetchCategoriesSize = createAsyncThunk<CategoriesProps[], undefined, { rejectValue: string }>(
   'categoriesSizeSlice/fetch-categories-size-slice/pending',
   async function (_, { rejectWithValue }) {
     const response = await fetch('/categoriesSize')

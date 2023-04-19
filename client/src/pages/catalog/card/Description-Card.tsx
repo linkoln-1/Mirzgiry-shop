@@ -20,18 +20,18 @@ import s from '../../../style/pages/description-card.module.scss'
 import { createBasket } from '../../../store/BasketSlices/BasketSlice'
 // import { fetchBasket } from '../../../store/BasketSlices/BasketGetSlice'
 
-interface DescriptionCardProps {
-  id: string
-  categoryId: string
-  priceId: string
-  colorId: string
-  categoryIdName: string
-  name: string
-  price: number
-  colors: string
-  sizes: Array<{ size: string }>
-  _id: string
-}
+// interface DescriptionCardProps {
+//   id: string
+//   categoryId: string
+//   priceId: string
+//   colorId: string
+//   categoryIdName: string
+//   name: string
+//   price: number
+//   colors: string
+//   sizes: Array<{ size: string }>
+//   _id: string
+// }
 
 export const DescriptionCard: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -44,7 +44,7 @@ export const DescriptionCard: React.FC = () => {
   const [btn, setBtn] = useState<boolean>(true)
 
   const handleAddToBasket = useCallback((
-    _item: DescriptionCardProps[],
+    // _item: DescriptionCardProps[],
     size: string[] | string,
     _id: string
   ) => {

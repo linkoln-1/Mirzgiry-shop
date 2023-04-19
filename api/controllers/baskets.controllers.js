@@ -35,7 +35,7 @@ module.exports.basketscontroller = {
   // },
 
 
-  createBasket: async function (req, res) {
+  createBasket: async function (req, res, next) {
     console.log(req.body)
 
     const {sizes, productId } = req.body
@@ -59,7 +59,7 @@ module.exports.basketscontroller = {
 
       return res.json(basket)
     }catch (e) {
-      return res.status(401).json(e.toString());
+      next(e)
     }
 
   } ,
@@ -81,7 +81,7 @@ module.exports.basketscontroller = {
 
   },
 
-  addProductToBasket: async function(req, res) {
+  addProductToBasket: async function(req, res, next) {
     const {items, sizes} = req.body;
     try {
       let basket = await Basket.findOne({ user: req.user.id });
@@ -108,12 +108,12 @@ module.exports.basketscontroller = {
   //     console.log(error.toString());
   //   }
   // },
-  getBaskets: async function (req, res) {
+  getBaskets: async function (req, res, next) {
     try {
       const basket = await Basket.find({user: req.user.id}).populate("productId");
       res.json(basket);
     } catch (e) {
-      return res.status(401).json("Ошибка"+ e.toString())
+      next(e)
     }
   },
 
