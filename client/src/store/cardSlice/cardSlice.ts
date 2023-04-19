@@ -2,16 +2,22 @@ import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } fro
 import { type RootState } from '../store'
 
 interface CardType {
-  id: string
-  categoryId: string
-  priceId: string
-  colorId: string
-  categoryIdName: string
-  name: string
-  price: number
-  colors: string
-  sizes: Array<{ size: string }>
+  id: number
   _id: string
+  categoryId: string
+  name: string
+  categoryIdName: string
+  price: number
+  priceId: string
+  color: string
+  colorId: string
+  image: string
+  sizes: Array<{
+    _id: string
+    size: string
+    inStock: number
+    count: number
+  }>
 }
 
 export interface initialStateProps {

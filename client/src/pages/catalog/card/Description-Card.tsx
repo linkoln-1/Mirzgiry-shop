@@ -17,8 +17,10 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hook'
 
 // styles
 import s from '../../../style/pages/description-card.module.scss'
+import { createBasket } from '../../../store/BasketSlices/BasketSlice'
+// import { fetchBasket } from '../../../store/BasketSlices/BasketGetSlice'
 
-interface CardType {
+interface DescriptionCardProps {
   id: string
   categoryId: string
   priceId: string
@@ -41,19 +43,21 @@ export const DescriptionCard: React.FC = () => {
   const [color, setColor] = useState<boolean>(false)
   const [btn, setBtn] = useState<boolean>(true)
 
-  const handleAddToBasket = useCallback(
-    (item: CardType, size: string[] | string, _id: string, indexProduct: number, prices: number) => {
-      if (size.length === 0) {
-        setColor(true)
-        setBtn(true)
-      } else {
-        setColor(false)
-        setBtn(false)
-      }
-      // @ts-ignore
-      dispatch(addToBasket({ product: item, size, id, indexProduct, prices }))
-    },
-    [dispatch]
+  const handleAddToBasket = useCallback((
+    _item: DescriptionCardProps[],
+    size: string[] | string,
+    _id: string
+  ) => {
+    if (size.length === 0) {
+      setColor(true)
+      setBtn(true)
+    } else {
+      setColor(false)
+      setBtn(false)
+    }
+    void dispatch(createBasket({ productId: _id, sizes: size }))
+  },
+  [dispatch]
   )
 
   const handleBlur = useCallback(
@@ -104,7 +108,7 @@ export const DescriptionCard: React.FC = () => {
                   btn={btn}
                   opened={opened}
                   setOpened={setOpened}
-                 />
+                  />
               </div>
               <ViewProducts />
               <Like />

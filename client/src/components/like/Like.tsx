@@ -14,7 +14,6 @@ import { path } from '../../shared/constants/path'
 
 export const Like: React.FC = () => {
   const likedProducts = useAppSelector(state => state.cardSlice.likedProducts)
-  console.log(likedProducts)
   const loading = useAppSelector(state => state.cardSlice.loading)
 
   return (

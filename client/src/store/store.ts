@@ -6,7 +6,7 @@ import categoriesPriceSlice from './categoriesPriceSlice/categoriesPriceSlice'
 import descriptionCardSlice from './descriptionCardSlice/descriptionCardSlice'
 import registrationSlice from './applicationSlice/registrationSlice'
 import authorizationSlice from './applicationSlice/authorizationSlice'
-
+import BasketSlice from './BasketSlices/BasketSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
@@ -19,7 +19,7 @@ export const store = configureStore({
     descriptionCardSlice,
     registrationSlice,
     authorizationSlice,
-
+    BasketSlice
   }
 })
 

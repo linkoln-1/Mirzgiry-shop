@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem'
 // styles
 import s from '../../../style/pages/description-card.module.scss'
 
-interface CardType {
+interface DescriptionCardProps {
   id: string
   categoryId: string
   priceId: string
@@ -24,10 +24,10 @@ interface CardType {
 }
 
 interface CardDescriptionProps {
-  item: CardType
+  item: DescriptionCardProps
   handleChange: (event: SelectChangeEvent<string>) => void
   handleBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void
-  handleAddToBasket: (item: CardType, size: string | string[], _id: string, indexProduct: number, prices: number) => void
+  handleAddToBasket: (item: DescriptionCardProps[], size: string | string[], _id: string) => void
   color: boolean
   size: string | string[]
   index: number
@@ -43,7 +43,7 @@ export const CardDescription: FC<CardDescriptionProps> = ({
   handleAddToBasket,
   color,
   size,
-  index,
+  // index,
   btn,
   opened,
   setOpened
@@ -102,7 +102,7 @@ export const CardDescription: FC<CardDescriptionProps> = ({
         <div className={s.item_buttons}>
           <button
             onClick={() =>
-              handleAddToBasket(item, size, item._id, index, item.price)
+              handleAddToBasket(item, size, item._id)
 
             }
             disabled={btn}

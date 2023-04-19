@@ -66,7 +66,6 @@ const applicationSlice = createSlice({
       })
       .addMatcher(isRejectedWithValue, (state, action) => {
         state.loading = false
-
         state.error = action.payload.message
       })
   }

@@ -4,7 +4,7 @@ const User = require("../models/User.model");
 // const uuid = require('uuid');
 // const Token = require('../models/Token.model')
 const { validationResult } = require("express-validator");
-const { userService } = require("../servise/user-service");
+const { userService } = require("../serviсe/user-service");
 const ApiError = require("../exceptions/api-error");
 module.exports.userscontroller = {
   registration: async function (req, res, next) {

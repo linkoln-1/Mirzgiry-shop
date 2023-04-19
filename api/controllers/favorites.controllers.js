@@ -1,7 +1,7 @@
 const Favorite = require("../models/Favorite.model");
 const Product = require("../models/Product.model");
 const ApiError = require("../exceptions/api-error");
-const { userService } = require("../servise/user-service");
+const { userService } = require("../serviсe/user-service");
 
 module.exports.favoritescontroller = {
   createFavorite: async function (req, res) {

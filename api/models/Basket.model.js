@@ -5,13 +5,23 @@ const basketSchema = mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
   },
-  shop: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "Product",
-    },
-  
+  productId: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Product",
+  }],
+  size: [{
+    type: Array
+  }]
+
+
 });
 
 const Basket = mongoose.model("Basket", basketSchema);
 
 module.exports = Basket;
+
+
+
+
+
+

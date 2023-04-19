@@ -1,5 +1,5 @@
 const ApiError = require("../../exceptions/api-error");
-const { tokenService } = require("../../servise/token-service");
+const tokenService = require("../../serviсe/token-service"); // Исправлен путь и название
 
 module.exports = async function (req, res, next) {
   try {
@@ -23,23 +23,3 @@ module.exports = async function (req, res, next) {
     return next(ApiError.UnautharizedError());
   }
 };
-
-// const jwt = require('jsonwebtoken')
-// module.exports = async (req, res, next)=>{
-//     const { authorization } = req.headers;
-//     if(!authorization){
-//         return res.status(401).json('Нет авторизации')
-//     }
-//     const [type, token]=authorization.split(" ");
-//     if (type !== "Bearer") {
-//         return res.status(401).json("неверный тип токена");
-//       }
-//       try{
-//         req.user = await jwt.verify(token, process.env.SECRET_JWT_KEY);
-
-//         next()
-
-//       }catch(e){
-//           return res.status(401).json("Ошибка авторизации:" + e.toString())
-//       }
-// }
