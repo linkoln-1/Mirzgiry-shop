@@ -1,3 +1,3 @@
-export const path = 'http://localhost:5000/static/image'
+export const path = 'http://localhost:5001/static/image'
 
-export const API_URL = 'http://localhost:5000'
+export const API_URL = 'http://localhost:5001'

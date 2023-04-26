@@ -34,35 +34,61 @@ module.exports.basketscontroller = {
   //   }
   // },
 
-
   createBasket: async function (req, res, next) {
-    console.log(req.body)
-
-    const {sizes, productId } = req.body
-    console.log(productId)
+    // console.log(req.body.loginData)
+console.log(req.body)
+    const {sizes, productId } = req.body.loginData
+    // console.log(productId)
+    // console.log(sizes)
     try {
-      let basket = await Basket.findOne({user: req.user.id});
-      if(!basket){
-        basket = await Basket.create({
+      
+
+
+       const basket = await Basket.create({
           user: req.user.id,
           sizes,
           productId,
-          quantity:1
+         
 
         })
-      }else{
-        basket.sizes.push(sizes)
-        basket.productId.push(productId)
-
-        await basket.save();
-      }
-
+ 
+     
+// console.log(basket)
       return res.json(basket)
+      
     }catch (e) {
-      next(e)
+      return res.status(401).json("Ошибка"+ e.toString())
     }
 
   } ,
+  // createBasket: async function (req, res, next) {
+  //   console.log(req.body)
+
+  //   const {sizes, productId } = req.body
+  //   console.log(productId)
+  //   try {
+  //     let basket = await Basket.findOne({user: req.user.id});
+  //     if(!basket){
+  //       basket = await Basket.create({
+  //         user: req.user.id,
+  //         sizes,
+  //         productId,
+  //         quantity:1
+
+  //       })
+  //     }else{
+  //       basket.sizes.push(sizes)
+  //       basket.productId.push(productId)
+
+  //       await basket.save();
+  //     }
+
+  //     return res.json(basket)
+  //   }catch (e) {
+  //     return res.status(401).json("Ошибка"+ e.toString())
+  //   }
+
+  // } ,
 
   deleteBasketById: async function (req, res) {
 
@@ -71,7 +97,8 @@ module.exports.basketscontroller = {
       const basket =  await  Basket.findById(id);
       if(basket.user.toString() === req.user.id){
         await  Basket.findByIdAndRemove(id);
-        return res.json('удалено');
+        return res.json(id);
+        
       }
       return res.status(401).json("Ошибка. Нет доступа")
 
@@ -92,28 +119,78 @@ module.exports.basketscontroller = {
 
       return res.json(update);
     } catch (e) {
-      next(e)
+      return res.status(401).json("Ошибка"+ e.toString())
     }
   },
 
-  // changeCartById: async function (req, res) {
-  //   try {
-  //     const basket = await Basket.findByIdAndUpdate(req.params.id, {
-  //      user: req.body.user,
-  //      shop: req.body.shop,
+  changeBasketById: async function (req, res) {
+    console.log(req.body.loginDataPlus)
+    try {
+     let basket = await Basket.findById(req.body.loginDataPlus.basketId).populate({
+        path: 'productId',
+        populate: {
+          path: 'sizes',
+          model: 'Size'
+        }
+      })
+      if (req.body.loginDataPlus.change === 'increment') {
+        basket.productId[0].sizes[req.body.loginDataPlus.indexSize].count+=1
+      } else if (req.body.loginDataPlus.change === 'decrement') {
+        if (size.count > 0) {
+          basket.productId[0].sizes[req.body.loginDataPlus.indexSize].count-=1
+        }
+      }
+     
 
+
+      await basket.save()
+  console.log(basket.productId[0])
+      res.json(basket);
+    } catch (error) {
+      console.log(error.toString());
+    }
+  },
+  
+  // changeBasketById: async function (req, res) {
+  //   console.log(req.body.loginData)
+  //   try {
+  //     const baskett = await Basket.findOne(req.params.id)
+  //     console.log(baskett)
+  //     const basket = await Basket.findByIdAndUpdate(req.params.id, {
+      
+  //       $inc: { "sizes.count": 1 },
+  //       sizes: req.body.sizes,
+  //       productId: req.body.productId,
+  //     }, {
+  //       arrayFilters: [{ 'sizes._id': req.body.loginData.sizeId }],
+  //       new: true,
+  //       upsert: true,
+  //     }).populate({
+  //       path: 'productId',
+  //       populate: {
+  //         path: 'sizes',
+  //         model: 'Size'
+  //       }
   //     });
-  //     res.json("Корзина изменена");
+  //     console.log(basket);
+  //     res.json(basket);
   //   } catch (error) {
   //     console.log(error.toString());
   //   }
   // },
+  
   getBaskets: async function (req, res, next) {
     try {
-      const basket = await Basket.find({user: req.user.id}).populate("productId");
+      const basket = await Basket.find({user: req.user.id}).populate({
+        path: 'productId',
+        populate: {
+          path: 'sizes',
+          model: 'Size'
+        }
+      });
       res.json(basket);
     } catch (e) {
-      next(e)
+      return res.status(401).json("Ошибка"+ e.toString())
     }
   },
 

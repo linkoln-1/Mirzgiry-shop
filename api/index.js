@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const errormiddleware = require('./models/middlewares/error-middleware')
 
-const port = 5000;
+const port = 5001;
 
 app.use(express.json());
 app.use(cookieParser());

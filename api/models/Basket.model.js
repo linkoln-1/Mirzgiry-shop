@@ -5,13 +5,12 @@ const basketSchema = mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
   },
+  sizes: String,
   productId: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Product",
   }],
-  size: [{
-    type: Array
-  }]
+  
 
 
 });

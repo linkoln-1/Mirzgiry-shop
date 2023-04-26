@@ -2,7 +2,7 @@ import { New } from '../../pages/newProducts/New'
 import { Catalog } from '../../pages/catalog'
 import { HomePage } from '../../components/common/homepage/HomePage'
 import { DescriptionCard } from '../../pages/catalog/card'
-// import { Basket } from '../pages/basket'
+import { Basket } from '../../pages/basket/Basket'
 import { About } from '../../pages/About'
 import { Exchange } from '../../pages/exchange-and-refund'
 import { Delivery } from '../../pages/delivery'
@@ -25,7 +25,7 @@ export const routeConfig = [
   { path: '/exchange', component: Exchange },
   { path: '/catalog/card', component: DescriptionCard },
   { path: '/delivery', component: Delivery },
-  // { path: '/basket', component: Basket },
+  { path: '/basket', component: Basket },
   // { path: '/favorite', component: Favorites },
   { path: '/personal', component: Personal },
   { path: '/authorization', component: Authorization },
