@@ -124,28 +124,29 @@ console.log(req.body)
   },
 
   changeBasketById: async function (req, res) {
-    console.log(req.body.loginDataPlus)
+    console.log(req.body.loginDataCount)
     try {
-     let basket = await Basket.findById(req.body.loginDataPlus.basketId).populate({
+     let basket = await Basket.findById(req.body.loginDataCount.basketId).populate({
         path: 'productId',
         populate: {
           path: 'sizes',
           model: 'Size'
         }
       })
-      if (req.body.loginDataPlus.change === 'increment') {
-        basket.productId[0].sizes[req.body.loginDataPlus.indexSize].count+=1
-      } else if (req.body.loginDataPlus.change === 'decrement') {
-        if (size.count > 0) {
-          basket.productId[0].sizes[req.body.loginDataPlus.indexSize].count-=1
-        }
+      if (req.body.loginDataCount.change === 'increment') {
+     basket.productId[0].sizes[req.body.loginDataCount.indexSize].count+=1
+     
+      } else if (req.body.loginDataCount.change === 'decrement') {
+      
+        basket.productId[0].sizes[req.body.loginDataCount.indexSize].count-=1
+    
       }
      
-
+       
 
       await basket.save()
   console.log(basket.productId[0])
-      res.json(basket);
+      res.json(req.body.loginDataCount);
     } catch (error) {
       console.log(error.toString());
     }

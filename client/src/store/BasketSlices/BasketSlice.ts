@@ -122,29 +122,56 @@ export const deleteToBasket = createAsyncThunk(
     }
   }
 )
-interface loginDataPlus {
+interface loginDataCount {
   basketId: string
   indexProduct: number
   categoryId: string 
   sizeId: string
   indexSize: number
-  change: string
+  change:string
   
 }
 export const BasketPlus = createAsyncThunk(
-  'basketchange',
-  async (loginDataPlus: loginDataPlus, { getState, rejectWithValue }) => {  
+  'basketplus',
+  async (loginDataCount: loginDataCount, { getState, rejectWithValue }) => {  
     const state = getState() as RootState
     // выполнение запроса и получение данных
     try {
-      const response = await fetch(`/basket/${loginDataPlus.basketId}`, {
+      const response = await fetch(`/basket/${loginDataCount.basketId}`, {
       
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${state.authorizationSlice.token}`,
           'content-type': 'application/json'
         },
-        body: JSON.stringify({ loginDataPlus }),
+        body: JSON.stringify({ loginDataCount }),
+      })
+      const data = await response.json()
+      if (response.status !== 200) {
+        return rejectWithValue(data.message)
+      }
+      console.log(data)
+      return data
+    } catch (e) {
+      return rejectWithValue(e)
+    }
+  }
+)
+
+export const BasketMinus = createAsyncThunk(
+  'basketminus',
+  async (loginDataCount: loginDataCount, { getState, rejectWithValue }) => {  
+    const state = getState() as RootState
+    // выполнение запроса и получение данных
+    try {
+      const response = await fetch(`/basket/${loginDataCount.basketId}`, {
+      
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${state.authorizationSlice.token}`,
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({ loginDataCount }),
       })
       const data = await response.json()
       if (response.status !== 200) {
@@ -230,25 +257,42 @@ const BasketSlice = createSlice({
       .addCase(BasketPlus.fulfilled, (state, action) => {
         state.loading = false
         state.error = null
-       state.products = state.products.map((product)=>{
+        state.products.map((product)=>{
+          console.log(action.payload)
+      
+          // if(product._id===action.payload.information.basketId){
+          //   // return state.products[action.payload.information.indexProduct].productId[0].sizes[action.payload.information.indexSize].count
+          //   state.products[action.payload.information.indexProduct].productId[0].sizes.splice(action.payload.information.indexSize, 1, action.payload.basket.productId[0].sizes[action.payload.information.indexSize])
+          // }
           if(product._id===action.payload.basketId){
+         state.products[action.payload.indexProduct].productId[0].sizes[action.payload.indexSize].count+=1
+          } 
+       
+        })
 
-         return product.productId.map((item)=>{
-          return item.sizes.map((size)=>{
-            if(size._id===action.payload.sizeId&&action.payload.change==='increment'){
-             return size.count=size.count+1
-            }if(size._id===action.payload.sizeId&&action.payload.change==='decrement'){
-              return size.count=size.count-1
-              
-            }
-           })
-           })
-          }
-          return product
-        });
- 
       })
       .addCase(BasketPlus.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(BasketMinus.pending, (state) => {
+        state.loading = true
+        state.error = null
+       
+      })
+      .addCase(BasketMinus.fulfilled, (state, action) => {
+        state.loading = false
+        state.error = null
+        state.products.map((product)=>{
+          console.log(action.payload)
+          if(product._id===action.payload.basketId){
+         state.products[action.payload.indexProduct].productId[0].sizes[action.payload.indexSize].count-=1
+          } 
+       
+        })
+
+      })
+      .addCase(BasketMinus.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

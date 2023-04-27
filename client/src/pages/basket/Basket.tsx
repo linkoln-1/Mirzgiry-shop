@@ -14,7 +14,7 @@ import {  useAppSelector, useAppDispatch } from '../../hooks/hook'
 // styles
 import s from '../../style/pages/basket.module.scss'
 
-import { fetchBasket, BasketPlus, deleteToBasket} from '../../store/BasketSlices/BasketSlice'
+import { fetchBasket, BasketPlus,BasketMinus, deleteToBasket} from '../../store/BasketSlices/BasketSlice'
 
 interface BasketProps {
   _id: string
@@ -55,16 +55,16 @@ export const Basket: React.FC<BasketProps> = () => {
     // if (count > 0 && count < inStock) 
  
     dispatch(BasketPlus({ basketId: basketId, indexProduct: index,categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change }))
-
+  
       
     // }
   }
-  // const handleMinus = (basketId: string, index: number, count: number, category: string) => {
-  //   if (count > 1) {
-  //     // @ts-ignore
-  //     dispatch(Minus({ basketId: basketId, indexProduct: index, categoryId: category }))
-  //   }
-  // }
+  const handleMinus = (basketId: string, index: number,  category: string, sizeId: string, indexSize: number, change: string ) => {
+    // if (count > 1) {
+      // @ts-ignore
+      dispatch(BasketMinus({ basketId: basketId, indexProduct: index,categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change }))
+    // }
+  }
   const dispatch = useAppDispatch()
 
   const handleDelete = (id: string, index: number, price: number) => {
@@ -77,7 +77,7 @@ export const Basket: React.FC<BasketProps> = () => {
   useEffect(()=>{
    
     dispatch(fetchBasket())
-
+   
      
    },[dispatch])
  
@@ -119,13 +119,14 @@ export const Basket: React.FC<BasketProps> = () => {
                         <div key={index} className={s.basket_quantity}>
                           <div
                             className={s.minus}
-                            // onClick={() => handleMinus(
-                            //   product._id,
-                            //   indexProduct,
-                            //   sizes.count,
-                            //   sizes._id,
-                            //   item.categoryId,
-                                        // )}
+                            onClick={() => handleMinus(
+                              product._id,
+                              indexProduct,
+                               item.categoryId,
+                               sizes._id,
+                               indexSize,
+                              'decrement'
+                                        )}
                           >
                             -
                           </div>
