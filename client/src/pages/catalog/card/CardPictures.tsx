@@ -8,7 +8,7 @@ import { path } from '../../../shared/constants/path'
 import s from '../../../style/pages/description-card.module.scss'
 
 interface CardPicturesProps {
-  id: string
+  _id: string
   categoryId: string
   priceId: string
   colorId: string
