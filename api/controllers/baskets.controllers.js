@@ -124,33 +124,41 @@ console.log(req.body)
   },
 
   changeBasketById: async function (req, res) {
-    console.log(req.body.loginDataCount)
+    const { loginDataCount } = req.body;
+    const { basketId, change, indexSize } = loginDataCount;
+  
+    console.log(loginDataCount);
+  
     try {
-     let basket = await Basket.findById(req.body.loginDataCount.basketId).populate({
+      let basket = await Basket.findById(basketId).populate({
         path: 'productId',
         populate: {
           path: 'sizes',
-          model: 'Size'
-        }
-      })
-      if (req.body.loginDataCount.change === 'increment') {
-     basket.productId[0].sizes[req.body.loginDataCount.indexSize].count+=1
-     
-      } else if (req.body.loginDataCount.change === 'decrement') {
-      
-        basket.productId[0].sizes[req.body.loginDataCount.indexSize].count-=1
-    
+          model: 'Size',
+        },
+      });
+  
+      switch (change) {
+        case 'increment':
+          basket.productId[0].sizes[indexSize].count += 1;
+          break;
+        case 'decrement':
+          basket.productId[0].sizes[indexSize].count -= 1;
+          break;
+        default:
+          throw new Error('Invalid change operation');
       }
-     
-       
-
-      await basket.save()
-  console.log(basket.productId[0])
-      res.json(req.body.loginDataCount);
+  
+      await basket.save();
+      console.log(basket.productId[0]);
+  
+      res.json(loginDataCount);
     } catch (error) {
       console.log(error.toString());
+      res.status(500).json({ error: error.toString() });
     }
   },
+  
   
   // changeBasketById: async function (req, res) {
   //   console.log(req.body.loginData)

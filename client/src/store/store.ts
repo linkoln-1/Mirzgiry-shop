@@ -21,7 +21,7 @@ export const store = configureStore({
     registrationSlice,
     authorizationSlice,
     BasketSlice,
-   
+
   }
 })
 

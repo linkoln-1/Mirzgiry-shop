@@ -1,68 +1,70 @@
 // library
-import * as React from 'react'
-import { useState} from 'react'
+import React from 'react'
+import { useState } from 'react'
 import { path } from '../../shared/constants/path'
 // components
 import { CustomBreadcrumbs } from '../../components/breadcrumbs'
 // import { Order } from '../order'
 // mock
 // import {  Plus } from '../../store/BasketSlices/BasketPlus'
-import  { useEffect} from 'react'
+import { useEffect } from 'react'
 // hooks
-import {  useAppSelector, useAppDispatch } from '../../hooks/hook'
+import { useAppSelector, useAppDispatch } from '../../hooks/hook'
 
 // styles
 import s from '../../style/pages/basket.module.scss'
 
-import { fetchBasket, BasketPlus,BasketMinus, deleteToBasket} from '../../store/BasketSlices/BasketSlice'
+import { fetchBasket, BasketPlus, BasketMinus, deleteToBasket } from '../../store/BasketSlices/BasketSlice'
 
 interface BasketProps {
   _id: string
   user: string
   sizes: string
- productId: Array<{
-  id: string
- categoryId: string
- priceId: string
- colorId: string
- categoryIdName: string
- name: string
- price: number
- color: string
- sizes: Array<{
-  _id: string
-  size: string 
-  inStock: number
-  count: number
-}>
- _id: string
- image: string}>
+  productId: Array<{
+    id: string
+    categoryId: string
+    priceId: string
+    colorId: string
+    categoryIdName: string
+    name: string
+    price: number
+    color: string
+    sizes: Array<{
+      _id: string
+      size: string
+      inStock: number
+      count: number
+    }>
+    _id: string
+    image: string
+  }>
 }
 export const Basket: React.FC<BasketProps> = () => {
 
 
 
 
- 
+
   const Basket = useAppSelector(state => state.BasketSlice.products)
 
- console.log(Basket) 
+  console.log(Basket);
+  
 
   // const payment = useAppSelector(state => state.payment)
   const [circleColor] = useState('Белый')
- 
-  const handlePlus = (basketId: string, index: number,  category: string, sizeId: string, indexSize: number, change: string ) => {
+
+  const handlePlus = (basketId: string, index: number, category: string, sizeId: string, indexSize: number, change: string) => {
     // if (count > 0 && count < inStock) 
- 
-    dispatch(BasketPlus({ basketId: basketId, indexProduct: index,categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change }))
-  
-      
+
+    dispatch(BasketPlus({ basketId: basketId, indexProduct: index, categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change }))
+
+
     // }
   }
-  const handleMinus = (basketId: string, index: number,  category: string, sizeId: string, indexSize: number, change: string ) => {
+  const handleMinus = (basketId: string, index: number, category: string, sizeId: string, indexSize: number, change: string) => {
     // if (count > 1) {
-      // @ts-ignore
-      dispatch(BasketMinus({ basketId: basketId, indexProduct: index,categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change }))
+    // @ts-ignore
+    dispatch(BasketMinus({ basketId: basketId, indexProduct: index, categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change }))
     // }
   }
   const dispatch = useAppDispatch()
@@ -70,23 +72,20 @@ export const Basket: React.FC<BasketProps> = () => {
   const handleDelete = (id: string, index: number, price: number) => {
     dispatch(
       // @ts-ignore
-    deleteToBasket({ id, indexProduct: index, price }))
-  
+      deleteToBasket({ id, indexProduct: index, price }))
+
   }
 
-  useEffect(()=>{
-   
+  useEffect(() => {
     dispatch(fetchBasket())
-   
-     
-   },[dispatch])
- 
+  }, [dispatch])
+
   return (
     <div className={s.basket}>
       <CustomBreadcrumbs />
       <div className={s.basket_title}>Ваш заказ</div>
       {Basket?.map((product, indexProduct) => {
-       return (
+        return (
           <div key={indexProduct}>
             {product?.productId?.map((item, index) => {
               return (
@@ -122,26 +121,26 @@ export const Basket: React.FC<BasketProps> = () => {
                             onClick={() => handleMinus(
                               product._id,
                               indexProduct,
-                               item.categoryId,
-                               sizes._id,
-                               indexSize,
+                              item.categoryId,
+                              sizes._id,
+                              indexSize,
                               'decrement'
-                                        )}
+                            )}
                           >
                             -
                           </div>
                           <div className={s.count}>{sizes.count}</div>
                           <div
                             onClick={() => handlePlus(
-                             product._id,
+                              product._id,
                               indexProduct,
-                               item.categoryId,
-                               sizes._id,
-                               indexSize,
+                              item.categoryId,
+                              sizes._id,
+                              indexSize,
                               'increment'
                               // sizes.count,
                               // sizes.inStock,
-                            
+
                             )}
                             className={s.plus}
                           >
@@ -275,4 +274,4 @@ export const Basket: React.FC<BasketProps> = () => {
       //   {/* // : <div className={s.basket__empty}><p className={s.basket__text__bold}>В корзине пока пусто</p><p className={s.basket__text}>Загляните в каталог, чтобы выбрать товары или найдите нужное в поиске</p></div>}
       //   // {Basket.length ? <div className={s.basket_payment}><div>К оплате:</div><div className={s.basket_payment_sum}>{payment} ₽</div></div> : null}
       //   //  {Basket.length ? <Order/> : null} */} 
-  
+

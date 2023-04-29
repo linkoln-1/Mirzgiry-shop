@@ -6,30 +6,29 @@ interface CardType {
   _id: string
   user: string
   sizes: string
- productId: Array<{
-   color: string
-  _id: string
- categoryId: string
- priceId: string
- colorId: string
- categoryIdName: string
- name: string
- price: number
- colors: string
- sizes: Array<{
-  _id: string
-  size: string 
-  inStock: number
-  count: number
-}>
+  productId: Array<{
+    color: string
+    _id: string
+    categoryId: string
+    priceId: string
+    colorId: string
+    categoryIdName: string
+    name: string
+    price: number
+    colors: string
+    sizes: Array<{
+      _id: string
+      size: string
+      inStock: number
+      count: number
+    }>
 
- image: string}>
+    image: string }>
 }
 export interface initialStateProps {
   products: CardType[]
   loading: boolean
   error: null | string | unknown
-
 
 }
 interface loginData {
@@ -53,8 +52,7 @@ export const createBasket = createAsyncThunk(
       const data = await response.json()
       if (response.status !== 200) {
         return rejectWithValue(data.message)
-      }
-      console.log(data)
+      }     
       return data
     } catch (e) {
       return rejectWithValue(e)
@@ -66,7 +64,6 @@ export const fetchBasket = createAsyncThunk(
   'baskets',
   async (_, { getState, rejectWithValue }) => {
     const state = getState() as RootState
-    // console.log(state.authorizationSlice.token)
     // выполнение запроса и получение данных
     try {
       const response = await fetch('/baskets', {
@@ -95,7 +92,7 @@ interface loginDataDelete {
 }
 export const deleteToBasket = createAsyncThunk(
   'basketdelete',
-  
+
   async (loginDataDelete: loginDataDelete, { getState, rejectWithValue }) => {
     console.log(loginDataDelete)
     const state = getState() as RootState
@@ -108,8 +105,6 @@ export const deleteToBasket = createAsyncThunk(
           Authorization: `Bearer ${state.authorizationSlice.token}`,
           'Content-type': 'application/json',
         },
-     
-
       })
       const data = await response.json()
       if (response.status !== 200) {
@@ -125,20 +120,48 @@ export const deleteToBasket = createAsyncThunk(
 interface loginDataCount {
   basketId: string
   indexProduct: number
-  categoryId: string 
+  categoryId: string
   sizeId: string
   indexSize: number
-  change:string
-  
+  change: string
+
 }
 export const BasketPlus = createAsyncThunk(
   'basketplus',
-  async (loginDataCount: loginDataCount, { getState, rejectWithValue }) => {  
+  async (loginDataCount: loginDataCount, { getState, rejectWithValue }) => {
     const state = getState() as RootState
     // выполнение запроса и получение данных
     try {
       const response = await fetch(`/basket/${loginDataCount.basketId}`, {
+
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${state.authorizationSlice.token}`,
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({ loginDataCount }),
+      })
+      const data = await response.json()
+      if (response.status !== 200) {
+        return rejectWithValue(data.message)
+      }
+      console.log(data);
       
+      return data
+    } catch (e) {
+      return rejectWithValue(e)
+    }
+  }
+)
+
+export const BasketMinus = createAsyncThunk(
+  'basketminus',
+  async (loginDataCount: loginDataCount, { getState, rejectWithValue }) => {
+    const state = getState() as RootState
+    // выполнение запроса и получение данных
+    try {
+      const response = await fetch(`/basket/${loginDataCount.basketId}`, {
+
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${state.authorizationSlice.token}`,
@@ -158,37 +181,19 @@ export const BasketPlus = createAsyncThunk(
   }
 )
 
-export const BasketMinus = createAsyncThunk(
-  'basketminus',
-  async (loginDataCount: loginDataCount, { getState, rejectWithValue }) => {  
-    const state = getState() as RootState
-    // выполнение запроса и получение данных
-    try {
-      const response = await fetch(`/basket/${loginDataCount.basketId}`, {
-      
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${state.authorizationSlice.token}`,
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({ loginDataCount }),
-      })
-      const data = await response.json()
-      if (response.status !== 200) {
-        return rejectWithValue(data.message)
-      }
-      console.log(data)
-      return data
-    } catch (e) {
-      return rejectWithValue(e)
-    }
-  }
-)
+// Загрузить данные из localStorage
+const savedProducts = localStorage.getItem('basketState');
+
+
+// Если данные доступны, преобразовать их из строки JSON в объект
+const initialStateProducts = savedProducts ? JSON.parse(savedProducts) : [];
+
+console.log(initialStateProducts);
+
 const initialState: initialStateProps = {
   loading: false,
   products: [],
   error: '',
- 
 
 }
 const BasketSlice = createSlice({
@@ -204,46 +209,40 @@ const BasketSlice = createSlice({
       .addCase(createBasket.fulfilled, (state, action) => {
         state.loading = false
         state.error = null
-         state.products.push(action.payload)
-     
+        state.products.push(action.payload)
       })
       .addCase(createBasket.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
-     
+
       .addCase(deleteToBasket.pending, (state) => {
         state.loading = true
         state.error = null
-      
-
       })
       .addCase(deleteToBasket.fulfilled, (state, action) => {
         state.loading = false
-        state.error=null
-        state.products=state.products.filter((item)=>{
-          if(item._id===action.payload) {
+        state.error = null
+        state.products = state.products.filter((item) => {
+          if (item._id === action.payload) {
             return false
-          }else{
-               return true
+          } else {
+            return true
           }
-       
-        }) 
+        })
       })
       .addCase(deleteToBasket.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
-       .addCase(fetchBasket.pending, (state) => {
+      .addCase(fetchBasket.pending, (state) => {
         state.loading = true
         state.error = null
- 
       })
       .addCase(fetchBasket.fulfilled, (state, action) => {
         state.loading = false
-        state.error=null
-        state.products = action.payload
- 
+        state.error = null
+        state.products = initialStateProducts === null ? action.payload : initialStateProducts
       })
       .addCase(fetchBasket.rejected, (state, action) => {
         state.loading = false
@@ -252,25 +251,18 @@ const BasketSlice = createSlice({
       .addCase(BasketPlus.pending, (state) => {
         state.loading = true
         state.error = null
-       
       })
       .addCase(BasketPlus.fulfilled, (state, action) => {
-        state.loading = false
-        state.error = null
-        state.products.map((product)=>{
-          console.log(action.payload)
-      
-          // if(product._id===action.payload.information.basketId){
-          //   // return state.products[action.payload.information.indexProduct].productId[0].sizes[action.payload.information.indexSize].count
-          //   state.products[action.payload.information.indexProduct].productId[0].sizes.splice(action.payload.information.indexSize, 1, action.payload.basket.productId[0].sizes[action.payload.information.indexSize])
-          // }
-          if(product._id===action.payload.basketId){
-         state.products[action.payload.indexProduct].productId[0].sizes[action.payload.indexSize].count+=1
-          } 
-       
-        })
-
+        state.loading = false;
+        state.error = null;
+        state.products.forEach((product) => {
+          if (product._id === action.payload.basketId) {
+            state.products[action.payload.indexProduct].productId[0].sizes[action.payload.indexSize].count += 1;
+          }
+          localStorage.setItem('basketState', JSON.stringify(state.products));
+        });
       })
+      
       .addCase(BasketPlus.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
@@ -278,25 +270,21 @@ const BasketSlice = createSlice({
       .addCase(BasketMinus.pending, (state) => {
         state.loading = true
         state.error = null
-       
       })
       .addCase(BasketMinus.fulfilled, (state, action) => {
         state.loading = false
         state.error = null
-        state.products.map((product)=>{
+        state.products.map((product) => {
           console.log(action.payload)
-          if(product._id===action.payload.basketId){
-         state.products[action.payload.indexProduct].productId[0].sizes[action.payload.indexSize].count-=1
-          } 
-       
+          if (product._id === action.payload.basketId) {
+            state.products[action.payload.indexProduct].productId[0].sizes[action.payload.indexSize].count -= 1
+          }
         })
-
       })
       .addCase(BasketMinus.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
-     
   }
 })
 export default BasketSlice.reducer

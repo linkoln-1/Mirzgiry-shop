@@ -1,5 +1,5 @@
 // library
-import React, { useState, useCallback , useEffect} from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 
 // components
 import { CustomBreadcrumbs } from '../../../components/breadcrumbs'
@@ -17,10 +17,8 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hook'
 
 // styles
 import s from '../../../style/pages/description-card.module.scss'
-import { createBasket} from '../../../store/BasketSlices/BasketSlice'
+import { createBasket } from '../../../store/BasketSlices/BasketSlice'
 // import { fetchBasket} from '../../../store/BasketSlices/BasketGetSlice'
-
-
 
 // interface DescriptionCardProps {
 //   id: string
@@ -45,7 +43,6 @@ export const DescriptionCard: React.FC = () => {
   const [color, setColor] = useState<boolean>(false)
   const [btn, setBtn] = useState<boolean>(true)
 
- 
   const handleAddToBasket = useCallback((
     // _item: DescriptionCardProps[],
     size: string,
@@ -59,11 +56,8 @@ export const DescriptionCard: React.FC = () => {
       setBtn(false)
     }
     void dispatch(createBasket({ productId: _id, sizes: size }))
-   
-   
-    // void  dispatch(fetchBasket())
 
-    
+    // void  dispatch(fetchBasket())
   },
   [dispatch]
   )
