@@ -16,8 +16,7 @@ interface CardPicturesProps {
   name: string
   price: number
   colors: string
-  sizes: Array<{ size: string }>
-  _id: string
+
   image: string
 }
 

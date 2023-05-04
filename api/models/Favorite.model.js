@@ -1,16 +1,14 @@
 const mongoose = require("mongoose");
 
 const favoriteSchema = mongoose.Schema({
-  userId: {
+  user: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
   },
-  favorites: [
-    {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "Product",
-    },
-  ],
+  productId: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Product",
+  }],
 });
 
 const Favorite = mongoose.model("Favorite", favoriteSchema);

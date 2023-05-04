@@ -6,7 +6,7 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
 import Favorite from '@mui/icons-material/Favorite'
 import { fetchDescriptionCard } from '../../store/descriptionCardSlice/descriptionCardSlice'
 import { fetchCards } from '../../store/cardSlice/cardSlice'
-
+import { createFavorite} from '../../store/favoriteSlice/favoriteSlice'
 // hooks
 import { useAppDispatch } from '../../hooks/hook'
 
@@ -39,13 +39,18 @@ const CardComponent: React.FC<ICardProps> = ({ todo, index }) => {
     void dispatch(fetchDescriptionCard(id))
     void dispatch(fetchCards())
   }, [dispatch])
+const handleFavorite = useCallback((
+  id: string
+  )=>{
+ void dispatch (createFavorite(id))
 
+} , [dispatch])
   const { _id, image, name, price, sizes } = todo
 
   return (
     <div key={index} className={s.card}>
-      <Checkbox
-        icon={<FavoriteBorder />}
+      <Checkbox onClick={() => handleFavorite(_id)}
+        icon={<FavoriteBorder  />}
         checkedIcon={<Favorite />}
         className={s.favorite}
       />

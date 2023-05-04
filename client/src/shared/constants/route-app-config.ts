@@ -6,7 +6,7 @@ import { Basket } from '../../pages/basket/Basket'
 import { About } from '../../pages/About'
 import { Exchange } from '../../pages/exchange-and-refund'
 import { Delivery } from '../../pages/delivery'
-// import { Favorites } from '../pages/favorite'
+import { Favorites } from '../../pages/favorite/Favorite'
 import { Personal } from '../../pages/personal'
 import { Authorization } from '../../components/modal/subComponents/authorization'
 import { Registration } from '../../components/modal/subComponents/registration/registrationFirstPage'
@@ -26,7 +26,7 @@ export const routeConfig = [
   { path: '/catalog/card', component: DescriptionCard },
   { path: '/delivery', component: Delivery },
   { path: '/basket', component: Basket },
-  // { path: '/favorite', component: Favorites },
+  { path: '/favorite', component: Favorites },
   { path: '/personal', component: Personal },
   { path: '/authorization', component: Authorization },
   { path: '/registration', component: Registration },

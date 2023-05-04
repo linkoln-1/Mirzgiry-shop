@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { path } from '../../shared/constants/path'
 // components
 import { CustomBreadcrumbs } from '../../components/breadcrumbs'
-// import { Order } from '../order'
+import { Order } from '../order'
 // mock
 // import {  Plus } from '../../store/BasketSlices/BasketPlus'
 import { useEffect } from 'react'
@@ -14,7 +14,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/hook'
 // styles
 import s from '../../style/pages/basket.module.scss'
 
-import { fetchBasket, BasketPlus, BasketMinus, deleteToBasket } from '../../store/BasketSlices/BasketSlice'
+import { fetchBasket,  deleteToBasket } from '../../store/BasketSlices/BasketSlice'
 
 interface BasketProps {
   _id: string
@@ -34,9 +34,11 @@ interface BasketProps {
       size: string
       inStock: number
       count: number
-    }>
+    }>,
+  
     _id: string
     image: string
+   
   }>
 }
 export const Basket: React.FC<BasketProps> = () => {
@@ -46,27 +48,34 @@ export const Basket: React.FC<BasketProps> = () => {
 
 
   const Basket = useAppSelector(state => state.BasketSlice.products)
+  const products = useAppSelector(state => state.BasketSlice.products);
+
+  const totalPrice = products.reduce((acc, product) => {
+    return acc + product.productId.reduce((acc, item) => {
+      return acc + item.price;
+    }, 0);
+  }, 0);
+
+
 
   console.log(Basket);
-  
+
 
   // const payment = useAppSelector(state => state.payment)
   const [circleColor] = useState('Белый')
 
-  const handlePlus = (basketId: string, index: number, category: string, sizeId: string, indexSize: number, change: string) => {
-    // if (count > 0 && count < inStock) 
+  // const handlePlus = (basketId: string, index: number, category: string, sizeId: string, indexSize: number, change: string,inStock: number, count: number) => {
+  //   if (count > 0 && count < inStock) {
+  //      dispatch(BasketPlus({ basketId: basketId, indexProduct: index, categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change,inStock: inStock, count: count}))
+  //   }
+  //   }
 
-    dispatch(BasketPlus({ basketId: basketId, indexProduct: index, categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change }))
-
-
-    // }
-  }
-  const handleMinus = (basketId: string, index: number, category: string, sizeId: string, indexSize: number, change: string) => {
-    // if (count > 1) {
-    // @ts-ignore
-    dispatch(BasketMinus({ basketId: basketId, indexProduct: index, categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change }))
-    // }
-  }
+  // const handleMinus = (basketId: string, index: number, category: string, sizeId: string, indexSize: number, change: string,  count: number, ) => {
+  //   if (count > 1) {
+  //   // @ts-ignore
+  //   dispatch(BasketMinus({ basketId: basketId, indexProduct: index, categoryId: category, sizeId: sizeId, indexSize: indexSize, change: change, count: count }))
+  //   }
+  // }
   const dispatch = useAppDispatch()
 
   const handleDelete = (id: string, index: number, price: number) => {
@@ -84,10 +93,12 @@ export const Basket: React.FC<BasketProps> = () => {
     <div className={s.basket}>
       <CustomBreadcrumbs />
       <div className={s.basket_title}>Ваш заказ</div>
-      {Basket?.map((product, indexProduct) => {
+    
+      {Basket.length?Basket?.map((product, indexProduct) => {
+      
         return (
           <div key={indexProduct}>
-            {product?.productId?.map((item, index) => {
+            {product.productId?.map((item, index) => {
               return (
                 <><div key={index} className={s.basket_wrapper}>
                   <div className={s.basket_image_description}>
@@ -112,7 +123,8 @@ export const Basket: React.FC<BasketProps> = () => {
                   <div className={s.basket_quantity}>
                     <div className={s.count}>{`${product.sizes}`}</div>
                   </div>
-                  {item?.sizes?.map((sizes, indexSize) => {
+                  {/* {item.sizes?.map((sizes, indexSize) => {
+            
                     if (sizes.size === product.sizes) {
                       return (
                         <div key={index} className={s.basket_quantity}>
@@ -124,7 +136,8 @@ export const Basket: React.FC<BasketProps> = () => {
                               item.categoryId,
                               sizes._id,
                               indexSize,
-                              'decrement'
+                              'decrement',
+                              sizes.count,
                             )}
                           >
                             -
@@ -137,9 +150,9 @@ export const Basket: React.FC<BasketProps> = () => {
                               item.categoryId,
                               sizes._id,
                               indexSize,
-                              'increment'
-                              // sizes.count,
-                              // sizes.inStock,
+                              'increment',
+                              sizes.inStock, 
+                              sizes.count,
 
                             )}
                             className={s.plus}
@@ -149,7 +162,7 @@ export const Basket: React.FC<BasketProps> = () => {
                         </div>
                       )
                     }
-                  })}
+                  })} */}
                   <div className={s.basket_price_delete}>
                     <div className={s.basket_price}>{item.price} ₽</div>
 
@@ -169,7 +182,9 @@ export const Basket: React.FC<BasketProps> = () => {
             })}
           </div>
         );
-      })}
+      }):<div className={s.basket__empty}><p className={s.basket__text__bold}>В корзине пока пусто</p><p className={s.basket__text}>Загляните в каталог, чтобы выбрать товары или найдите нужное в поиске</p></div>}
+      {Basket.length ? <div className={s.basket_payment}><div>К оплате:</div><div className={s.basket_payment_sum}>{totalPrice} ₽</div></div> : null}
+    {Basket.length ? <Order totalPrice={totalPrice}/> : null}  
     </div>
   );
 }

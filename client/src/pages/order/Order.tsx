@@ -1,9 +1,13 @@
 import React from 'react'
-import { useAppSelector } from '../../hooks/hook'
+
 // styles
 import s from '../../style/pages/order.module.scss'
-export const Order: React.FC = () => {
-  const payment = useAppSelector(state => state.payment)
+
+interface OrderProps {
+    totalPrice: number
+  }
+export const Order: React.FC<OrderProps> = ({totalPrice}) => {
+  
   return (
         <div className={s.order}>
             <div className={s.order__decor}>Оформление заказа</div>
@@ -83,7 +87,7 @@ export const Order: React.FC = () => {
               <div>БОНУСЫ:</div><div className={s.order__bold}>-69 грн</div>
               </div>
               <div className={s.order__decor__total}>
-              <div>ИТОГО:</div><div className={s.order__bold}>{payment} ₽</div>
+              <div>ИТОГО:</div><div className={s.order__bold}>{totalPrice} ₽</div>
               </div>
                <button>ОФОРМИТЬ ЗАКАЗ</button>
                <div className={s.order__consent}>Нажимая на кнопку «оплатить заказ», я принимаю условия публичной оферты и политики конфиденциальности</div>

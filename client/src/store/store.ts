@@ -7,7 +7,7 @@ import descriptionCardSlice from './descriptionCardSlice/descriptionCardSlice'
 import registrationSlice from './applicationSlice/registrationSlice'
 import authorizationSlice from './applicationSlice/authorizationSlice'
 import BasketSlice from './BasketSlices/BasketSlice'
-
+import FavoriteSlice from './favoriteSlice/favoriteSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
@@ -21,6 +21,7 @@ export const store = configureStore({
     registrationSlice,
     authorizationSlice,
     BasketSlice,
+    FavoriteSlice
 
   }
 })
