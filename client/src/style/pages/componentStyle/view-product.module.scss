@@ -2,7 +2,7 @@
 .card {
   width: 1320px;
   margin: auto;
- 
+  min-height: 400px;
 
   
 }
@@ -21,7 +21,7 @@
   padding-left: 5px;
   padding-right: 5px;
   flex: 0 0 auto; 
- 
+ position: relative;
 
   flex-grow: 0;
 }
@@ -96,6 +96,30 @@
   justify-content: space-between;
  
  
+}
+.favorit{
+position: absolute;
+right: 0px;
+}
+.favorit_icon{
+  position: absolute;
+right: 5px;
+top: 8px;
+width: 30px;
+height: 18px;
+}
+.favorite__empty{
+  margin: auto;
+  width: 300px;
+}
+.favorite__text__bold{
+  font-weight: 700;
+  font-size: 22px;
+  text-align: center;
+}
+.favorite__text{
+  text-align: center;
+
 }
 .favorite {
   @include heart($color-light-red, $color-white, $color-black)

@@ -13,17 +13,21 @@ module.exports.favoritescontroller = {
       const existingFavorite = await Favorite.findOne({ user: req.user.id, productId });
       if (existingFavorite) {
         // Если элемент уже существует, вернем его без создания нового
-        favorite = existingFavorite;
+        await Favorite.deleteOne({ user: req.user.id, productId });
+  return res.json({ message: 'Товар  удален из избранных' });
+        
       } else {
         // Если элемент не существует, создадим его
         favorite = await Favorite.create({
           user: req.user.id,
           productId,
         });
+
+         return res.json({favorite, message:'Товар добавлен в избранные'});
       }
-   
-      console.log('create', favorite);
-      return res.json(favorite);
+     
+    
+     
     } catch (e) {
       return res.status(401).json(e.toString());
     }
@@ -63,7 +67,7 @@ module.exports.favoritescontroller = {
       const favorite = await Favorite.findById(id);
       // if (favorite.user.toString() === req.user.id) {
         await Favorite.findByIdAndRemove(id);
-        return res.json(id);
+        return res.json({id, message:'Товар  удален из избранных' });
       // }
       // return res.status(401).json("Ошибка. Нет доступа");
     } catch (e) {
@@ -93,6 +97,7 @@ module.exports.favoritescontroller = {
   //     console.log(error.toString());
   //   }
   // },
+  
   getFavorites: async function (req, res) {
     try {
       const favorite = await Favorite.find({user: req.user.id}).populate({
@@ -103,12 +108,7 @@ module.exports.favoritescontroller = {
         }
       });
    
-      favorite.filter(async (product)=>{
-        product.productId.filter((item)=>{
-          item.checkHeart=!item.checkHeart
-        })    
-        
-      })
+   
  
       res.json(favorite);
     } catch (e) {

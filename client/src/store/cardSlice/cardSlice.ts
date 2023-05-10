@@ -7,6 +7,7 @@ export interface ICardProps {
   categoryId: string
   priceId: string
   colorId: string
+  checkHeart: boolean
   sizes: Array<{ size: string, inStock: boolean }>
   image: string
   name: string
@@ -19,7 +20,7 @@ export interface initialStateProps {
   cards: ICardProps[]
   likedProducts: ICardProps[]
   favorites: ICardProps[]
-  error: string | null
+  error: string | null | undefined
 }
 
 export const fetchCards = createAsyncThunk<ICardProps[], undefined, { rejectValue: string }>(
@@ -29,7 +30,40 @@ export const fetchCards = createAsyncThunk<ICardProps[], undefined, { rejectValu
     if (!response.ok) {
       return rejectWithValue('server is not okey')
     }
+     console.log(response)
     return await response.json()
+   
+  }
+)
+interface loginData {
+  id: string
+  checkHeart: boolean
+ 
+
+}
+export const changeProduct = createAsyncThunk(
+  'productchange',
+  async (loginData: loginData, { getState, rejectWithValue }) => {
+    const state = getState() as RootState
+    // выполнение запроса и получение данных
+    try {
+      const response = await fetch(`/product/${loginData.id}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${state.authorizationSlice.token}`,
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({loginData}),
+      })
+      const data = await response.json()
+      if (response.status !== 200) {
+        return rejectWithValue(data)
+      }     
+      console.log(data)
+      return data
+    } catch (e) {
+      return rejectWithValue(e)
+    }
   }
 )
 
@@ -67,6 +101,26 @@ const cardSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+    .addCase(changeProduct.pending, (state) => {
+      state.loading = true
+      state.error = null
+  
+    })
+    .addCase(changeProduct.fulfilled, (state, action) => {
+      console.log(action.payload)
+      state.loading = false
+      state.error = null
+
+      state.cards.find((item)=>{
+        if(item._id===action.payload){
+         return item.checkHeart=!item.checkHeart
+        }
+      }) 
+    })
+    .addCase(changeProduct.rejected, (state, action) => {
+      state.loading = false
+      // state.error = action.payload
+    })
       .addCase(fetchCards.pending, (state) => {
         state.loading = true
         state.error = null
@@ -93,9 +147,9 @@ const cardSlice = createSlice({
 
         state.loading = false
       })
-      .addCase(createFavorite.pending, (state) => {
-        state.loading = true
-      })
+      // .addCase(createFavorite.pending, (state) => {
+      //   state.loading = true
+      // })
       // .addCase(createFavorite.fulfilled, (state, action: PayloadAction<{ id: CardType['id'] }>) => {
       //   state.cards.find(el => {
       //     if (el.id === action.payload.id) {
@@ -103,14 +157,14 @@ const cardSlice = createSlice({
       //     }
       //   })
       // })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.error = action.payload
+      .addCase(fetchCards.rejected, (state, action) => {
         state.loading = false
+        state.error = action.payload
+      
       })
+      
   }
 
 })
-function isError (action: AnyAction) {
-  return action.type.endsWith('rejected')
-}
+
 export default cardSlice.reducer

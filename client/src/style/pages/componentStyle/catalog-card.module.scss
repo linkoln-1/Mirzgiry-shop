@@ -65,6 +65,19 @@
       background-color: white;
     }
   }
+  .favorit{
+    position: absolute;
+    right: 0px;
+    }
+    .favorit_icon{
+      position: absolute;
+    right: 5px;
+    top: 10px;
+    width: 30px;
+    height: 18px;
+ 
+ 
+    }
 }
 .favorite {
   @include heart($color-light-red, $color-white, $color-black);

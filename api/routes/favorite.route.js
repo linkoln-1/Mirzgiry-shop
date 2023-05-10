@@ -11,9 +11,9 @@ router.delete("/favoritedelete/:id", authmiddleware, favoritescontroller.deleteF
 router.get("/favorites", authmiddleware, favoritescontroller.getFavorites);
 // router.get("/favorite/:id",favoritescontroller.getFavoriteById);
 // router.patch(
-//   "/favoriteadd/:id",
+//   "/favorite/:id",
 //   authmiddleware,
-//   favoritescontroller.addProductToFavorite
+//   favoritescontroller.changeFavoriteById
 // );
 // router.patch("/favorite/delete/:id", favoritescontroller.deleteFavoriteById);
 

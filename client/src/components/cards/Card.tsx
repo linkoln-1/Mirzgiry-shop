@@ -1,15 +1,15 @@
 // library
 import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import Checkbox from '@mui/material/Checkbox'
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
-import Favorite from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/Favorite';
 import { fetchDescriptionCard } from '../../store/descriptionCardSlice/descriptionCardSlice'
 import { fetchCards } from '../../store/cardSlice/cardSlice'
 import { createFavorite} from '../../store/favoriteSlice/favoriteSlice'
-// hooks
-import { useAppDispatch } from '../../hooks/hook'
+import { changeProduct} from '../../store/cardSlice/cardSlice'
 
+// hooks
+import { useAppDispatch} from '../../hooks/hook'
+// import { useState } from 'react';
 // constants
 import { path } from '../../shared/constants/path'
 
@@ -21,6 +21,7 @@ export interface ITodo {
   categoryId: string
   priceId: string
   colorId: string
+  checkHeart: boolean
   sizes: Array<{ size: string, inStock: boolean }>
   image: string
   name: string
@@ -30,30 +31,49 @@ export interface ITodo {
 export interface ICardProps {
   todo: ITodo
   index: number
+  setSnackbarOpen:any
 }
 
-const CardComponent: React.FC<ICardProps> = ({ todo, index }) => {
+const CardComponent: React.FC<ICardProps> = ({ todo, index, setSnackbarOpen }) => {
   const dispatch = useAppDispatch()
+ 
+  const handleClickFavorite =useCallback( (id: string, checkHeart: boolean) => {
+    handleSnackbarOpen();
+   void dispatch(changeProduct({id, checkHeart}))
+  }, [dispatch])
 
   const handleClick = useCallback((id: string) => {
     void dispatch(fetchDescriptionCard(id))
     void dispatch(fetchCards())
   }, [dispatch])
+
 const handleFavorite = useCallback((
   id: string
   )=>{
  void dispatch (createFavorite(id))
+},[dispatch])
 
-} , [dispatch])
+const handleSnackbarOpen = () => {
+  setSnackbarOpen(true);
+  setTimeout(() => {
+    setSnackbarOpen(false);
+  }, 1000); 
+};
   const { _id, image, name, price, sizes } = todo
 
   return (
     <div key={index} className={s.card}>
-      <Checkbox onClick={() => handleFavorite(_id)}
-        icon={<FavoriteBorder  />}
-        checkedIcon={<Favorite />}
-        className={s.favorite}
-      />
+       <div  onClick={() => {handleFavorite(_id)
+       handleSnackbarOpen();
+      }}>
+       <svg className={s.favorit}  width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0H40V40H20C8.95431 40 0 31.0457 0 20V0Z" fill="black"/>
+</svg>
+
+<FavoriteBorderIcon className={s.favorit_icon} sx={{  color: todo.checkHeart ?   '#ac2b16':'#fff'}}   onClick={()=>handleClickFavorite(_id, todo.checkHeart)}/>
+
+   </div>
+    
       <div className={s.card__image}>
         <Link onClick={() => handleClick(_id)} to="/catalog/card">
           <img src={`${path}/${image}`} alt="" />
@@ -70,6 +90,7 @@ const handleFavorite = useCallback((
         <div className={s.white}></div>
         <div className={s.black}></div>
       </div>
+   
     </div>
   )
 }

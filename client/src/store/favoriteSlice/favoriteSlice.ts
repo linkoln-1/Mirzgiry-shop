@@ -30,6 +30,7 @@ export interface initialStateProps {
   favorites: CardType[]
   loading: boolean
   error: null | string | unknown
+  message: string
  
 
 }
@@ -114,10 +115,12 @@ export const deleteToFavorite = createAsyncThunk(
 )
 
 
+
 const initialState: initialStateProps = {
   loading: false,
   favorites: [],
   error: '',
+  message: ''
 
 
 }
@@ -130,13 +133,14 @@ const FavoriteSlice = createSlice({
       .addCase(createFavorite.pending, (state) => {
         state.loading = true
         state.error = null
+        state.message = '';
       })
       .addCase(createFavorite.fulfilled, (state, action) => {
-       
+       console.log(action.payload.message)
         state.loading = false
         state.error = null
-        
-        state.favorites.push(action.payload)
+        state.message = action.payload.message
+        state.favorites.push(action.payload.favorite)
       // state.favorites.filter((item)=>{
       //   item.productId.filter((item)=>{
       //     if(!item._id===action.payload.productId){
@@ -154,21 +158,16 @@ const FavoriteSlice = createSlice({
       .addCase(deleteToFavorite.pending, (state) => {
         state.loading = true
         state.error = null
+        state.message = ''
+        state.favorites
       })
-      .addCase(deleteToFavorite.fulfilled, (state, action) => {
-        
-     
-        state.loading = false
+      .addCase(deleteToFavorite.fulfilled, (state, action) => { state.loading = false
         state.error = null
-        
+        state.message=action.payload.message
         state.favorites = state.favorites.filter((item) => {
-      console.log(item._id)
-      console.log(action.payload)
-          if (item._id === action.payload) {
-            console.log(true)
+          if (item._id === action.payload.id) {
             return false
           } else {
-            console.log(false)
             return true
           }
         })

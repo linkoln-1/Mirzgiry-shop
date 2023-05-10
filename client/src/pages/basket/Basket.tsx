@@ -94,7 +94,7 @@ export const Basket: React.FC<BasketProps> = () => {
       <CustomBreadcrumbs />
       <div className={s.basket_title}>Ваш заказ</div>
     
-      {Basket.length?Basket?.map((product, indexProduct) => {
+      {Basket.length ? Basket?.map((product, indexProduct) => {
       
         return (
           <div key={indexProduct}>
