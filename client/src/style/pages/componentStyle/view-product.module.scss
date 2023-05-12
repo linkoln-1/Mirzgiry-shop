@@ -2,6 +2,9 @@
 .card {
   width: 1320px;
   margin: auto;
+  min-height: 400px;
+
+  
 }
 .card_title {
   font-size: 20px;
@@ -17,10 +20,12 @@
   flex-basis: 22.3333%;
   padding-left: 5px;
   padding-right: 5px;
+  flex: 0 0 auto; 
+ position: relative;
 
-  margin-left: 8px;
   flex-grow: 0;
 }
+
 .todo_image img {
   width: 288px;
   height: 300px;
@@ -86,10 +91,35 @@
   transform: rotate(180deg);
 }
 .card_items {
-  width: 100%;
+ flex-wrap: wrap;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
+ 
+ 
+}
+.favorit{
+position: absolute;
+right: 0px;
+}
+.favorit_icon{
+  position: absolute;
+right: 5px;
+top: 8px;
+width: 30px;
+height: 18px;
+}
+.favorite__empty{
+  margin: auto;
+  width: 300px;
+}
+.favorite__text__bold{
+  font-weight: 700;
+  font-size: 22px;
+  text-align: center;
+}
+.favorite__text{
+  text-align: center;
+
 }
 .favorite {
   @include heart($color-light-red, $color-white, $color-black)

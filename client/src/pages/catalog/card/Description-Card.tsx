@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hook'
 
 // styles
 import s from '../../../style/pages/description-card.module.scss'
-import { createBasket } from '../../../store/BasketSlices/BasketSlice'
+import { createBasket} from '../../../store/BasketSlices/BasketSlice'
 // import { fetchBasket} from '../../../store/BasketSlices/BasketGetSlice'
 
 // interface DescriptionCardProps {
@@ -57,7 +57,7 @@ export const DescriptionCard: React.FC = () => {
     }
     void dispatch(createBasket({ productId: _id, sizes: size }))
 
-    // void  dispatch(fetchBasket())
+   
   },
   [dispatch]
   )

@@ -1,69 +1,127 @@
 // library
-import * as React from 'react'
-
+import React, { useCallback } from 'react'
+import { useEffect } from 'react'
+import FavoriteBorderIcon from '@mui/icons-material/Favorite';
 // components
-import { CustomBreadcrumbs } from '../../components/breadcrumbs'
-
+import { changeProduct} from '../../store/cardSlice/cardSlice'
+import Snackbar from '@material-ui/core/Snackbar';
 // hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/hook'
-
+import { path } from '../../shared/constants/path'
 // mock
-// import { deleteFavorite } from '../../store/slice/slice'
+import { fetchFavorite, deleteToFavorite } from '../../store/favoriteSlice/favoriteSlice'
 
 // styles
 import s from '../../style/pages/componentStyle/view-product.module.scss'
-import Checkbox from '@mui/material/Checkbox'
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
-import Favorite from '@mui/icons-material/Favorite'
 
-export const Favorites: React.FC = () => {
-  const Favorites = useAppSelector(state => state.cardSlice.favorites)
-  const loading = useAppSelector(state => state.cardSlice.loading)
-  // const dispatch = useAppDispatch()
-  // const handleDelete = (id: number) => {
-  //   dispatch(
-  //     deleteFavorite({ id })
-  //   )
-  // }
+
+interface FavoriteProps {
+  _id: string
+  user: string
+
+  productId: Array<{
+    _id: string
+    categoryId: string
+    priceId: string
+    colorId: string
+    categoryIdName: string
+    name: string
+    price: number
+    color: string
+    checkHeart: boolean
+    sizes: Array<{
+      _id: string
+      size: string
+      inStock: number
+      count: number
+    }>,
+    image: string
+   
+  }>
+}
+
+export const Favorites: React.FC<FavoriteProps> = () => {
+  const Favorites = useAppSelector(state => state.FavoriteSlice.favorites)
+  const loading = useAppSelector(state => state.FavoriteSlice.loading)
+ const message = useAppSelector(state => state.FavoriteSlice.message)
+ console.log(message)
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+
+// const handleSnackbarClose = () => {
+//   setSnackbarOpen(false);
+// };
+  const dispatch = useAppDispatch()
+ 
+  const handleClickFavorite = useCallback((id: string, checkHeart: boolean) => {
+    void dispatch(changeProduct({id, checkHeart}))
+    handleSnackbarOpen();
+  }, [dispatch])
+  const handleDelete = (id: string) => {
+    dispatch(
+      deleteToFavorite(id)
+    )
+  }
+  useEffect(() => {
+    dispatch(fetchFavorite())
+  }, [dispatch])
+  const handleSnackbarOpen = () => {
+    setSnackbarOpen(true);
+    setTimeout(() => {
+      setSnackbarOpen(false);
+    }, 1000); 
+  };
   return (
     <div className={s.card}>
-      <CustomBreadcrumbs />
+    
       <div className={s.card_title}>Избранное</div>
       <div className={s.card_items}>
-        {!loading
-          ? Favorites.map((item, index: number) => (
-            item.checkHeart
-              ? (
-                    <div className={s.todo} key={index}>
-                      <Checkbox
-                        icon={<FavoriteBorder />}
-                        checkedIcon={<Favorite />}
-                        className={s.favorite}
-                        // onClick={() => handleDelete(item.id)}
-                      />
-                      <div className={s.todo_image}>
-                        <img src={item.image} alt="" />
-                      </div>
-                      <div className={s.todo_title}>{item.name}</div>
-                      <div className={s.todo_price}>{item.price}</div>
-                      <div className={s.todo_size}>
-                        {item.sizes.map((el, index) => (
-                          <div key={index}>
-                            {el.size}
-                          </div>
-                        ))}
-                      </div>
-                      <div className={s.todo_colorcircle}>
-                        <div className={s.white}></div>
-                        <div className={s.black}></div>
-                      </div>
-                    </div>
-                )
-              : null
-          ))
-          : <div>Please Wait</div>
-            }
+      {Favorites.length ?
+      Favorites?.map((product, index)=>{
+        return product?.productId?.map((item)=>{
+    
+  return(
+          <div className={s.todo} key={index}>
+   <div  onClick={() => handleDelete(product._id)}>
+   <svg className={s.favorit}  width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0H40V40H20C8.95431 40 0 31.0457 0 20V0Z" fill="black"/>
+</svg>
+<FavoriteBorderIcon 
+className={s.favorit_icon} 
+sx={{color: !item.checkHeart ? '#fff' : '#ac2b16' }}  
+onClick={() => {
+  handleClickFavorite(item._id, item.checkHeart);
+  handleSnackbarOpen();
+}}
+/>
+
+   </div>
+            <div className={s.todo_image}>
+            <img src={`${path}/${item.image}`} alt="" />
+            </div>
+            <div className={s.todo_title}>{item.name}</div>
+            <div className={s.todo_price}>{item.price} ₽</div>
+            <div className={s.todo__sizes}>
+        {item?.sizes?.map((item, index) => {
+          return <div className={s.todo__size} key={index}>{item.size}</div>
+        })}
       </div>
+            <div className={s.todo_colorcircle}>
+              <div className={s.white}></div>
+              <div className={s.black}></div>
+            </div>
+          </div>
+          ) 
+          
+        })
+      }):<div className={s.favorite__empty}><p className={s.favorite__text__bold}>В избранных нет товаров</p><p className={s.favorite__text}>Загляните в каталог, чтобы выбрать товары или найдите нужное в поиске</p></div>}
+      
+      </div>
+      <Snackbar
+  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+  open={snackbarOpen}
+  // onClose={handleSnackbarClose}
+  message={message}
+/>
     </div>
   )
 }

@@ -31,20 +31,12 @@ module.exports.productcontroller = {
     }
   },
   changeProductById: async function (req, res) {
+    console.log('vv',req.body)
     try {
-      const product = await Product.findByIdAndUpdate(req.params.id, {
-        name: req.body.name,
-        categoryId: req.body.categoryId,
-        categoryIdName: req.body.categoryIdName,
-        price: req.body.price,
-        priceId: req.body.priceId,
-        color: req.body.color,
-        colorId: req.body.colorId,
-        image:req.body.image,
-        checkHeart:req.body.checkHeart,
-        sizes:req.body.sizes,
-      });
-      res.json("Продукт изменен");
+    
+      const product = await Product.findByIdAndUpdate(req.params.id, {checkHeart: !req.body.loginData.checkHeart}, {new: true});
+      res.json(req.params.id);
+      console.log('change', product)
     } catch (error) {
       console.log(error.toString());
     }
