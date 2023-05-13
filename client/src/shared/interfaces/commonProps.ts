@@ -1,12 +1,14 @@
 import { type ReactNode } from 'react'
 
-export interface IHeaderProps {
+export interface IHeaderProps { 
   colorPlace: boolean
-  onClick?: (a: boolean) => void
+  onClick?: (a: boolean) => void 
   to?: string
   iconClass?: string
   children?: ReactNode
   className?: string
+ 
+
 }
 
 export interface IFooterProps {

@@ -1,12 +1,20 @@
-import React, { type FC } from 'react'
+import React, { useContext, type FC } from 'react'
 
 import { type IHeaderProps } from '../../../shared/interfaces/commonProps'
 import s from '../../../style/pages/componentStyle/header-common.module.scss'
 import CustomNavLink from './CustomNavLink'
+import { CardContext } from '../../../components/cards/Card';
+import { changeProduct} from '../../../store/cardSlice/cardSlice'
+const { handleClickFavorite} = useContext(CardContext);
 
 const Icon = ({ colorPlace, iconClass, children }: IHeaderProps) => (
   <div className={colorPlace ? `${s.iconblack}` : iconClass}>{children}</div>
 )
+export interface IContextValue {
+  handleClickFavorite: (id: string, checkHeart: boolean) => void;
+  
+}
+
 export const Header: FC<IHeaderProps> = ({ colorPlace, onClick }) => (
   <>
     <header>
@@ -28,7 +36,8 @@ export const Header: FC<IHeaderProps> = ({ colorPlace, onClick }) => (
             <CustomNavLink colorPlace={colorPlace} to="/new" onClick={onClick}>
                 NEW
             </CustomNavLink>
-            <CustomNavLink colorPlace={colorPlace} to="/catalog" onClick={onClick}>
+            <CustomNavLink colorPlace={colorPlace} to="/catalog" onClick={() => {onClick
+            handleClickFavorite((id: string,  checkHeart: boolean) => void dispatch(changeProduct({ id, checkHeart})))}}>
               КАТАЛОГ
             </CustomNavLink>
             <CustomNavLink colorPlace={colorPlace} to="/about" onClick={onClick}>
@@ -110,3 +119,7 @@ export const Header: FC<IHeaderProps> = ({ colorPlace, onClick }) => (
     </header>
   </>
 )
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}
+

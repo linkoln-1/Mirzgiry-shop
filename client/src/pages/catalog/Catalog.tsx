@@ -120,6 +120,8 @@ export const Catalog: React.FC = () => {
                         todo={todo}
                         index={index}
                         setSnackbarOpen={setSnackbarOpen}
+               
+                      
                         // checkHeart={todo.checkHeart}
                       />
                     )
