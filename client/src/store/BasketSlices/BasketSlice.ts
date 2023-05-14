@@ -22,7 +22,6 @@ interface CardType {
       inStock: number
       count: number
     }>
-
     image: string }>
 }
 export interface initialStateProps {
@@ -35,8 +34,7 @@ export interface initialStateProps {
 interface loginData {
   productId: string
   sizes: string
-  
- 
+
 }
 export const createBasket = createAsyncThunk(
   'basketadd',
@@ -55,7 +53,7 @@ export const createBasket = createAsyncThunk(
       const data = await response.json()
       if (response.status !== 200) {
         return rejectWithValue(data.message)
-      }     
+      }
       return data
     } catch (e) {
       return rejectWithValue(e)
@@ -126,10 +124,9 @@ interface loginDataCount {
   categoryId: string
   sizeId: string
   indexSize: number
-  change: string 
+  change: string
   inStock: number
   count: number
- 
 
 }
 export const BasketPlus = createAsyncThunk(
@@ -151,8 +148,8 @@ export const BasketPlus = createAsyncThunk(
       if (response.status !== 200) {
         return rejectWithValue(data.message)
       }
-      console.log(data);
-      
+      console.log(data)
+
       return data
     } catch (e) {
       return rejectWithValue(e)
@@ -190,7 +187,6 @@ export const BasketMinus = createAsyncThunk(
 // Загрузить данные из localStorage
 // const savedProducts = localStorage.getItem('basketState');
 
-
 // Если данные доступны, преобразовать их из строки JSON в объект
 // const initialStateProducts = savedProducts ? JSON.parse(savedProducts) : [];
 
@@ -217,7 +213,7 @@ const BasketSlice = createSlice({
         console.log(action.payload)
         state.loading = false
         state.error = null
-        state.products.push(action.payload)  
+        state.products.push(action.payload)
       })
       .addCase(createBasket.rejected, (state, action) => {
         state.loading = false
@@ -239,9 +235,9 @@ const BasketSlice = createSlice({
           }
         })
         // state.products.filter((item)=>{
-         
+
         //   item.productId.filter((item)=>{
-            
+
         //     state.payment-=item.price
         //   })
         // })
@@ -255,24 +251,21 @@ const BasketSlice = createSlice({
         state.error = null
       })
       .addCase(fetchBasket.fulfilled, (state, action) => {
-      console.log(action.payload)
+        console.log(action.payload)
         state.loading = false
         state.error = null
-        state.products =  action.payload
+        state.products = action.payload
         // state.products.filter((item)=>{
 
-         
         //   item.productId.filter((item)=>{
-            
+
         //    return state.payment+=item.price
         //   })
         // })
-
       })
       .addCase(fetchBasket.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
-      
       })
       .addCase(BasketPlus.pending, (state) => {
         state.loading = true
@@ -280,16 +273,16 @@ const BasketSlice = createSlice({
       })
       .addCase(BasketPlus.fulfilled, (state, action) => {
         console.log(action.payload.loginDataCount)
-        state.loading = false;
-        state.error = null;
+        state.loading = false
+        state.error = null
         state.products.map((product) => {
           if (product._id === action.payload.loginDataCount.basketId) {
-           return state.products[action.payload.loginDataCount.indexProduct].productId[0].sizes[action.payload.loginDataCount.indexSize].count +=1 ;
+            return state.products[action.payload.loginDataCount.indexProduct].productId[0].sizes[action.payload.loginDataCount.indexSize].count += 1
           }
           // localStorage.setItem('basketState', JSON.stringify(state.products));
-        });
+        })
       })
-      
+
       .addCase(BasketPlus.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
@@ -303,10 +296,10 @@ const BasketSlice = createSlice({
         state.error = null
         state.products.map((product) => {
           if (product._id === action.payload.loginDataCount.basketId) {
-           return state.products[action.payload.loginDataCount.indexProduct].productId[0].sizes[action.payload.loginDataCount.indexSize].count -=1;
+            return state.products[action.payload.loginDataCount.indexProduct].productId[0].sizes[action.payload.loginDataCount.indexSize].count -= 1
           }
           // localStorage.setItem('basketState', JSON.stringify(state.products));
-        });
+        })
       })
       .addCase(BasketMinus.rejected, (state, action) => {
         state.loading = false

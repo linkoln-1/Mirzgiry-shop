@@ -1,4 +1,5 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { type ReactNode } from 'react'
 
 interface CategoriesProps {
   id: string
@@ -9,7 +10,7 @@ interface CategoriesProps {
   name: string
   price: number
   colors: string
-  sizes: Array<{ size: string }>
+  sizes: Array<{ size: string | ReactNode }>
   _id: string
 }
 

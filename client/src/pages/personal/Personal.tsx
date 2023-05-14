@@ -69,7 +69,7 @@ export const Personal = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <History />
+          {/*<History />*/}
         </TabPanel>
         <TabPanel value={value} index={1}>
           <PersonalData />

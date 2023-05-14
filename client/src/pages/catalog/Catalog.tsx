@@ -5,9 +5,9 @@ import React, { useEffect, useState } from 'react'
 import { Card } from '../../components/cards'
 import { GroupedSelect } from '../../components/groupSelect'
 import { CustomBreadcrumbs } from '../../components/breadcrumbs'
-import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar'
 // hooks
-import { useAppDispatch, useAppSelector  } from '../../hooks/hook'
+import { useAppDispatch, useAppSelector } from '../../hooks/hook'
 
 import { useCategories } from '../../shared/helpers/customCategories'
 import { useCards } from '../../shared/helpers/customUseCard'
@@ -47,7 +47,7 @@ export const Catalog: React.FC = () => {
   const onClickCategory = (id: string) => {
     setCategoryId(id)
   }
-  const [snackbarOpen, setSnackbarOpen] = React.useState<boolean>(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState<boolean>(false)
   const message = useAppSelector(state => state.FavoriteSlice.message)
   return (
     <div className={s.catalog}>
