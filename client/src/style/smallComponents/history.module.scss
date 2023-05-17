@@ -1,3 +1,7 @@
+.history{
+  min-height: 390px;
+
+}
 .history__wrapper{
     display: flex;
     justify-content: space-between;
@@ -8,6 +12,7 @@
 }
 .status__completed, .order__price{
     font-weight: 700;
+   
 }
 .history__order__price{
     width: 110px;
@@ -20,13 +25,14 @@
 .history__order__number{
     width: 135px;
     height: 20px;
+    display: flex;
 }
 .history__hr{
     color:rgba(37, 37, 37, 1);
     height: 0.3px;
     margin: 0px;
 }
-.history__hrnone{
+.history__hr__close{
     display: none;
 }
 .history__icon__open{
@@ -103,11 +109,25 @@ margin-left: 10px;
     margin-bottom: 20px;
   }
   
-  
+ .history__close{
+  display: none;
+ } 
 
 .history_flex{
     display: flex;
     justify-content: space-between;
     width: 350px;
   }
- 
+  .history__text{
+    text-align: center;
+    margin-top: 30px;
+    
+   font-weight: 300;
+    font-size: 22px;
+    text-align: center;
+
+  }
+ .history__information{
+  display: flex;
+  justify-content: space-between;
+ }

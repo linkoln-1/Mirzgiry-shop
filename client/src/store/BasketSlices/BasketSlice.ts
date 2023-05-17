@@ -2,7 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
 // import { API_URL } from '../../shared/constants/path'
 
-interface CardType {
+export interface CardTypee {
+ 
+
   _id: string
   user: string
   sizes: string
@@ -25,10 +27,10 @@ interface CardType {
     image: string }>
 }
 export interface initialStateProps {
-  products: CardType[]
+  products: CardTypee[]
   loading: boolean
   error: null | string | unknown
-  payment: number
+
 
 }
 interface loginData {
@@ -196,7 +198,7 @@ const initialState: initialStateProps = {
   loading: false,
   products: [],
   error: '',
-  payment: 0
+ 
 
 }
 const BasketSlice = createSlice({
@@ -214,6 +216,7 @@ const BasketSlice = createSlice({
         state.loading = false
         state.error = null
         state.products.push(action.payload)
+      
       })
       .addCase(createBasket.rejected, (state, action) => {
         state.loading = false
@@ -234,6 +237,7 @@ const BasketSlice = createSlice({
             return true
           }
         })
+      
         // state.products.filter((item)=>{
 
         //   item.productId.filter((item)=>{
@@ -255,6 +259,7 @@ const BasketSlice = createSlice({
         state.loading = false
         state.error = null
         state.products = action.payload
+   
         // state.products.filter((item)=>{
 
         //   item.productId.filter((item)=>{

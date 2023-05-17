@@ -90,7 +90,7 @@ console.log(req.body)
         return res.json(id);
         
       // }
-      return res.status(401).json("Ошибка. Нет доступа")
+      // return res.status(401).json("Ошибка. Нет доступа")
 
     }catch(e){
       return res.status(401).json("Ошибка"+ e.toString())

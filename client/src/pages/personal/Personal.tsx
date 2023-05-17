@@ -28,7 +28,7 @@ function TabPanel (props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -37,6 +37,7 @@ function TabPanel (props: TabPanelProps) {
 }
 
 export const Personal = () => {
+ 
   const [value, setValue] = React.useState(0)
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -69,7 +70,7 @@ export const Personal = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          {/*<History />*/}
+          <History _id={''} user={''} sizes={''} productId={[]} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <PersonalData />
