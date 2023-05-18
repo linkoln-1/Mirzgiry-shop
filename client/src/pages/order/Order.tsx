@@ -3,15 +3,25 @@ import React from 'react'
 // styles
 import s from '../../style/pages/order.module.scss'
 
+import { useAppDispatch } from '../../hooks/hook'
+import { createHistory } from '../../store/HistorySlice/HistorySlice'
+import {CardTypee} from '../../store/BasketSlices/BasketSlice'
+
 interface OrderProps {
+    
+    basket: CardTypee[]
     totalPrice: number
   }
-export const Order: React.FC<OrderProps> = ({totalPrice}) => {
-  
+export const Order: React.FC<OrderProps> = ({totalPrice, basket}) => {
+  const dispatch = useAppDispatch()
+const handleAddToHistory =()=>{
+ 
+  dispatch(createHistory({totalPrice, basket }))
+}
   return (
         <div className={s.order}>
             <div className={s.order__decor}>Оформление заказа</div>
-            <form className={s.order__personal__information}>
+            <div className={s.order__personal__information}>
                 <div className={s.order__wrapper__personal__information}>
                      <p>Персональные данные:</p>
             <div className={s.order__wrapper__input}>
@@ -89,11 +99,11 @@ export const Order: React.FC<OrderProps> = ({totalPrice}) => {
               <div className={s.order__decor__total}>
               <div>ИТОГО:</div><div className={s.order__bold}>{totalPrice} ₽</div>
               </div>
-               <button>ОФОРМИТЬ ЗАКАЗ</button>
+               <button onClick={handleAddToHistory}>ОФОРМИТЬ ЗАКАЗ</button>
                <div className={s.order__consent}>Нажимая на кнопку «оплатить заказ», я принимаю условия публичной оферты и политики конфиденциальности</div>
                </div>
                </div>
-            </form>
+            </div>
         </div>
   )
 }

@@ -10,5 +10,5 @@ router.use(require("./size.route"));
 router.use(require("./user.route"));
 router.use(require("./favorite.route"));
 router.use(require("./basket.route"));
-
+router.use(require("./history.route"));
 module.exports = router;

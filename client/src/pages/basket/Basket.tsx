@@ -15,7 +15,8 @@ import s from '../../style/pages/basket.module.scss'
 
 import { fetchBasket, deleteToBasket } from '../../store/BasketSlices/BasketSlice'
 
-interface BasketProps {
+export interface BasketProps {
+  
   _id: string
   user: string
   sizes: string
@@ -34,6 +35,7 @@ interface BasketProps {
       inStock: number
       count: number
     }>
+    
 
     _id: string
     image: string
@@ -42,6 +44,9 @@ interface BasketProps {
 }
 export const Basket: React.FC<BasketProps> = () => {
   const Basket = useAppSelector(state => state.BasketSlice.products)
+
+ const find =  Basket.map((item)=>item)
+
   const products = useAppSelector(state => state.BasketSlice.products)
 
   const totalPrice = products.reduce((acc, product) => {
@@ -49,8 +54,7 @@ export const Basket: React.FC<BasketProps> = () => {
       return acc + item.price
     }, 0)
   }, 0)
-
-  console.log(Basket)
+ 
 
   // const payment = useAppSelector(state => state.payment)
   const [circleColor] = useState('Белый')
@@ -173,7 +177,7 @@ export const Basket: React.FC<BasketProps> = () => {
         )
       }) : <div className={s.basket__empty}><p className={s.basket__text__bold}>В корзине пока пусто</p><p className={s.basket__text}>Загляните в каталог, чтобы выбрать товары или найдите нужное в поиске</p></div>}
       {Basket.length ? <div className={s.basket_payment}><div>К оплате:</div><div className={s.basket_payment_sum}>{totalPrice} ₽</div></div> : null}
-    {Basket.length ? <Order totalPrice={totalPrice}/> : null}
+    {Basket.length ? <Order totalPrice={totalPrice} basket={find} /> : null}
     </div>
   )
 }
