@@ -10,6 +10,14 @@ import s from '../../../style/smallComponents/history.module.scss'
 export interface HistoryProps {
 
   totalPrice: number
+  // selectedRadio1: string,
+  // selectedRadio2: string,
+  // name: string,
+  // surName: string,
+  // email: string,
+  // phone: string,
+  // city: string,
+  // postOffice: string
   _id: string
   user: string
   date: string
@@ -171,9 +179,9 @@ export const History: React.FC<HistoryProps> = () => {
             })}
           </div>
            <div className={!opened ? s.history__close :s.history__information}>
-            <div><p>Имя Фамилия:</p><p>Спсосб доставки:</p></div>
-            <div><p>E-mail:</p></div>
-            <div><p>Номер телефона:</p><p>Спсосб оплаты:</p></div>
+            <div className={s.history__text__start}><p>Имя Фамилия: {history.name} {history.surName}</p><p>Спсосб доставки: {history.selectedRadio1}</p></div>
+            <div className={s.history__text__middle}><p>E-mail: {history.email}</p></div>
+            <div className={s.history__text__end}><p>Номер телефона: {history.phone}</p><p>Спсосб оплаты: {history.selectedRadio2}</p></div>
           </div>
           <hr className={ s.history__hr}></hr>
       

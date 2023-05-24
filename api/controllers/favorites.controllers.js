@@ -1,10 +1,11 @@
 const Favorite = require("../models/Favorite.model");
-
+const Product = require("../models/Product.model");
 
 
 module.exports.favoritescontroller = {
   createFavorite: async function (req, res) {
-    const { productId } = req.body;
+    console.log("cr", req.body)
+    const { productId } = req.body.loginData;
   
     try {
       let favorite;
@@ -12,11 +13,20 @@ module.exports.favoritescontroller = {
       // Проверяем, существует ли элемент с productId в списке избранных для пользователя
       const existingFavorite = await Favorite.findOne({ user: req.user.id, productId });
       if (existingFavorite) {
-        // Если элемент уже существует, вернем его без создания нового
+        // Если элемент уже существует, удалим его
         await Favorite.deleteOne({ user: req.user.id, productId });
+        const product = await Product.findById(productId);
+     
+        product.checkHeart=!product.checkHeart
+        product.save();
+         console.log("product", product)
   return res.json({ message: 'Товар  удален из избранных' });
+
         
       } else {
+        const product = await Product.findById(productId);
+        product.checkHeart=!product.checkHeart
+        product.save();
         // Если элемент не существует, создадим его
         favorite = await Favorite.create({
           user: req.user.id,
@@ -67,7 +77,11 @@ module.exports.favoritescontroller = {
       const favorite = await Favorite.findById(id);
       // if (favorite.user.toString() === req.user.id) {
         await Favorite.findByIdAndRemove(id);
-        return res.json({id, message:'Товар  удален из избранных' });
+      
+        const product = await Product.findById(favorite.productId);
+        product.checkHeart=!product.checkHeart
+        product.save(); 
+         return res.json({id, message:'Товар  удален из избранных' });
       // }
       // return res.status(401).json("Ошибка. Нет доступа");
     } catch (e) {

@@ -34,10 +34,15 @@ export interface initialStateProps {
  
 
 }
+export interface loginData {
+  productId: string
+  checkHeart: boolean
+ 
 
+}
 export const createFavorite = createAsyncThunk(
   'favoriteadd',
-  async (productId: string, { getState, rejectWithValue }) => {
+  async (loginData: loginData, { getState, rejectWithValue }) => {
     const state = getState() as RootState
     // выполнение запроса и получение данных
     try {
@@ -47,7 +52,7 @@ export const createFavorite = createAsyncThunk(
           Authorization: `Bearer ${state.authorizationSlice.token}`,
           'content-type': 'application/json'
         },
-        body: JSON.stringify({ productId }),
+        body: JSON.stringify({ loginData }),
       })
       const data = await response.json()
       if (response.status !== 200) {

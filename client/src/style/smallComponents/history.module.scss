@@ -23,7 +23,7 @@
     height: 43;
 }
 .history__order__number{
-    width: 135px;
+    width: 300px;
     height: 20px;
     display: flex;
 }
@@ -130,4 +130,16 @@ margin-left: 10px;
  .history__information{
   display: flex;
   justify-content: space-between;
+ }
+ .history__information div{
+  width: 450px;
+ }
+ .history__text__start{
+  text-align: left;
+ }
+ .history__text__middle{
+  text-align: center;
+ }
+ .history__text__end{
+  text-align: end;
  }

@@ -1,9 +1,9 @@
 // library
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useEffect } from 'react'
 import FavoriteBorderIcon from '@mui/icons-material/Favorite';
 // components
-import { changeProduct} from '../../store/cardSlice/cardSlice'
+// import { changeProduct} from '../../store/cardSlice/cardSlice'
 import Snackbar from '@material-ui/core/Snackbar';
 // hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/hook'
@@ -42,7 +42,7 @@ interface FavoriteProps {
 
 export const Favorites: React.FC<FavoriteProps> = () => {
   const Favorites = useAppSelector(state => state.FavoriteSlice.favorites)
-  const loading = useAppSelector(state => state.FavoriteSlice.loading)
+  // const loading = useAppSelector(state => state.FavoriteSlice.loading)
  const message = useAppSelector(state => state.FavoriteSlice.message)
  console.log(message)
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -52,24 +52,27 @@ export const Favorites: React.FC<FavoriteProps> = () => {
 // };
   const dispatch = useAppDispatch()
  
-  const handleClickFavorite = useCallback((id: string, checkHeart: boolean) => {
-    void dispatch(changeProduct({id, checkHeart}))
-    handleSnackbarOpen();
-  }, [dispatch])
+  // const handleClickFavorite = useCallback(() => {
+  //   // void dispatch(changeProduct({id, checkHeart}))
+  //   handleSnackbarOpen();
+  // }, [dispatch])
   const handleDelete = (id: string) => {
+    handleSnackbarOpen();
     dispatch(
       deleteToFavorite(id)
     )
   }
-  useEffect(() => {
-    dispatch(fetchFavorite())
-  }, [dispatch])
+
   const handleSnackbarOpen = () => {
     setSnackbarOpen(true);
     setTimeout(() => {
       setSnackbarOpen(false);
     }, 1000); 
-  };
+  }; 
+  
+  useEffect(() => {
+    dispatch(fetchFavorite())
+  }, [dispatch])
   return (
     <div className={s.card}>
     
@@ -89,7 +92,7 @@ export const Favorites: React.FC<FavoriteProps> = () => {
 className={s.favorit_icon} 
 sx={{color: !item.checkHeart ? '#fff' : '#ac2b16' }}  
 onClick={() => {
-  handleClickFavorite(item._id, item.checkHeart);
+  // handleClickFavorite(item._id, item.checkHeart);
   handleSnackbarOpen();
 }}
 />

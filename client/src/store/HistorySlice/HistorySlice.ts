@@ -3,6 +3,12 @@ import type { RootState } from '../store'
 // import { API_URL } from '../../shared/constants/path'
 import { CardTypee } from '../BasketSlices/BasketSlice'
 export interface CardType {
+  phone: string
+  email: string
+  selectedRadio1: string
+  selectedRadio2: string
+  surName: string
+  name: string
 
   totalPrice: number
   _id: string
@@ -50,6 +56,14 @@ export interface initialStateProps {
 interface loginData {
  totalPrice: number
  basket: CardTypee[]
+ selectedRadio1: string
+ selectedRadio2: string
+ name: string
+ surName: string
+ email: string
+ phone: string
+ city: string
+ postOffice: string
 }
 export const createHistory = createAsyncThunk(
   'historyadd',

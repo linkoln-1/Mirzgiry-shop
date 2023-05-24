@@ -24,23 +24,26 @@ module.exports.productcontroller = {
 
   deleteProductById: async function (req, res) {
     try {
+      const changeproduct = await Product.findByIdAndUpdate(req.params.id);
+      changeproduct.checkHeart=!changeproduct.checkHeart
+      changeproduct.save();
       const product = await Product.findByIdAndRemove(req.params.id);
       res.json("Товар удален");
     } catch (error) {
       console.log(error.toString());
     }
   },
-  changeProductById: async function (req, res) {
-    console.log('vv',req.body)
-    try {
+  // changeProductById: async function (req, res) {
+  //   console.log('vv',req.body)
+  //   try {
     
-      const product = await Product.findByIdAndUpdate(req.params.id, {checkHeart: !req.body.loginData.checkHeart}, {new: true});
-      res.json(req.params.id);
-      console.log('change', product)
-    } catch (error) {
-      console.log(error.toString());
-    }
-  },
+  //     const product = await Product.findByIdAndUpdate(req.params.id, {checkHeart: !req.body.loginData.checkHeart}, {new: true});
+  //     res.json(req.params.id);
+  //     console.log('change', product)
+  //   } catch (error) {
+  //     console.log(error.toString());
+  //   }
+  // },
   getProducts: async function (req, res) {
     try {
       const product = await Product.find().populate('sizes');

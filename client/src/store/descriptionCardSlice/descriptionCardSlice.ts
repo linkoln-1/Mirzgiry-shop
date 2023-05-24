@@ -1,6 +1,7 @@
 import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 interface DescriptionProps {
+  image: any
   id: string
   categoryId: string
   priceId: string
