@@ -89,7 +89,7 @@ input + label{
     font-weight: 700;
     font-size: 16px;
 }
-button{
+.button{
     width: 300px;
     height: 50px;
     color: white;
@@ -97,6 +97,15 @@ button{
     font-size: 16px;
     font-weight: 300;
     border: none;
+}
+.disabled{
+    width: 300px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: 300;
+    color: $color-white;
+  background-color: $color-grey-6;
+  cursor: not-allowed  !important;
 }
 .order__decor__conditions{
 margin-bottom: 20px;

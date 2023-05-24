@@ -16,7 +16,16 @@ const historySchema = mongoose.Schema({
           _id: String
        
       }],
-    totalPrice: Number
+    totalPrice: Number,
+    selectedRadio1: String,
+    selectedRadio2: String,
+    name: String,
+    surName: String,
+    email: String,
+    phone: String,
+    city: String,
+    postOffice: String
+
    
   
    

@@ -1,9 +1,9 @@
 // library
-import React, { useCallback } from 'react'
+import React, { useCallback, useState} from 'react'
 import { Link } from 'react-router-dom'
 import FavoriteBorderIcon from '@mui/icons-material/Favorite'
 import { fetchDescriptionCard } from '../../store/descriptionCardSlice/descriptionCardSlice'
-import { fetchCards, changeProduct } from '../../store/cardSlice/cardSlice'
+import { fetchCards} from '../../store/cardSlice/cardSlice'
 import { createFavorite } from '../../store/favoriteSlice/favoriteSlice'
 
 // hooks
@@ -35,11 +35,9 @@ export interface ICardProps {
 
 const CardComponent: React.FC<ICardProps> = ({ todo, index, setSnackbarOpen }) => {
   const dispatch = useAppDispatch()
+const [changeCheckHeart, setChangeCheckHeart] = useState(todo.checkHeart)
 
-  const handleClickFavorite = useCallback((id: string, checkHeart: boolean) => {
-    handleSnackbarOpen()
-    void dispatch(changeProduct({ id, checkHeart }))
-  }, [dispatch])
+
 
   const handleClick = useCallback((id: string) => {
     void dispatch(fetchDescriptionCard(id))
@@ -47,10 +45,13 @@ const CardComponent: React.FC<ICardProps> = ({ todo, index, setSnackbarOpen }) =
   }, [dispatch])
 
   const handleFavorite = useCallback((
-    id: string
+    productId: string,
+    checkHeart: boolean
   ) => {
-    void dispatch(createFavorite(id))
-  }, [dispatch])
+    setChangeCheckHeart(!changeCheckHeart)
+    handleSnackbarOpen()
+    void dispatch(createFavorite({productId, checkHeart}))
+  }, [dispatch, changeCheckHeart])
 
   const handleSnackbarOpen = () => {
     setSnackbarOpen(true)
@@ -63,14 +64,14 @@ const CardComponent: React.FC<ICardProps> = ({ todo, index, setSnackbarOpen }) =
   return (
     <div key={index} className={s.card}>
        <div onClick={() => {
-         handleFavorite(_id)
+         handleFavorite(_id, changeCheckHeart)
          handleSnackbarOpen()
        }}>
        <svg className={s.favorit} width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0H40V40H20C8.95431 40 0 31.0457 0 20V0Z" fill="black"/>
 </svg>
 
-<FavoriteBorderIcon className={s.favorit_icon} sx={{ color: todo.checkHeart ? '#ac2b16' : '#fff' }} onClick={() => handleClickFavorite(_id, todo.checkHeart)}/>
+<FavoriteBorderIcon className={s.favorit_icon} sx={{ color: changeCheckHeart ? '#ac2b16' : '#fff' }} />
 
    </div>
 
