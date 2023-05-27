@@ -14,7 +14,7 @@ p{
     font-weight: 300;
     margin: 20px 0 20px 0;
 }
-input{
+.input, .order__bonus{
     width: 400px;
     height: 50px;
     margin-bottom: 20px;
@@ -23,6 +23,24 @@ input{
     font-size: 16px;
     padding: 16px;
 }
+.input_shadow{
+    width: 400px;
+    height: 50px;
+    margin-bottom: 20px;
+  
+    color:rgba(37, 37, 37, 0.5);
+    font-size: 16px;
+    padding: 16px;
+         box-shadow: 0px 7px 20px 0px rgba(220, 36, 42, 0.871); 
+         border:none;
+}
+.radio_shadow{
+    width: 18px;
+    height: 18px; 
+    margin: 0;
+    box-shadow: 0px 7px 20px 0px rgba(220, 36, 42, 0.871); 
+}
+
 .order__wrapper__input{
     width: 820px;
     display: flex;
@@ -39,7 +57,7 @@ input{
     width: 400px;
    
 }
-.order__wrapper__radio input{
+.input_radio{
     width: 18px;
     height: 18px; 
     margin: 0;

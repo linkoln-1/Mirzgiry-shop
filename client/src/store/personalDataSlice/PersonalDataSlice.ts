@@ -1,47 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
-// import { API_URL } from '../../shared/constants/path'
-import { CardTypee } from '../BasketSlices/BasketSlice'
-export interface CardType {
-  phone: string
-  email: string
-  selectedRadio1: string
-  selectedRadio2: string
-  surName: string
-  name: string
-
-  totalPrice: number
-  _id: string
-  user: string
-  date: string
-  count: number
- basket: Array<{
-    productId:Array<{
-        color: string
-        _id: string
-        categoryId: string
-        priceId: string
-        colorId: string
-        categoryIdName: string
-        name: string
-        image: string
-        price: number
-        colors: string
-        sizes: Array<{
-          _id: string
-          size: string
-          inStock: number
-          count: number
-        }>
 
 
-    }>
-    sizes: string
-    user: string
+export interface CardTyp {
     _id: string
+  user: string  
+  name: string
+  surName: string 
+  email: string
+  phone: string
+  street: string
+  homeNumber: string
 
-    }>
-    
+ 
+
   
   
 }
@@ -49,29 +21,26 @@ export interface initialStateProps {
 
   loading: boolean
   error: null | string | unknown
-  history: CardType[]
+  personal: CardTyp[]
   
 
 }
 interface loginData {
- totalPrice: number
- basket: CardTypee[]
- selectedRadio1: string
- selectedRadio2: string
- name: string
+
+ name: string 
  surName: string
- email: string
+ email: string 
  phone: string
- city: string
- postOffice: string
+ street: string
+ homeNumber: string
 }
-export const createHistory = createAsyncThunk(
-  'historyadd',
+export const changePersonalData = createAsyncThunk(
+  'personaladd',
   async (loginData: loginData, { getState, rejectWithValue }) => {
     const state = getState() as RootState
     // выполнение запроса и получение данных
     try {
-      const response = await fetch('/historyadd', {
+      const response = await fetch(`/personal`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${state.authorizationSlice.token}`,
@@ -91,13 +60,13 @@ export const createHistory = createAsyncThunk(
   }
 )
 
-export const fetchHistories = createAsyncThunk(
-  'gethistories',
+export const fetchPersonalData = createAsyncThunk(
+  'getpersonal',
   async (_, { getState, rejectWithValue }) => {
     const state = getState() as RootState
     // выполнение запроса и получение данных
     try {
-      const response = await fetch('/histories', {
+      const response = await fetch('/personal', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${state.authorizationSlice.token}`,
@@ -120,57 +89,49 @@ export const fetchHistories = createAsyncThunk(
 
 const initialState: initialStateProps = {
   loading: false,
-
   error: '',
-  history: [],
+  personal: [],
  
 
 }
-const HistorySlice = createSlice({
-  name: 'basket',
+const PersonalDataSlice = createSlice({
+  name: 'personal',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(createHistory.pending, (state) => {
+      .addCase(changePersonalData.pending, (state) => {
         state.loading = true
         state.error = null
+        state.personal=[]
       })
-      .addCase(createHistory.fulfilled, (state, action) => {
+      .addCase(changePersonalData.fulfilled, (state, action) => {
         console.log(action.payload)
         state.loading = false
         state.error = null
-        state.history.unshift(action.payload)
+        state.personal.push(action.payload)
       })
-      .addCase(createHistory.rejected, (state, action) => {
+      .addCase(changePersonalData.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
-
+      .addCase(fetchPersonalData.pending, (state) => {
+        state.loading = true
+        state.error = null
+        state.personal=[]
+      })
+      .addCase(fetchPersonalData.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.loading = false
+        state.error = null
+     
+       state.personal = action.payload
       
-      .addCase(fetchHistories.pending, (state) => {
-        state.loading = true
-        state.error = null
       })
-      .addCase(fetchHistories.fulfilled, (state, action) => {
-        console.log(action.payload)
-        state.loading = false
-        state.error = null
-     
-       state.history = action.payload
-        // state.products.filter((item)=>{
-
-        //   item.productId.filter((item)=>{
-
-        //    return state.payment+=item.price
-        //   })
-        // })
-      })
-      .addCase(fetchHistories.rejected, (state, action) => {
+      .addCase(fetchPersonalData.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
-     
   }
 })
-export default HistorySlice.reducer
+export default PersonalDataSlice.reducer

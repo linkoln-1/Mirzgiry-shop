@@ -9,6 +9,7 @@ import authorizationSlice from './applicationSlice/authorizationSlice'
 import BasketSlice from './BasketSlices/BasketSlice'
 import FavoriteSlice from './favoriteSlice/favoriteSlice'
 import historySlice from './HistorySlice/HistorySlice'
+import personalDataSlice from './personalDataSlice/PersonalDataSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
@@ -23,7 +24,8 @@ export const store = configureStore({
     authorizationSlice,
     BasketSlice,
     FavoriteSlice,
-    historySlice
+    historySlice,
+    personalDataSlice
 
   }
 })
