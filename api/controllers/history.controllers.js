@@ -6,7 +6,8 @@ module.exports.historycontroller = {
   createHistory: async function (req, res, next) {
 
     console.log(req.body);
-    const { basket, 
+    const { 
+        basket, 
         totalPrice, 
         selectedRadio1,
         selectedRadio2,
@@ -15,7 +16,8 @@ module.exports.historycontroller = {
         email,
         phone,
         city,
-        postOffice } = req.body.loginData;
+        postOffice 
+      } = req.body.loginData;
     // const baskets = await Basket.find({user: req.user.id})
 try {
     const lastHistory = await History.findOne().sort({ _id: -1 }).limit(1);
