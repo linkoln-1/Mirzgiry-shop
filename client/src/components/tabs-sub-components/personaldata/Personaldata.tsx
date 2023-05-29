@@ -17,6 +17,7 @@ export const PersonalData: React.FC = () => {
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
+    
     setName(personalData.map(item => item.name).join(''));
     setSurName(personalData.map(item => item.surName).join(''));
     setEmail(personalData.map(item => item.email).join(''));
