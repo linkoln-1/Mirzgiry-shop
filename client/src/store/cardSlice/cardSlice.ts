@@ -30,15 +30,13 @@ export const fetchCards = createAsyncThunk<ICardProps[], undefined, { rejectValu
     if (!response.ok) {
       return rejectWithValue('server is not okey')
     }
-     console.log(response)
+    console.log(response)
     return await response.json()
-   
   }
 )
 interface loginData {
   id: string
   checkHeart: boolean
- 
 
 }
 export const changeProduct = createAsyncThunk(
@@ -53,12 +51,12 @@ export const changeProduct = createAsyncThunk(
           Authorization: `Bearer ${state.authorizationSlice.token}`,
           'content-type': 'application/json'
         },
-        body: JSON.stringify({loginData}),
+        body: JSON.stringify({ loginData }),
       })
       const data = await response.json()
       if (response.status !== 200) {
         return rejectWithValue(data)
-      }     
+      }
       console.log(data)
       return data
     } catch (e) {
@@ -101,26 +99,25 @@ const cardSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(changeProduct.pending, (state) => {
-      state.loading = true
-      state.error = null
-  
-    })
-    .addCase(changeProduct.fulfilled, (state, action) => {
-      console.log(action.payload)
-      state.loading = false
-      state.error = null
+      .addCase(changeProduct.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(changeProduct.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.loading = false
+        state.error = null
 
-      state.cards.find((item)=>{
-        if(item._id===action.payload){
-         return item.checkHeart=!item.checkHeart
-        }
-      }) 
-    })
-    .addCase(changeProduct.rejected, (state, action) => {
-      state.loading = false
+        state.cards.find((item) => {
+          if (item._id === action.payload) {
+            return item.checkHeart = !item.checkHeart
+          }
+        })
+      })
+      .addCase(changeProduct.rejected, (state, action) => {
+        state.loading = false
       // state.error = action.payload
-    })
+      })
       .addCase(fetchCards.pending, (state) => {
         state.loading = true
         state.error = null
@@ -160,9 +157,7 @@ const cardSlice = createSlice({
       .addCase(fetchCards.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
-      
       })
-      
   }
 
 })

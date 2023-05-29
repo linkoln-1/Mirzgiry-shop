@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice, isRejectedWithValue } from '@reduxjs/toolkit'
+import {
+  createAsyncThunk,
+  createSlice,
+  isRejectedWithValue,
+} from '@reduxjs/toolkit'
 
 export interface initialStateProps {
   loading: boolean
@@ -36,7 +40,7 @@ export const auth = createAsyncThunk(
     } catch (e) {
       rejectWithValue(e)
     }
-  }
+  },
 )
 
 const initialState: initialStateProps = {
@@ -44,19 +48,18 @@ const initialState: initialStateProps = {
   user: {
     login: '',
     password: '',
-    _id: ''
+    _id: '',
   },
   error: '',
-  token: localStorage.getItem('token')
-
+  token: localStorage.getItem('token'),
 }
 const applicationSlice = createSlice({
   name: 'reg',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(auth.pending, (state) => {
+      .addCase(auth.pending, state => {
         state.loading = true
         state.error = ''
       })
@@ -68,6 +71,6 @@ const applicationSlice = createSlice({
         state.loading = false
         state.error = action.payload.message
       })
-  }
+  },
 })
 export default applicationSlice.reducer

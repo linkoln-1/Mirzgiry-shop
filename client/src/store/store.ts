@@ -21,9 +21,8 @@ export const store = configureStore({
     registrationSlice,
     authorizationSlice,
     BasketSlice,
-    FavoriteSlice
-
-  }
+    FavoriteSlice,
+  },
 })
 
 export type RootState = ReturnType<typeof store.getState>
