@@ -1,0 +1,22 @@
+.logout{
+
+ font-size: 18px;
+ margin: auto;
+ min-height: 400px;
+ text-align: center;
+ margin-top: 160px;
+}
+.button{
+    width: 300px;
+    background-color:#ac2b16;
+  color: white;
+  border: none;
+  font-size: 16px;
+  padding: 20px;
+}
+.button:hover {
+    box-shadow: 0px 5px 7px 0px rgba(37, 37, 37, 0.15);
+  }
+  .button:active {
+    box-shadow: 0px 3px 7px 0px rgba(37, 37, 37, 0.15) inset;
+  }

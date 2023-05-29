@@ -6,6 +6,8 @@ import { routeConfig } from '../shared/constants/route-app-config'
 import { Layout } from '../components/common/layout/Layout'
 
 export const RoutesPath: React.FC = () => {
+
+
   return (
     <Routes>
         <Route path="/" element={<Layout />}>

@@ -1,5 +1,5 @@
 // import library
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../../hooks/hook'
 // import components
@@ -21,7 +21,10 @@ export const Authorization: React.FC = () => {
 
   const handleSubmit = () => {
     void dispatch(auth({ login, password }))
+ 
   }
+
+ 
   return (
     <div className={s.form}>
         <div className={s.form__container}>
