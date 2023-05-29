@@ -2,7 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
 // import { API_URL } from '../../shared/constants/path'
 
-interface CardType {
+export interface CardTypee {
+ 
+
   _id: string
   user: string
   sizes: string
@@ -25,10 +27,11 @@ interface CardType {
     image: string }>
 }
 export interface initialStateProps {
-  products: CardType[]
+  products: CardTypee[]
   loading: boolean
   error: null | string | unknown
-  payment: number
+  message: null | string 
+
 
 }
 interface loginData {
@@ -118,6 +121,32 @@ export const deleteToBasket = createAsyncThunk(
     }
   }
 )
+export const clearBasket = createAsyncThunk(
+  'basketclear',
+  async (_, { getState, rejectWithValue }) => {
+  
+    const state = getState() as RootState
+    // console.log(state.authorizationSlice.token)
+    // выполнение запроса и получение данных
+    try {
+      const response = await fetch(`/basketclear`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${state.authorizationSlice.token}`,
+          'Content-type': 'application/json',
+        },
+      })
+      const data = await response.json()
+      if (response.status !== 200) {
+        return rejectWithValue(data)
+      }
+   console.log(data);
+      return data
+    } catch (e) {
+      return rejectWithValue(e)
+    }
+  }
+)
 interface loginDataCount {
   basketId: string
   indexProduct: number
@@ -195,8 +224,9 @@ export const BasketMinus = createAsyncThunk(
 const initialState: initialStateProps = {
   loading: false,
   products: [],
+  message:'',
   error: '',
-  payment: 0
+ 
 
 }
 const BasketSlice = createSlice({
@@ -208,12 +238,15 @@ const BasketSlice = createSlice({
       .addCase(createBasket.pending, (state) => {
         state.loading = true
         state.error = null
+        state.message = null
       })
       .addCase(createBasket.fulfilled, (state, action) => {
         console.log(action.payload)
         state.loading = false
         state.error = null
-        state.products.push(action.payload)
+        state.message = action.payload.message
+        state.products.push(action.payload.basket)
+      
       })
       .addCase(createBasket.rejected, (state, action) => {
         state.loading = false
@@ -223,26 +256,38 @@ const BasketSlice = createSlice({
       .addCase(deleteToBasket.pending, (state) => {
         state.loading = true
         state.error = null
+        state.message=null
       })
       .addCase(deleteToBasket.fulfilled, (state, action) => {
         state.loading = false
         state.error = null
+        state.message=action.payload.message
         state.products = state.products.filter((item) => {
-          if (item._id === action.payload) {
+          if (item._id === action.payload.id) {
             return false
           } else {
             return true
           }
         })
-        // state.products.filter((item)=>{
-
-        //   item.productId.filter((item)=>{
-
-        //     state.payment-=item.price
-        //   })
-        // })
-      })
+      }) 
       .addCase(deleteToBasket.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+     
+      .addCase(clearBasket.pending, (state) => {
+        state.loading = true
+        state.error = null
+        state.message = null
+      })
+      .addCase(clearBasket.fulfilled, (state, action) => {
+        state.loading = false
+        state.error = null
+        state.message = action.payload
+        state.products = []
+      
+      })
+      .addCase(clearBasket.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
@@ -255,6 +300,7 @@ const BasketSlice = createSlice({
         state.loading = false
         state.error = null
         state.products = action.payload
+   
         // state.products.filter((item)=>{
 
         //   item.productId.filter((item)=>{

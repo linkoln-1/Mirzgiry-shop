@@ -18,6 +18,7 @@ import { RecoverySuccess } from '../../components/modal/subComponents/recovery/r
 import { Search } from '../../components/search'
 
 export const routeConfig = [
+  
   { path: '/', component: HomePage, isIndex: true },
   { path: '/new', component: New },
   { path: '/catalog', component: Catalog },

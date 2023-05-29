@@ -1,5 +1,5 @@
-import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type RootState } from '../store'
+import {  createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+// import { type RootState } from '../store'
 
 export interface ICardProps {
   id: string | number
@@ -34,6 +34,7 @@ export const fetchCards = createAsyncThunk<ICardProps[], undefined, { rejectValu
     return await response.json()
   }
 )
+<<<<<<< HEAD
 interface loginData {
   id: string
   checkHeart: boolean
@@ -64,27 +65,60 @@ export const changeProduct = createAsyncThunk(
     }
   }
 )
+=======
+// interface loginData {
+//   id: string
+//   checkHeart: boolean
+ 
 
-export const createFavorite = createAsyncThunk(
-  'favorites',
-  async function (id: string, { getState, rejectWithValue }) {
-    const state = getState() as RootState
+// }
+// export const changeProduct = createAsyncThunk(
+//   'productchange',
+//   async (loginData: loginData, { getState, rejectWithValue }) => {
+//     const state = getState() as RootState
+//     // выполнение запроса и получение данных
+//     try {
+//       const response = await fetch(`/product/${loginData.id}`, {
+//         method: 'PATCH',
+//         headers: {
+//           Authorization: `Bearer ${state.authorizationSlice.token}`,
+//           'content-type': 'application/json'
+//         },
+//         body: JSON.stringify({loginData}),
+//       })
+//       const data = await response.json()
+//       if (response.status !== 200) {
+//         return rejectWithValue(data)
+//       }     
+//       console.log(data)
+//       return data
+//     } catch (e) {
+//       return rejectWithValue(e)
+//     }
+//   }
+// )
+>>>>>>> 8dc56bfcb1d09289b519c9b64879c4059a4e1ca2
 
-    const response = await fetch('/favorite', {
-      method: 'POST',
-      body: JSON.stringify(id),
+// export const createFavorite = createAsyncThunk(
+//   'favorites',
+//   async function (id: string, { getState, rejectWithValue }) {
+//     const state = getState() as RootState
 
-      headers: {
-        Authorization: `Bearer ${state.authorizationSlice.token}`,
-        'Content-type': 'application/json',
-      },
-    })
-    if (!response.ok) {
-      return rejectWithValue('server is not okey')
-    }
-    return await response.json()
-  }
-)
+//     const response = await fetch('/favorite', {
+//       method: 'POST',
+//       body: JSON.stringify(id),
+
+//       headers: {
+//         Authorization: `Bearer ${state.authorizationSlice.token}`,
+//         'Content-type': 'application/json',
+//       },
+//     })
+//     if (!response.ok) {
+//       return rejectWithValue('server is not okey')
+//     }
+//     return await response.json()
+//   }
+// )
 
 const initialState: initialStateProps = {
   loading: true,
@@ -99,6 +133,7 @@ const cardSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+<<<<<<< HEAD
       .addCase(changeProduct.pending, (state) => {
         state.loading = true
         state.error = null
@@ -118,6 +153,28 @@ const cardSlice = createSlice({
         state.loading = false
       // state.error = action.payload
       })
+=======
+    // .addCase(changeProduct.pending, (state) => {
+    //   state.loading = true
+    //   state.error = null
+  
+    // })
+    // .addCase(changeProduct.fulfilled, (state, action) => {
+    //   console.log(action.payload)
+    //   state.loading = false
+    //   state.error = null
+
+    //   state.cards.find((item)=>{
+    //     if(item._id===action.payload){
+    //      return item.checkHeart=!item.checkHeart
+    //     }
+    //   }) 
+    // })
+    // .addCase(changeProduct.rejected, (state, action) => {
+    //   state.loading = false
+    //   // state.error = action.payload
+    // })
+>>>>>>> 8dc56bfcb1d09289b519c9b64879c4059a4e1ca2
       .addCase(fetchCards.pending, (state) => {
         state.loading = true
         state.error = null

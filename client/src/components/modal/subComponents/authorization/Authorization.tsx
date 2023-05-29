@@ -29,6 +29,7 @@ export const Authorization: React.FC = () => {
   const handleSubmit = () => {
     void dispatch(auth({ login, password }))
   }
+
   return (
     <div className={s.form}>
       <div className={s.form__container}>

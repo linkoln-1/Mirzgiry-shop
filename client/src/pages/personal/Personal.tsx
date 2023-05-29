@@ -7,6 +7,7 @@ import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { History } from '../../components/tabs-sub-components/history'
+import { LogOut } from '../../components/tabs-sub-components/logout'
 import { PersonalData } from '../../components/tabs-sub-components/personaldata'
 import { CustomBreadcrumbs } from '../../components/breadcrumbs'
 
@@ -28,7 +29,7 @@ function TabPanel (props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -36,7 +37,8 @@ function TabPanel (props: TabPanelProps) {
   )
 }
 
-export const Personal = () => {
+export const Personal:React.FC = () => {
+ 
   const [value, setValue] = React.useState(0)
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -69,13 +71,13 @@ export const Personal = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          {/*<History />*/}
+          <History _id={''} user={''} sizes={''} productId={[]} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <PersonalData />
         </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
+        <TabPanel value={value} index={2} >
+          <LogOut/>
         </TabPanel>
       </Box>
     </div>

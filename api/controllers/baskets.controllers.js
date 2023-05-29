@@ -45,7 +45,7 @@ console.log(req.body)
 
         })
 
-      return res.json(basket)
+      return res.json({basket: basket, message: 'Товар добавлен в корзину'})
     }catch (e) {
       return res.status(401).json("Ошибка"+ e.toString())
     }
@@ -87,10 +87,21 @@ console.log(req.body)
       const basket =  await  Basket.findById(id);
       // if(basket.user.toString() === req.user.id){
         await  Basket.findByIdAndRemove(id);
-        return res.json(id);
+        return res.json({id: id, message: 'товар удален из корзины'});
         
       // }
-      return res.status(401).json("Ошибка. Нет доступа")
+      // return res.status(401).json("Ошибка. Нет доступа")
+
+    }catch(e){
+      return res.status(401).json("Ошибка"+ e.toString())
+    }
+
+  },
+  clearBasket: async function (req, res) {
+    try{ 
+     await  Basket.deleteMany({})
+
+    res.json('Cпасибо за покупку!')
 
     }catch(e){
       return res.status(401).json("Ошибка"+ e.toString())

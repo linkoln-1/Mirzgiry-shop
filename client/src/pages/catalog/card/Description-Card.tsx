@@ -1,6 +1,6 @@
 // library
-import React, { useState, useCallback, useEffect } from 'react'
-
+import React, { useState, useCallback} from 'react'
+import Snackbar from '@material-ui/core/Snackbar';
 // components
 import { CustomBreadcrumbs } from '../../../components/breadcrumbs'
 import { ViewProducts } from '../../../components/viewProduct'
@@ -37,17 +37,18 @@ export const DescriptionCard: React.FC = () => {
   const dispatch = useAppDispatch()
   const card = useAppSelector(state => state.descriptionCardSlice.descriptionCard)
   const loading = useAppSelector(state => state.descriptionCardSlice.loading)
-
+  const Basketmessage = useAppSelector(state => state.BasketSlice.message)
   const [opened, setOpened] = useState<boolean>(false)
   const [size, setSize] = useState<string[] | string>([])
   const [color, setColor] = useState<boolean>(false)
   const [btn, setBtn] = useState<boolean>(true)
-
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const handleAddToBasket = useCallback((
     // _item: DescriptionCardProps[],
     size: string,
     _id: string
   ) => {
+    handleSnackbarOpen()
     if (size.length === 0) {
       setColor(true)
       setBtn(true)
@@ -61,7 +62,12 @@ export const DescriptionCard: React.FC = () => {
   },
   [dispatch]
   )
-
+  const handleSnackbarOpen = () => {
+    setSnackbarOpen(true);
+    setTimeout(() => {
+      setSnackbarOpen(false);
+    }, 1000); 
+  }; 
   const handleBlur = useCallback(
     (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
       if (e.target.value.length === 0) {
@@ -118,6 +124,12 @@ export const DescriptionCard: React.FC = () => {
               )
             })
           )}
+            <Snackbar
+  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+  open={snackbarOpen}
+  // onClose={handleSnackbarClose}
+  message={Basketmessage}
+/>
     </>
   )
 }
