@@ -19,7 +19,6 @@ interface TabPanelProps {
 
 function TabPanel (props: TabPanelProps) {
   const { children, value, index, ...other } = props
-
   return (
     <div
       role="tabpanel"
@@ -29,7 +28,7 @@ function TabPanel (props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ }}>
+        <Box sx={{}}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -37,14 +36,12 @@ function TabPanel (props: TabPanelProps) {
   )
 }
 
-export const Personal:React.FC = () => {
- 
+export const Personal: React.FC = () => {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
-
   return (
     <div className="container">
       <CustomBreadcrumbs />
@@ -55,14 +52,14 @@ export const Personal:React.FC = () => {
             onChange={handleChange}
             aria-label="basic tabs example"
             centered={true}
-            textColor='inherit'
+            textColor="inherit"
             sx={{
               '.MuiTabs-indicator': {
                 height: '50px',
                 opacity: '0.5',
                 zIndex: -1,
-                backgroundColor: '#ac2b16'
-              }
+                backgroundColor: '#ac2b16',
+              },
             }}
           >
             <Tab label="История заказов" />
@@ -71,13 +68,13 @@ export const Personal:React.FC = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <History _id={''} user={''} sizes={''} productId={[]} />
+          <History _id={''} user={''} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <PersonalData />
         </TabPanel>
-        <TabPanel value={value} index={2} >
-          <LogOut/>
+        <TabPanel value={value} index={2}>
+          <LogOut />
         </TabPanel>
       </Box>
     </div>

@@ -112,6 +112,7 @@ const applicationSlice = createSlice({
       })
       .addCase(auth.rejected, (state, action) => {
         state.loading = false
+        // @ts-ignore
         state.error = action.payload.message
       })
       .addCase(logOut.pending, (state) => {
@@ -124,6 +125,7 @@ const applicationSlice = createSlice({
       })
       .addCase(logOut.rejected, (state, action) => {
         state.loading = false
+        // @ts-ignore
         state.error = action.payload.message
       })
   },

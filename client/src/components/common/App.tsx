@@ -9,7 +9,7 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      dispatch(checkAuth())
+      void dispatch(checkAuth())
     }
   }, [])
   return (

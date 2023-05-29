@@ -6,20 +6,23 @@ import { routeConfig } from '../shared/constants/route-app-config'
 import { Layout } from '../components/common/layout/Layout'
 
 export const RoutesPath: React.FC = () => {
-
-
   return (
-    <Routes>
-        <Route path="/" element={<Layout />}>
-            {routeConfig.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                element={<route.component />}
-                index={route.isIndex}
-              />
-            ))}
-        </Route>
-    </Routes>
+      <Routes>
+          <Route path="/" element={<Layout />}>
+              {routeConfig.map((route, index) => {
+                const Component = route.component
+                return (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={
+                      <Component _id={''} user={''} sizes={''} productId={[]} />
+                    }
+                    index={route.isIndex}
+                  />
+                )
+              })}
+          </Route>
+      </Routes>
   )
 }

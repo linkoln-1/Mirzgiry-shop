@@ -1,9 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
-// import { API_URL } from '../../shared/constants/path'
 
 export interface CardTypee {
- 
 
   _id: string
   user: string
@@ -30,13 +28,12 @@ export interface initialStateProps {
   products: CardTypee[]
   loading: boolean
   error: null | string | unknown
-  message: null | string 
-
+  message: null | string
 
 }
 interface loginData {
   productId: string
-  sizes: string
+  sizes: string[] | string
 
 }
 export const createBasket = createAsyncThunk(
@@ -100,7 +97,6 @@ export const deleteToBasket = createAsyncThunk(
   async (loginDataDelete: loginDataDelete, { getState, rejectWithValue }) => {
     console.log(loginDataDelete)
     const state = getState() as RootState
-    // console.log(state.authorizationSlice.token)
     // выполнение запроса и получение данных
     try {
       const response = await fetch(`/basket/${loginDataDelete.id}`, {
@@ -124,12 +120,10 @@ export const deleteToBasket = createAsyncThunk(
 export const clearBasket = createAsyncThunk(
   'basketclear',
   async (_, { getState, rejectWithValue }) => {
-  
     const state = getState() as RootState
-    // console.log(state.authorizationSlice.token)
     // выполнение запроса и получение данных
     try {
-      const response = await fetch(`/basketclear`, {
+      const response = await fetch('/basketclear', {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${state.authorizationSlice.token}`,
@@ -140,7 +134,7 @@ export const clearBasket = createAsyncThunk(
       if (response.status !== 200) {
         return rejectWithValue(data)
       }
-   console.log(data);
+      console.log(data)
       return data
     } catch (e) {
       return rejectWithValue(e)
@@ -213,20 +207,11 @@ export const BasketMinus = createAsyncThunk(
   }
 )
 
-// Загрузить данные из localStorage
-// const savedProducts = localStorage.getItem('basketState');
-
-// Если данные доступны, преобразовать их из строки JSON в объект
-// const initialStateProducts = savedProducts ? JSON.parse(savedProducts) : [];
-
-// console.log(initialStateProducts);
-
 const initialState: initialStateProps = {
   loading: false,
   products: [],
-  message:'',
+  message: '',
   error: '',
- 
 
 }
 const BasketSlice = createSlice({
@@ -246,7 +231,6 @@ const BasketSlice = createSlice({
         state.error = null
         state.message = action.payload.message
         state.products.push(action.payload.basket)
-      
       })
       .addCase(createBasket.rejected, (state, action) => {
         state.loading = false
@@ -256,12 +240,12 @@ const BasketSlice = createSlice({
       .addCase(deleteToBasket.pending, (state) => {
         state.loading = true
         state.error = null
-        state.message=null
+        state.message = null
       })
       .addCase(deleteToBasket.fulfilled, (state, action) => {
         state.loading = false
         state.error = null
-        state.message=action.payload.message
+        state.message = action.payload.message
         state.products = state.products.filter((item) => {
           if (item._id === action.payload.id) {
             return false
@@ -269,12 +253,12 @@ const BasketSlice = createSlice({
             return true
           }
         })
-      }) 
+      })
       .addCase(deleteToBasket.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
-     
+
       .addCase(clearBasket.pending, (state) => {
         state.loading = true
         state.error = null
@@ -285,7 +269,6 @@ const BasketSlice = createSlice({
         state.error = null
         state.message = action.payload
         state.products = []
-      
       })
       .addCase(clearBasket.rejected, (state, action) => {
         state.loading = false
@@ -300,14 +283,6 @@ const BasketSlice = createSlice({
         state.loading = false
         state.error = null
         state.products = action.payload
-   
-        // state.products.filter((item)=>{
-
-        //   item.productId.filter((item)=>{
-
-        //    return state.payment+=item.price
-        //   })
-        // })
       })
       .addCase(fetchBasket.rejected, (state, action) => {
         state.loading = false
@@ -325,7 +300,6 @@ const BasketSlice = createSlice({
           if (product._id === action.payload.loginDataCount.basketId) {
             return state.products[action.payload.loginDataCount.indexProduct].productId[0].sizes[action.payload.loginDataCount.indexSize].count += 1
           }
-          // localStorage.setItem('basketState', JSON.stringify(state.products));
         })
       })
 
@@ -344,7 +318,6 @@ const BasketSlice = createSlice({
           if (product._id === action.payload.loginDataCount.basketId) {
             return state.products[action.payload.loginDataCount.indexProduct].productId[0].sizes[action.payload.loginDataCount.indexSize].count -= 1
           }
-          // localStorage.setItem('basketState', JSON.stringify(state.products));
         })
       })
       .addCase(BasketMinus.rejected, (state, action) => {

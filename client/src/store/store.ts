@@ -24,14 +24,10 @@ export const store = configureStore({
     authorizationSlice,
     BasketSlice,
     FavoriteSlice,
-<<<<<<< HEAD
-  },
-=======
     historySlice,
     personalDataSlice
 
   }
->>>>>>> 8dc56bfcb1d09289b519c9b64879c4059a4e1ca2
 })
 
 export type RootState = ReturnType<typeof store.getState>

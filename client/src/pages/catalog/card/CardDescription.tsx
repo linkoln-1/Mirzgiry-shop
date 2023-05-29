@@ -27,9 +27,9 @@ interface CardDescriptionProps {
   item: DescriptionCardProps
   handleChange: (event: SelectChangeEvent<string>) => void
   handleBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void
-  handleAddToBasket: (size: string | string[], _id: string, price: number) => void
+  handleAddToBasket: (size: string[] | string, _id: string, price: number) => void
   color: boolean
-  size: string | string[]
+  size: string[] | string
   index: number
   btn: boolean
   opened: boolean

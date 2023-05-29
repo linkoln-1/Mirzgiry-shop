@@ -30,7 +30,7 @@ const SearchIcon = () => (
 
 export const Search: FC = () => {
   const [search, setSearch] = useState<string>('')
-  const Searches = useAppSelector((state) => state.cardSlice.cards)
+  const Searches = useAppSelector(state => state.cardSlice.cards)
 
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -53,7 +53,7 @@ export const Search: FC = () => {
             type="text"
             placeholder="Введите ваш запрос"
             value={search}
-            onChange={(e) => handleSearch(e)}
+            onChange={e => handleSearch(e)}
           />
           <SearchIcon />
         </div>

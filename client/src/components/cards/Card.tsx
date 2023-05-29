@@ -1,9 +1,9 @@
 // library
-import React, { useCallback, useState} from 'react'
+import React, { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 import FavoriteBorderIcon from '@mui/icons-material/Favorite'
 import { fetchDescriptionCard } from '../../store/descriptionCardSlice/descriptionCardSlice'
-import { fetchCards} from '../../store/cardSlice/cardSlice'
+import { fetchCards } from '../../store/cardSlice/cardSlice'
 import { createFavorite } from '../../store/favoriteSlice/favoriteSlice'
 
 // hooks
@@ -30,14 +30,12 @@ export interface ITodo {
 export interface ICardProps {
   todo: ITodo
   index: number
-  setSnackbarOpen: any
+  setSnackbarOpen?: any
 }
 
 const CardComponent: React.FC<ICardProps> = ({ todo, index, setSnackbarOpen }) => {
   const dispatch = useAppDispatch()
-const [changeCheckHeart, setChangeCheckHeart] = useState(todo.checkHeart)
-
-
+  const [changeCheckHeart, setChangeCheckHeart] = useState(todo.checkHeart)
 
   const handleClick = useCallback((id: string) => {
     void dispatch(fetchDescriptionCard(id))
@@ -50,7 +48,7 @@ const [changeCheckHeart, setChangeCheckHeart] = useState(todo.checkHeart)
   ) => {
     setChangeCheckHeart(!changeCheckHeart)
     handleSnackbarOpen()
-    void dispatch(createFavorite({productId, checkHeart}))
+    void dispatch(createFavorite({ productId, checkHeart }))
   }, [dispatch, changeCheckHeart])
 
   const handleSnackbarOpen = () => {

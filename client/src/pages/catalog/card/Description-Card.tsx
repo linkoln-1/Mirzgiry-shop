@@ -1,6 +1,6 @@
 // library
-import React, { useState, useCallback} from 'react'
-import Snackbar from '@material-ui/core/Snackbar';
+import React, { useState, useCallback } from 'react'
+import Snackbar from '@material-ui/core/Snackbar'
 // components
 import { CustomBreadcrumbs } from '../../../components/breadcrumbs'
 import { ViewProducts } from '../../../components/viewProduct'
@@ -13,26 +13,9 @@ import { CardPictures } from './CardPictures'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hook'
 
 // mock
-// import { addToBasket } from '../../../store/slice/slice'
-
+import { createBasket } from '../../../store/BasketSlices/BasketSlice'
 // styles
 import s from '../../../style/pages/description-card.module.scss'
-import { createBasket} from '../../../store/BasketSlices/BasketSlice'
-// import { fetchBasket} from '../../../store/BasketSlices/BasketGetSlice'
-
-// interface DescriptionCardProps {
-//   id: string
-//   categoryId: string
-//   priceId: string
-//   colorId: string
-//   categoryIdName: string
-//   name: string
-//   price: number
-//   colors: string
-//   sizes: Array<{ size: string }>
-//   _id: string
-// }
-
 export const DescriptionCard: React.FC = () => {
   const dispatch = useAppDispatch()
   const card = useAppSelector(state => state.descriptionCardSlice.descriptionCard)
@@ -42,10 +25,10 @@ export const DescriptionCard: React.FC = () => {
   const [size, setSize] = useState<string[] | string>([])
   const [color, setColor] = useState<boolean>(false)
   const [btn, setBtn] = useState<boolean>(true)
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false)
   const handleAddToBasket = useCallback((
     // _item: DescriptionCardProps[],
-    size: string,
+    size: string[] | string,
     _id: string
   ) => {
     handleSnackbarOpen()
@@ -57,17 +40,15 @@ export const DescriptionCard: React.FC = () => {
       setBtn(false)
     }
     void dispatch(createBasket({ productId: _id, sizes: size }))
-
-   
   },
   [dispatch]
   )
   const handleSnackbarOpen = () => {
-    setSnackbarOpen(true);
+    setSnackbarOpen(true)
     setTimeout(() => {
-      setSnackbarOpen(false);
-    }, 1000); 
-  }; 
+      setSnackbarOpen(false)
+    }, 1000)
+  }
   const handleBlur = useCallback(
     (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
       if (e.target.value.length === 0) {
