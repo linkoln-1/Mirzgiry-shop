@@ -7,7 +7,10 @@ import CustomNavLink from './CustomNavLink'
 const Icon = ({ colorPlace, iconClass, children }: IHeaderProps) => (
   <div className={colorPlace ? `${s.iconblack}` : iconClass}>{children}</div>
 )
+
+
 export const Header: FC<IHeaderProps> = ({ colorPlace, onClick }) => (
+
   <>
     <header>
       <div className={s.header__container}>
@@ -68,7 +71,7 @@ export const Header: FC<IHeaderProps> = ({ colorPlace, onClick }) => (
             </CustomNavLink>
           </Icon>
           <Icon colorPlace={colorPlace}>
-            <CustomNavLink colorPlace={colorPlace} to="/personal" onClick={onClick}>
+            <CustomNavLink colorPlace={colorPlace}   to={`${localStorage.getItem('token') ? '/personal' : '/authorization'}`} onClick={onClick}>
               <svg
                 className={colorPlace ? `${s.iconblack}` : `${s.icon}`}
                 width="20"

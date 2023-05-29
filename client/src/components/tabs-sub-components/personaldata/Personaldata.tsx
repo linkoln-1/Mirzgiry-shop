@@ -1,5 +1,5 @@
 // library
-import React, {  useState, useEffect,  useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hook'
 // styles
 import s from '../../../style/smallComponents/personaldata.module.scss'
@@ -17,6 +17,7 @@ export const PersonalData: React.FC = () => {
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
+    
     setName(personalData.map(item => item.name).join(''));
     setSurName(personalData.map(item => item.surName).join(''));
     setEmail(personalData.map(item => item.email).join(''));
@@ -96,7 +97,7 @@ setName(e.target.value)
   return (
     <div className={s.personaldata}>
       <div className={s.person__title}>Персональные данные:</div>
-      {personalData.length ? (
+   
         <div>
           <div className={s.personal__wrapper__input}>
             <div>
@@ -173,82 +174,7 @@ setName(e.target.value)
             ОБНОВИТЬ ИНФОРМАЦИЮ
           </button>
         </div>
-      ) : (
-        <div>
-          <div className={s.personal__wrapper__input}>
-            <div>
-              <input
-                className={s.input}
-                name="name"
-                type="text"
-                placeholder="Ваше имя*"
-                value={name}
-                onChange={handleChangeName}
-              />
-            </div>
-            <div>
-              <input
-                className={s.input}
-                name="surname"
-                type="text"
-                placeholder="Ваша фамилия*"
-                value={surName}
-                onChange={handleChangeSurName}
-              />
-            </div>
-            <div>
-              <input
-                className={s.input}
-                name="email"
-                type="text"
-                placeholder="Ваш e-mail*"
-                value={email}
-                onChange={handleChangeEmail}
-              />
-            </div>
-            <div>
-              <input
-                className={s.input}
-                name="phone"
-                type="text"
-                placeholder="Ваш телефон*"
-                value={phone}
-                onChange={handleChangePhone}
-              />
-            </div>
-          </div>
-          <div className={s.person__adress}>Адрес доставки:</div>
-          <div className={s.personal__wrapper__adress}>
-            <div>
-              <input
-                className={s.input__adress}
-                name="street"
-                type="text"
-                placeholder="Улица*"
-                value={street}
-                onChange={handleChangeStreet}
-              />
-            </div>
-            <div>
-              <input
-                className={s.input__adress}
-                name="home"
-                type="text"
-                placeholder="дом №"
-                value={homeNumber}
-                onChange={handleChangeHome}
-              />
-            </div>
-          </div>
-          <button
-            onClick={handleChangePersonalData}
-            disabled={!isValid}
-            className={!isValid ? s.disabled : s.button}
-          >
-            СОХРАНИТЬ ИНФОРМАЦИЮ
-          </button>
-        </div>
-      )}
+    
     </div>
   );
 };
