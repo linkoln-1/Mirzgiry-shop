@@ -1,5 +1,5 @@
 // import library
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../../hooks/hook'
 // import components
@@ -21,14 +21,24 @@ export const Authorization: React.FC = () => {
     setLogin(e.target.value)
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value)
-
-  if (token !== null) {
-    navigate('/personal')
-  }
-
   const handleSubmit = () => {
     void dispatch(auth({ login, password }))
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000)
   }
+  useEffect(() => {
+    if (token === '' || token === undefined || token === null) {
+      navigate('/authorization')
+    }
+  }, [navigate])
+
+  useEffect(() => {
+    if (token !== null) {
+      localStorage.getItem('token')
+      navigate('/personal')
+    }
+  }, [token, navigate])
 
   return (
     <div className={s.form}>
