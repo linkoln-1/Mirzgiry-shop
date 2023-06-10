@@ -60,6 +60,16 @@ module.exports.productcontroller = {
       console.log(error.toString());
     }
   },
+  getProductByName: async function (req, res) {
+    try {
+      const { name } = req.params;
+      console.log("name", req.params)
+    const product = await Product.find({name}).populate('sizes');
+    res.json(product);
+    } catch (error) {
+      console.log(error.toString());
+    }
+  },
   addSizes: async function(req, res) {
     try {
       const sizes = await Product.findByIdAndUpdate(req.params.id,{
