@@ -49,9 +49,19 @@
 }
 
 .main_picture {
+  position: relative;
   width: 500px;
   height: 540px;
+  overflow: hidden;
   margin-left: 10px;
+}
+.main_picture img{
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+.main_picture img:hover{
+  transform: scale(1.2); 
 }
 .main_picture img {
   width: 500px;
@@ -83,10 +93,7 @@
   font-weight: $fw-bold;
   margin-top: 20px;
 }
-.item_colortext {
-  color: $color-red;
-  margin-top: 10px;
-}
+
 .item_buttons button {
   width: 280px;
   height: 50px;
@@ -113,10 +120,20 @@
 }
 
 .to_favorites {
+  
+ 
   background-color: $color-white;
   color: $color-red;
   font-size: 16px;
   border: 0.5px solid $dark-grey;
+}
+.to_favorites_button{
+   display: flex;
+   margin: auto;
+   width: 140px;
+   justify-content: space-between;
+   align-items: center;
+ 
 }
 .to_favorites:hover {
   box-shadow: 0px 5px 7px 0px rgba(37, 37, 37, 0.15);
@@ -124,7 +141,7 @@
 .to_favorites:active {
   box-shadow: 0px 3px 7px 0px rgba(37, 37, 37, 0.15) inset;
 }
-hr {
+.card_hr{
   width: 580px;
 }
 .composition_and_care {
@@ -163,10 +180,19 @@ hr {
   width: 100%;
   cursor: not-allowed  !important;
 }
-
+.diasabled {
+ 
+  opacity: 0.5;
+  pointer-events: none; 
+  text-decoration: line-through;
+}
 .back{
   box-shadow:  2px 6px 10px 4px rgb(67%, 17%, 9%, 1)!important;
 }
 .bac{
   box-shadow:  none!important;
+}
+.item_colortext {
+  color: $color-red;
+  margin-top: 10px;
 }

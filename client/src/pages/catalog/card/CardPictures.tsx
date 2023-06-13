@@ -15,7 +15,7 @@ interface CardPicturesProps {
   categoryIdName: string
   name: string
   price: number
-  colors: string
+  color: string
 
   image: string
 }

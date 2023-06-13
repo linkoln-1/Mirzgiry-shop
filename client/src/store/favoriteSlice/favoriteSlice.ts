@@ -30,11 +30,12 @@ export interface initialStateProps {
   favorites: CardType[]
   loading: boolean
   error: null | string | unknown
-  message: string
+  message: string | null
  
 
 }
 export interface loginData {
+
   productId: string
   checkHeart: boolean
  
@@ -138,7 +139,7 @@ const FavoriteSlice = createSlice({
       .addCase(createFavorite.pending, (state) => {
         state.loading = true
         state.error = null
-        state.message = '';
+        state.message = null
       })
       .addCase(createFavorite.fulfilled, (state, action) => {
        console.log(action.payload.message)
@@ -163,8 +164,8 @@ const FavoriteSlice = createSlice({
       .addCase(deleteToFavorite.pending, (state) => {
         state.loading = true
         state.error = null
-        state.message = ''
-        state.favorites
+        state.message = null
+      
       })
       .addCase(deleteToFavorite.fulfilled, (state, action) => { state.loading = false
         state.error = null

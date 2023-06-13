@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hook'
 // styles
 import s from '../../../style/smallComponents/personaldata.module.scss'
-import { changePersonalData, fetchPersonalData } from '../../../store/personalDataSlice/PersonalDataSlice'
+import { changePersonalData, fetchPersonalData} from '../../../store/personalDataSlice/PersonalDataSlice'
 export const PersonalData: React.FC = () => {
   const personalData = useAppSelector(state => state.personalDataSlice.personal)
   console.log(personalData)

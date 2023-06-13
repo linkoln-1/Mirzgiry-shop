@@ -1,5 +1,5 @@
 // library
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect} from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 // components
 import { CustomBreadcrumbs } from '../../../components/breadcrumbs'
@@ -16,11 +16,19 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hook'
 import { createBasket } from '../../../store/BasketSlices/BasketSlice'
 // styles
 import s from '../../../style/pages/description-card.module.scss'
+import { fetchCards } from '../../../store/cardSlice/cardSlice'
 export const DescriptionCard: React.FC = () => {
   const dispatch = useAppDispatch()
   const card = useAppSelector(state => state.descriptionCardSlice.descriptionCard)
+  console.log(card)
+  const cardcopy = useAppSelector(state => state.descriptionCardSlice.descriptionCardCopi)
   const loading = useAppSelector(state => state.descriptionCardSlice.loading)
   const Basketmessage = useAppSelector(state => state.BasketSlice.message)
+ 
+  
+  const [product, setProduct]= useState('')
+
+
   const [opened, setOpened] = useState<boolean>(false)
   const [size, setSize] = useState<string[] | string>([])
   const [color, setColor] = useState<boolean>(false)
@@ -43,6 +51,7 @@ export const DescriptionCard: React.FC = () => {
   },
   [dispatch]
   )
+  
   const handleSnackbarOpen = () => {
     setSnackbarOpen(true)
     setTimeout(() => {
@@ -60,7 +69,9 @@ export const DescriptionCard: React.FC = () => {
     },
     []
   )
-
+useEffect(()=>{
+  dispatch(fetchCards())
+})
   const handleChange = useCallback((event: SelectChangeEvent<string[] | string>) => {
     const value = event.target.value
     if (value.length === 0) {
@@ -73,44 +84,78 @@ export const DescriptionCard: React.FC = () => {
     setSize(value)
   }, [])
 
-  return (
+  const filtered = cardcopy[0]?.filter((item: { color: string })=>item.color===product)
+  
+
+  if(product==='Белый'){
+    filtered
+   
+  }
+  if(product==="Чёрный"){
+    filtered
+  }
+
+  return  (
     <>
-      {loading
-        ? (
+      {loading ? (
         <div>Please Wait</div>
-          )
-        : (
-            card.map((card, index: number) => {
-              return (
+      ) : (
+        card?.map((card, index: number) => {
+          return (
             <div className={s.catalog_card} key={index}>
               <CustomBreadcrumbs />
               <div className={s.card_item}>
-                <CardPictures card={card} />
-                <CardDescription
-                  item={card}
-                  handleChange={handleChange}
-                  handleBlur={handleBlur}
-                  handleAddToBasket={handleAddToBasket}
-                  color={color}
-                  size={size}
-                  index={index}
-                  btn={btn}
-                  opened={opened}
-                  setOpened={setOpened}
-                  />
+                {product && filtered.length > 0 && (
+                  <>
+                    <CardPictures card={filtered[0]} />
+                    <CardDescription
+                      item={filtered[0]}
+                      handleChange={handleChange}
+                      handleBlur={handleBlur}
+                      handleAddToBasket={handleAddToBasket}
+                      color={color}
+                      size={size}
+                      index={index}
+                      btn={btn}
+                      opened={opened}
+                      setOpened={setOpened}
+                      handleProduct={(a: string) => setProduct(a)}
+                      
+                    />
+                  </>
+                )}
+                {!product && (
+                  <>
+                    <CardPictures card={card} />
+                    <CardDescription
+                      item={card}
+                      handleChange={handleChange}
+                      handleBlur={handleBlur}
+                      handleAddToBasket={handleAddToBasket}
+                      color={color}
+                      size={size}
+                      index={index}
+                      btn={btn}
+                      opened={opened}
+                      setOpened={setOpened}
+                      handleProduct={(a: string) => setProduct(a)}
+                     
+                    />
+                  </>
+                )}
+               
               </div>
               <ViewProducts />
               <Like />
             </div>
-              )
-            })
-          )}
-            <Snackbar
-  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-  open={snackbarOpen}
-  // onClose={handleSnackbarClose}
-  message={Basketmessage}
-/>
+          )
+        })
+      )}
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={snackbarOpen}
+        message={Basketmessage}
+      />
     </>
   )
 }
