@@ -7,6 +7,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 // hooks
 import { useAppDispatch, useAppSelector } from '../../hooks/hook'
 import { path } from '../../shared/constants/path'
+import { CustomBreadcrumbs } from '../../components/breadcrumbs/Breadcrumbs'
 // mock
 import {
   fetchFavorite,
@@ -61,13 +62,14 @@ export const Favorites: React.FC<FavoriteProps> = () => {
   }, [dispatch])
   return (
     <div className={s.card}>
+       <CustomBreadcrumbs />
       <div className={s.card_title}>Избранное</div>
       <div className={s.card_items}>
 
       {
         // eslint-disable-next-line multiline-ternary
-          Favorites.length ? Favorites.map((product, index) => {
-            return product.productId?.map((item) => {
+          Favorites.length ? Favorites?.map((product, index) => {
+            return product?.productId?.map((item) => {
               return (
                   <div className={s.todo} key={index}>
                     <div onClick={() => handleDelete(product._id)}>
@@ -107,7 +109,7 @@ export const Favorites: React.FC<FavoriteProps> = () => {
                   </div>
               )
             })
-          }) : ''
+          }) : <div className={s.favorite__empty}><p className={s.favorite__text__bold}>В избранных пока пусто</p><p className={s.favorite__text}>Загляните в каталог, чтобы выбрать товары или найдите нужное в поиске</p></div>
       }
       </div>
       <Snackbar

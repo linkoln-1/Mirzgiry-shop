@@ -1,6 +1,12 @@
-import { type AnyAction, createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
 
 interface DescriptionProps {
+  [x: string]: any
+ 
+
+ 
+  checkHeart: boolean
   image: any
   id: string
   categoryId: string
@@ -9,7 +15,7 @@ interface DescriptionProps {
   categoryIdName: string
   name: string
   price: number
-  colors: string
+  color: string
   sizes: Array<{ size: string }>
   _id: string
 }
@@ -17,30 +23,67 @@ interface DescriptionProps {
 export interface initialStateProps {
   loading: boolean
   descriptionCard: DescriptionProps[]
+  descriptionCardCopi: DescriptionProps[]
   viewProducts: DescriptionProps[]
-  error: string | null
+  error: string | null | unknown
 }
-
 export const fetchDescriptionCard = createAsyncThunk(
-  'descriptionCard',
-  async (id: string) => {
-    const response = await fetch(`/products/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    const data = await response.json()
-    return {
-      data,
-      id
+  'getProductById',
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`/products/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+        },
+      })
+      const data = await response.json()
+      if (response.status !== 200) {
+        return rejectWithValue(data)
+      }
+      console.log(data)
+      return {data, id}
+    } catch (e) {
+      return rejectWithValue(e)
     }
   }
 )
 
+// export interface loginData {
+//   name: string
+// }
+
+export const getProductByName = createAsyncThunk(
+  'getProductByName',
+  async (name:string, { rejectWithValue }) => {
+  
+    // выполнение запроса и получение данных
+    try {
+      const encodedName = encodeURIComponent(name);
+      // const encodedColor = encodeURIComponent(loginData.color);
+
+      const response = await fetch(`/product/${encodedName}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        // body: JSON.stringify({ loginData }),
+      })
+      const data = await response.json()
+      if (response.status !== 200) {
+        return rejectWithValue(data)
+      }
+      console.log(data)
+      return data
+    } catch (e) {
+      return rejectWithValue(e)
+    }
+  }
+)
 const initialState: initialStateProps = {
   loading: true,
   descriptionCard: [],
+  descriptionCardCopi: [],
   viewProducts: [],
   error: null,
 }
@@ -64,14 +107,25 @@ const cardSlice = createSlice({
           state.viewProducts.pop()
         }
       })
-      .addMatcher(isError, (state, action: PayloadAction<string>) => {
-        state.error = action.payload
+      .addCase(fetchDescriptionCard.rejected, (state, action) => {
         state.loading = false
+        state.error = action.payload
+      })
+      .addCase(getProductByName.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getProductByName.fulfilled, (state, action) => {
+      
+        state.descriptionCardCopi.splice(0, 1, action.payload)
+        state.loading = false
+      })
+      .addCase(getProductByName.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
       })
   }
 
 })
-function isError (action: AnyAction) {
-  return action.type.endsWith('rejected')
-}
+
 export default cardSlice.reducer

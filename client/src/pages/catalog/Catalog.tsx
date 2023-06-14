@@ -1,6 +1,8 @@
 // library
 import React, { useEffect, useState } from 'react'
-
+import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 // components
 import { Card } from '../../components/cards'
 import { GroupedSelect } from '../../components/groupSelect'
@@ -11,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hook'
 
 import { useCategories } from '../../shared/helpers/customCategories'
 import { useCards } from '../../shared/helpers/customUseCard'
-import { fetchCards } from '../../store/cardSlice/cardSlice'
+import { fetchCardsbyPage } from '../../store/cardSlice/cardSlice'
 import { fetchCategories } from '../../store/categoriesProductSlice/categoriesSlice'
 
 // styles
@@ -20,13 +22,25 @@ import { fetchCategoriesSize } from '../../store/categoriesSizeSlice/categoriesS
 import { fetchCategoriesColor } from '../../store/categoriesColorSlice/categoriesColorSlice'
 import { fetchCategoriesPrice } from '../../store/categoriesPriceSlice/categoriesPriceSlice'
 
+const useStyles = makeStyles({
+  root: {
+    '& .MuiPaginationItem-page': {
+      color: '#ac2b16', 
+      // width: '342px',
+      // margin: auto;
+      // margin:'20px auto 40px'// ваш желаемый цвет цифр
+    },
+  },
+});
+
 export const Catalog: React.FC = () => {
+  const classes = useStyles();
   const { categoriesProduct, categoriesLoading } = useCategories()
   const { card, loading: cardsLoading } = useCards()
-
+ 
   const dispatch = useAppDispatch()
   useEffect(() => {
-    void dispatch(fetchCards())
+    // void dispatch(fetchCards())
     void dispatch(fetchCategories())
     void dispatch(fetchCategoriesSize())
     void dispatch(fetchCategoriesColor())
@@ -49,6 +63,12 @@ export const Catalog: React.FC = () => {
   }
   const [snackbarOpen, setSnackbarOpen] = React.useState<boolean>(false)
   const message = useAppSelector(state => state.FavoriteSlice.message)
+  const [page, setPage] = useState<number>(1)
+
+useEffect(()=>{
+ void dispatch(fetchCardsbyPage(page))
+}, [page])
+ 
   return (
     <div className={s.catalog}>
       <div className={s.catalog_menu}>
@@ -120,6 +140,7 @@ export const Catalog: React.FC = () => {
                         todo={todo}
                         index={index}
                         setSnackbarOpen={setSnackbarOpen}
+                       
                         // checkHeart={todo.checkHeart}
                       />
                     )
@@ -129,12 +150,31 @@ export const Catalog: React.FC = () => {
           </div>
         </div>
       </div>
-      <Snackbar
+      <div className={classes.root}>
+        
+   <Stack spacing={2}>
+      <Pagination 
+      count={10} 
+      page={page}
+      onChange={(_, num)=>setPage(num)}
+      variant="outlined" shape="rounded" 
+      sx={{marginTop: 4, marginBottom:5, marginX: 'auto'}}
+      // showFirstButton
+      // showLastButton
+      />
+      
+      </Stack>
+      </div>
+     {localStorage.getItem('token')&&<Snackbar
   anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
   open={snackbarOpen}
-  // onClose={handleSnackbarClose}
   message={message}
-/>
+/>} 
+
+     
+ 
+ 
+
     </div>
   )
 }

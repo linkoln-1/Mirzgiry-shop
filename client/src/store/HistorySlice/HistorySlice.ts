@@ -151,6 +151,7 @@ const HistorySlice = createSlice({
       .addCase(fetchHistories.pending, (state) => {
         state.loading = true
         state.error = null
+        state.history = []
       })
       .addCase(fetchHistories.fulfilled, (state, action) => {
         console.log(action.payload)

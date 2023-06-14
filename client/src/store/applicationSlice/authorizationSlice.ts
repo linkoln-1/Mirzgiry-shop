@@ -56,7 +56,7 @@ export const logOut = createAsyncThunk(
       if (response.status !== 200) {
         return rejectWithValue(data)
       }
-      console.log(data.accesToken)
+      console.log(data)
       localStorage.removeItem('token')
       return data
     } catch (e) {
@@ -108,7 +108,8 @@ const applicationSlice = createSlice({
       })
       .addCase(auth.fulfilled, (state, action) => {
         state.loading = false
-        state.token = action.payload.token
+        state.token = action.payload.accesToken
+        
       })
       .addCase(auth.rejected, (state, action) => {
         state.loading = false
@@ -119,9 +120,9 @@ const applicationSlice = createSlice({
         state.loading = true
         state.error = ''
       })
-      .addCase(logOut.fulfilled, (state, action) => {
+      .addCase(logOut.fulfilled, (state) => {
         state.loading = false
-        state.token = action.payload.token
+        state.token = null
       })
       .addCase(logOut.rejected, (state, action) => {
         state.loading = false

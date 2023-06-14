@@ -23,22 +23,22 @@ export const Authorization: React.FC = () => {
     setPassword(e.target.value)
   const handleSubmit = () => {
     void dispatch(auth({ login, password }))
-    setTimeout(() => {
-      window.location.reload()
-    }, 1000)
+   
   }
   useEffect(() => {
-    if (token === '' || token === undefined || token === null) {
+    if (token ===  null) {
       navigate('/authorization')
-    }
-  }, [navigate])
-
-  useEffect(() => {
-    if (token !== null) {
-      localStorage.getItem('token')
+    }else{
       navigate('/personal')
     }
   }, [token, navigate])
+
+  // useEffect(() => {
+  //   if (token !== null) {
+  //     localStorage.getItem('token')
+  //     navigate('/personal')
+  //   }
+  // }, [token, navigate])
 
   return (
     <div className={s.form}>

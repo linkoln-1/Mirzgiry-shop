@@ -14,6 +14,7 @@ module.exports.productcontroller = {
         image:req.body.image,
         checkHeart:req.body.checkHeart,
         sizes:req.body.sizes,
+        page: req.body.page
 
       });
       res.json("Товар добавлен");
@@ -44,7 +45,31 @@ module.exports.productcontroller = {
   //     console.log(error.toString());
   //   }
   // },
+  changeProductById: async function (req, res) {
+    
+    try {
+    
+      const product = await Product.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        categoryId: req.body.categoryId,
+        categoryIdName: req.body.categoryIdName,
+        price: req.body.price,
+        priceId: req.body.priceId,
+        color: req.body.color,
+        colorId: req.body.colorId,
+        image:req.body.image,
+        checkHeart:req.body.checkHeart,
+        sizes:req.body.sizes,
+        page: req.body.page
+      });
+      console.log(product)
+      res.json(product);
+    } catch (error) {
+      console.log(error.toString());
+    }
+  },
   getProducts: async function (req, res) {
+ 
     try {
       const product = await Product.find().populate('sizes');
       res.json(product);
@@ -52,9 +77,19 @@ module.exports.productcontroller = {
       console.log(error.toString());
     }
   },
+ 
   getProductById: async function (req, res) {
     try {
       const product = await Product.findById(req.params.id).populate('sizes');
+      res.json(product);
+    } catch (error) {
+      console.log(error.toString());
+    }
+  }, 
+  getProductsByPage: async function (req, res) {
+    const { page } = req.params;
+    try {
+      const product = await Product.find({page}).populate('sizes');
       res.json(product);
     } catch (error) {
       console.log(error.toString());

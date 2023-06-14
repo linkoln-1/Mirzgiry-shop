@@ -18,6 +18,7 @@ export const CustomBreadcrumbs = () => {
     <Stack className={s.wrapper} spacing={2}>
       <Breadcrumbs className={s.nav} separator={'/'} aria-label='breadcrumb'>
         {path.map((crumb, index) => {
+      
           const { label } = BreadcrumbsRoute.find(({ link }) => link === crumb) ?? {}
           return (
             <Link

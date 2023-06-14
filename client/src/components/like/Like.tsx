@@ -3,12 +3,12 @@ import React from 'react'
 
 // hooks
 import { useAppSelector } from '../../hooks/hook'
-
+import FavoriteBorderIcon from '@mui/icons-material/Favorite'
 // import styles
 import s from '../../style/pages/componentStyle/view-product.module.scss'
-import Checkbox from '@mui/material/Checkbox'
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
-import Favorite from '@mui/icons-material/Favorite'
+// import Checkbox from '@mui/material/Checkbox'
+// import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
+// import Favorite from '@mui/icons-material/Favorite'
 // constants
 import { path } from '../../shared/constants/path'
 
@@ -28,11 +28,22 @@ export const Like: React.FC = () => {
           : likedProducts.map((item, index) => {
             return (
             <div className={s.todo} key={index}>
-              <Checkbox
-                icon={<FavoriteBorder />}
-                checkedIcon={<Favorite />}
-                className={s.favorite}
-              />
+                <div 
+      //         onClick={() => {
+      //    handleFavorite(_id, changeCheckHeart)
+      //    handleSnackbarOpen()
+      //  }}
+       >
+       
+        <svg 
+      
+       className={s.favorit} width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0H40V40H20C8.95431 40 0 31.0457 0 20V0Z" fill="black"/>
+</svg>
+
+<FavoriteBorderIcon className={s.favorit_icon} sx={{ color: item.checkHeart ? '#ac2b16' : '#fff' }} />
+
+   </div>
               <div className={s.todo_image}>
               <img src={`${path}/${item.image}`} alt="" />
 

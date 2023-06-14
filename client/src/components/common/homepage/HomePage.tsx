@@ -1,5 +1,5 @@
 // library
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // components
 import { Information } from './subComponents/Information'
@@ -8,12 +8,17 @@ import { Forms } from './subComponents/Forms'
 
 // styles
 import '../../../style/globals.scss'
+import { fetchCards } from '../../../store/cardSlice/cardSlice'
+import { useAppDispatch } from '../../../hooks/hook'
 
 export const HomePage: React.FC = () => {
   const handleSubmit = () => {
     console.log('Form submitted')
   }
-
+  const dispatch = useAppDispatch()
+useEffect(()=>{
+dispatch(fetchCards())
+}, [])
   return (
     <div className='homepage'>
       <Information />

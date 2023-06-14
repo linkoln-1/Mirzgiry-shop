@@ -37,9 +37,10 @@ export interface HistoryProps {
 }
 export const History: React.FC<HistoryProps> = () => {
   const dispatch = useAppDispatch()
+  
   useEffect(() => {
     void dispatch(fetchHistories())
-  }, [])
+  }, [dispatch])
 
   const [openedStates, setOpenedStates] = useState<boolean[]>([])
   const History = useAppSelector(state => state.historySlice.history)
@@ -61,7 +62,7 @@ export const History: React.FC<HistoryProps> = () => {
 
   return (
     <div className={s.history}>
-      {History.length
+      {History.length 
         ? (
             History?.map((history, historyIndex) => {
               const opened = openedStates[historyIndex] || false

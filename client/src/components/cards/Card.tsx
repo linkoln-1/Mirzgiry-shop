@@ -1,13 +1,13 @@
 // library
-import React, { useCallback, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useCallback,  useState } from 'react'
+import { Link} from 'react-router-dom'
 import FavoriteBorderIcon from '@mui/icons-material/Favorite'
 import { fetchDescriptionCard } from '../../store/descriptionCardSlice/descriptionCardSlice'
-import { fetchCards } from '../../store/cardSlice/cardSlice'
+// import {fetchCardsbyPage } from '../../store/cardSlice/cardSlice'
 import { createFavorite } from '../../store/favoriteSlice/favoriteSlice'
-
+import { getProductByName } from '../../store/descriptionCardSlice/descriptionCardSlice'
 // hooks
-import { useAppDispatch } from '../../hooks/hook'
+import { useAppDispatch} from '../../hooks/hook'
 // import { useState } from 'react';
 // constants
 import { path } from '../../shared/constants/path'
@@ -31,15 +31,19 @@ export interface ICardProps {
   todo: ITodo
   index: number
   setSnackbarOpen?: any
+ 
 }
 
-const CardComponent: React.FC<ICardProps> = ({ todo, index, setSnackbarOpen }) => {
+const CardComponent: React.FC<ICardProps> = ({ todo, index, setSnackbarOpen}) => {
   const dispatch = useAppDispatch()
   const [changeCheckHeart, setChangeCheckHeart] = useState(todo.checkHeart)
+  
 
-  const handleClick = useCallback((id: string) => {
+  const handleClick = useCallback((id: string, name: string) => {
     void dispatch(fetchDescriptionCard(id))
-    void dispatch(fetchCards())
+   
+    // void dispatch(fetchCards())
+    void dispatch(getProductByName(name))
   }, [dispatch])
 
   const handleFavorite = useCallback((
@@ -65,7 +69,10 @@ const CardComponent: React.FC<ICardProps> = ({ todo, index, setSnackbarOpen }) =
          handleFavorite(_id, changeCheckHeart)
          handleSnackbarOpen()
        }}>
-       <svg className={s.favorit} width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+       
+        <svg 
+      
+       className={s.favorit} width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0H40V40H20C8.95431 40 0 31.0457 0 20V0Z" fill="black"/>
 </svg>
 
@@ -74,7 +81,7 @@ const CardComponent: React.FC<ICardProps> = ({ todo, index, setSnackbarOpen }) =
    </div>
 
       <div className={s.card__image}>
-        <Link onClick={() => handleClick(_id)} to="/catalog/card">
+        <Link onClick={() => handleClick(_id, todo.name)} to="/catalog/card">
           <img src={`${path}/${image}`} alt="" />
         </Link>
       </div>

@@ -1,32 +1,47 @@
 // library
-import React, { type FC } from 'react'
+import React, {  type FC } from 'react'
 
 // style
 import s from '../../style/pages/componentStyle/categories-common.module.scss'
+import { useAppSelector } from '../../hooks/hook'
+import { Link} from 'react-router-dom'
+import { path } from '../../shared/constants/path'
 
-const categoriesData = [
-  { label: 'Худи', imgSrc: '' /* itemSecondImg */ },
-  { label: 'Футболки', imgSrc: '' /* itemFirstImg */ },
-  { label: 'Худи с росписью', imgSrc: '' /* itemThirdImg */ },
-  { label: 'Футболки с росписью', imgSrc: '' /* itemFourthImg */ },
-]
+
 
 export const Categories: FC = () => {
+
+const image = useAppSelector((state)=>state.cardSlice.images);
+console.log(image);
   return (
     <div className={s.categories__container}>
       <div className={s.categories}>Категории</div>
       <div className={s.categories__wrapper}>
-        {categoriesData.map(({ label }) => (
-          <div className={s.cards__body} key={label}>
+      {image.map((item)=>{
+ 
+return(
+    
+     
+          <div className={s.cards__body} key={item._id}>
             <div className={s.card__img}>
-              {/* <img src={imgSrc} alt='' /> */}
+              <img src={`${path}/${item.image}`} alt="" />
             </div>
             <div className={s.cards_button}>
-              <button>{label}</button>
+              <Link  to="/catalog">
+                 <button
+              >{item.categoryIdName}</button>
+              </Link>
+           
+               
+           
+            
             </div>
           </div>
-        ))}
-      </div>
+      
+    
+) 
+       })}
+    </div>
     </div>
   )
 }
